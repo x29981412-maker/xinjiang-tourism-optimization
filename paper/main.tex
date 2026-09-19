@@ -1,0 +1,2465 @@
+% !TeX program = xelatex
+% !TeX encoding = UTF-8
+% ============================================================
+% 新疆旅游线路安排数学建模论文模板
+% 编译方式：XeLaTeX / Latexmk-XeLaTeX
+% 字体要求：中文宋体（SimSun，自动加粗），英文 Times New Roman
+% 如在 Overleaf 无 SimSun，会自动回退到 FandolSong / Songti SC。
+% ============================================================
+
+\documentclass[UTF8,zihao=-4,a4paper]{ctexart}
+
+% -------------------- 页面与基础排版 --------------------
+\usepackage{geometry}
+\geometry{left=2.6cm,right=2.6cm,top=2.6cm,bottom=2.6cm}
+\usepackage{setspace}
+\setstretch{1.25}
+\setlength{\parindent}{2em}
+\setlength{\parskip}{0.2em}
+
+% -------------------- 字体设置：宋体 + Times New Roman --------------------
+\usepackage{fontspec}
+\usepackage{xeCJK}
+\defaultfontfeatures{Ligatures=TeX}
+
+\IfFontExistsTF{Times New Roman}{
+  \setmainfont{Times New Roman}
+}{
+  \setmainfont{TeX Gyre Termes}
+}
+
+\IfFontExistsTF{SimSun}{
+  \setCJKmainfont[AutoFakeBold=2.5,AutoFakeSlant=0.2]{SimSun}
+  \setCJKsansfont[AutoFakeBold=2.5]{SimSun}
+  \setCJKmonofont[AutoFakeBold=2.5]{SimSun}
+}{
+  \IfFontExistsTF{FandolSong-Regular}{
+    \setCJKmainfont[AutoFakeBold=2.5,AutoFakeSlant=0.2]{FandolSong-Regular}
+    \setCJKsansfont[AutoFakeBold=2.5]{FandolSong-Regular}
+    \setCJKmonofont[AutoFakeBold=2.5]{FandolSong-Regular}
+  }{
+    \setCJKmainfont[AutoFakeBold=2.5,AutoFakeSlant=0.2]{Songti SC}
+    \setCJKsansfont[AutoFakeBold=2.5]{Songti SC}
+    \setCJKmonofont[AutoFakeBold=2.5]{Songti SC}
+  }
+}
+
+% 中文标题加粗；正文不建议全篇加粗，关键概念使用 \textbf{}
+\ctexset{
+  section = {
+    format = \zihao{4}\bfseries,
+    name = {,、},
+    number = \chinese{section},
+    aftername = \hspace{0pt}
+  },
+  subsection = {
+    format = \zihao{-4}\bfseries,
+    number = \arabic{section}.\arabic{subsection}
+  },
+  subsubsection = {
+    format = \zihao{-4}\bfseries,
+    number = \arabic{section}.\arabic{subsection}.\arabic{subsubsection}
+  }
+}
+
+
+
+% -------------------- 数学、表格、图形 --------------------
+\usepackage{amsmath,amssymb,amsthm,bm,mathtools}
+\usepackage{graphicx}
+\usepackage{subcaption}
+\usepackage{booktabs}
+\usepackage{multirow}
+\usepackage{array}
+\usepackage{tabularx}
+\usepackage{longtable}
+\usepackage{makecell}
+\usepackage{float}
+\usepackage{enumitem}
+\usepackage{xcolor}
+\usepackage{caption}
+\usepackage{fancyhdr}
+\usepackage{algorithm}
+\usepackage{algpseudocode}
+\captionsetup{font=small,labelfont=bf,labelsep=quad}
+\graphicspath{{figures/}{可视化交付包/06_paper_ready/}{可视化交付包/07_ppt_ready/}}
+
+% -------------------- 页眉页脚 --------------------
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\zihao{-5}\nouppercase{\leftmark}}
+\fancyfoot[C]{\zihao{-5}\thepage}
+\renewcommand{\headrulewidth}{0pt}
+\renewcommand{\footrulewidth}{0pt}
+\renewcommand{\sectionmark}[1]{\markboth{#1}{}}
+\fancypagestyle{plain}{%
+  \fancyhf{}
+  \fancyhead[L]{\zihao{-5}\nouppercase{\leftmark}}
+  \fancyfoot[C]{\zihao{-5}\thepage}
+  \renewcommand{\headrulewidth}{0pt}
+  \renewcommand{\footrulewidth}{0pt}
+}
+
+% -------------------- 超链接 --------------------
+\usepackage[colorlinks=true,linkcolor=black,citecolor=black,urlcolor=blue]{hyperref}
+\usepackage[nameinlink,noabbrev]{cleveref}
+\newcolumntype{C}[1]{>{\centering\arraybackslash}p{#1}}
+\newcolumntype{L}[1]{>{\raggedright\arraybackslash}p{#1}}
+\newcolumntype{Y}{>{\raggedright\arraybackslash}X}
+\newcommand{\TableHeader}[1]{\multicolumn{1}{c}{\textbf{#1}}}
+
+
+% -------------------- 自定义颜色 --------------------
+\definecolor{ModelBlue}{HTML}{1F4E79}
+\definecolor{SilkGold}{HTML}{D9A441}
+\definecolor{RiskGreen}{HTML}{2E7D32}
+\definecolor{RiskOrange}{HTML}{F59E0B}
+\definecolor{RiskRed}{HTML}{C62828}
+\definecolor{CulturePurple}{HTML}{6A4C93}
+\definecolor{CapacityCyan}{HTML}{008B8B}
+\definecolor{LightGray}{HTML}{F4F4F4}
+
+% -------------------- 定理环境 --------------------
+\newtheorem{definition}{定义}[section]
+\newtheorem{assumption}{假设}[section]
+\newtheorem{proposition}{命题}[section]
+\newtheorem{remark}{说明}[section]
+
+% -------------------- 常用符号与命令 --------------------
+\newcommand{\Set}[1]{\mathcal{#1}}
+\newcommand{\E}{\mathbb{E}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\CVaR}{\operatorname{CVaR}}
+\newcommand{\argmin}{\operatorname*{arg\,min}}
+\newcommand{\argmax}{\operatorname*{arg\,max}}
+\newcommand{\todo}[1]{\textcolor{RiskRed}{\textbf{[待补：#1]}}}
+\newcommand{\keypoint}[1]{\textbf{#1}}
+
+% 无图文件时使用的占位图环境，后续替换为 \includegraphics 即可
+\newcommand{\FigurePlaceholder}[3][]{%
+\begin{figure}[H]
+  \centering
+  \fcolorbox{black}{LightGray}{%
+    \parbox[c][0.23\textheight][c]{0.88\textwidth}{\centering\zihao{-4}\textbf{#2}\\[0.8em]#3}%
+  }
+  \caption{#2}
+  \if\relax\detokenize{#1}\relax\else\label{#1}\fi
+\end{figure}
+}
+
+% -------------------- 论文信息 --------------------
+\title{\zihao{2}\bfseries 基于多模式图网络与鲁棒仿真的新疆旅游线路多场景优化模型}
+\author{\zihao{-4} 队伍编号：\underline{\hspace{4cm}} \quad 作者：\underline{\hspace{5cm}}}
+\date{\zihao{-4}\today}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+针对新疆旅游线路安排中个人旅游、两年分期旅游、文化考察和黄金周接待四类决策场景，本文构建统一的多模式旅游交通网络，将景点、交通枢纽、铁路、航班、景区接驳、住宿、时间窗、容量和特殊准入等要素转化为可计算的运筹优化数据底座。在此基础上，分别建立30天题面优先奖励收集定向游模型、两年多模式路径覆盖与境内交通费用优化模型、三团队文化考察 MinMax 调度模型以及五一12天线路产品组合与分时多资源容量优化模型。结果表明，第一问在“30天可执行、尽可能多游、同覆盖下费用最低”的字典序口径下，最高覆盖方案可游览28个景点，除餐饮外费用约13022.84元；若进一步强调运营鲁棒性，26景点方案费用约10557.60元，运营成功率为0.862，原24景点鲁棒方案仍可作为更稳健对照。第二问开放多口岸鲁棒均衡两年路线覆盖38个普通游客可达景点，新疆境内交通费用约3099.91元，两年分别用时12天和17天。第三问在固定特殊准入组政策空间下由精确集合划分模型得到最晚完成时间99.19小时。第四问从63条候选线路中构造18条五一12天线路组合，原容量仿真组合总接待能力为160190人；在固定产品配额和区域覆盖政策下，进一步通过混合整数规划得到候选空间内综合分更高的18线组合，容量提升至187550人。研究表明，旅游线路优化不能仅依赖最短路或最低费用目标，而应在题面主目标之上进一步检验可执行性、舒适性、容量和鲁棒性。本文模型可为新疆长距离旅游线路设计、文化考察组织和节假日文旅接待管理提供定量决策参考。
+\end{abstract}
+
+\noindent\textbf{关键词：}旅游线路优化；多模式交通网络；字典序优化；奖励收集定向游；路径覆盖；MinMax调度；容量优化
+
+\newpage
+\tableofcontents
+\newpage
+
+% ============================================================
+\section{问题重述与总体建模思路}
+% ============================================================
+
+\subsection{问题背景}
+新疆地域辽阔，景点类型覆盖自然风光、丝路文化、民族民俗、边境高原与沙漠湖泊等多类旅游资源。由于景点之间距离长、交通方式多样、部分景点存在季节性开放或特殊准入约束，旅游线路安排不能简单归结为最短路问题。对于不同决策主体而言，同一旅游空间网络会诱导出不同类型的运筹优化问题：个人游客关注覆盖、费用与舒适性；两年旅行规划关注跨年度覆盖与交通成本；文化考察关注多团队并行完成时间；旅游部门则关注节假日线路产品组合、分时预约和接待质量。
+
+\subsection{问题分析与建模思路}
+\label{subsec:problem_analysis}
+
+本题表面上属于典型的图论路径规划问题，但进一步分析可知，四个子问题对应的决策主体、优化目标和约束结构并不相同。若将其统一处理为单一最短路问题或旅行商问题，将难以同时刻画景点选择、旅行时间预算、交通费用、文化考察分组、节假日接待容量以及游客分流等核心要求。因此，本文首先在统一的旅游交通网络上描述新疆主要景点、交通枢纽及多模式交通联系，再针对四类具体决策场景分别建立相应的优化模型。
+
+从决策对象看，第一问和第二问均面向王先生夫妇的个人旅游安排，但二者的目标侧重点不同。第一问要求在今年暑假一个月内花较少费用游览尽可能多的地方，其首要矛盾是有限旅行周期内的景点覆盖数量与除餐饮外费用之间的权衡。由于并非所有景点都必须访问，该问题不能简单视为遍历全部节点的旅行商问题，而应建模为带收益选择的定向游问题。为忠实反映题意，本文先采用字典序目标处理“尽可能多游”和“同等覆盖下费用最低”，再将时间窗、住宿落点、每日强度、缓冲日和情景扰动作为可执行性与鲁棒性校准层。这样既保留题面主目标，也避免把明显高压或不可执行的极限覆盖路线直接作为推荐方案。
+
+第二问虽然仍以王先生夫妇为决策主体，但题面目标转变为今、明两年暑假完成新疆旅游，并尽量节省新疆境内交通费用。此时优化重点不再是单次旅行内的景点覆盖最大化，而是在两年旅行周期内将普通游客可达景点合理分配到两个暑假，并分别形成可执行路线，使两年新疆境内交通费用之和尽可能小。因此，第二问可抽象为两期路径覆盖问题：一方面要求每个普通游客可达景点被某一年路线覆盖，另一方面需要在每年天数约束下优化线路顺序和进出疆口岸选择。与第一问相比，第二问的目标函数应更突出交通费用，景点价值只作为覆盖约束或辅助评价项出现。
+
+第三问的决策主体变为高校少数民族研究所，任务也由普通旅游转变为文化考察。题面规定考察分三组进行，且每个景点的考察时间为普通旅游观光时间的四倍。因此，第三问的本质不再是单一路线规划，而是三组并行考察任务的分配与调度问题。由于各组可以同时开展考察，整体任务完成时间取决于三组中最晚完成的一组，故该问题适合建立最晚完成时间最小化的 MinMax 调度模型。模型需要在文化价值较高或具有特殊考察意义的景点中确定考察对象，将其分配给三个小组，并为每组安排内部访问顺序。在此基础上，还需考虑楼兰古城、尼雅遗址等特殊点可能涉及审批、向导、越野车辆和安全缓冲等资源约束。
+
+第四问的决策主体进一步转变为新疆维吾尔自治区旅游部门。此时问题已经不再是为某一位游客或某一个考察小组设计路线，而是面向五一黄金周集中客流，为自治区外游客组织多条 12 天游线路，以实现游客分散和接待质量提升。该问题的核心不在于单条线路是否最短，而在于线路产品组合是否合理、各线路投放容量是否匹配需求、热门景区在不同时段是否超载，以及酒店、车辆、导游、景区摆渡等资源是否能够支撑相应接待规模。因此，第四问应建模为线路产品组合与分时容量优化问题。模型需要从候选线路集合中选择若干条线路进行投放，并在游客人数与线路接待能力成比例的假设下，确定各线路游客分配量，同时约束景区分时容量、住宿容量和服务资源容量。
+
+四个子问题的建模定位可概括如表~\ref{tab:problem_modeling_logic} 所示。
+
+\begin{table}[htbp]
+    \centering
+    \caption{四个子问题的决策对象与模型定位}
+    \label{tab:problem_modeling_logic}
+    \small
+    \renewcommand{\arraystretch}{1.22}
+    \setlength{\tabcolsep}{5pt}
+    \begin{tabularx}{\textwidth}{@{}
+        C{1.8cm}
+        L{3.0cm}
+        Y
+        L{4.1cm}
+    @{}}
+        \toprule
+        \TableHeader{问题} & \TableHeader{决策主体} & \TableHeader{核心优化目标} & \TableHeader{模型定位} \\
+        \midrule
+        第一问
+        & 王先生夫妇单次暑期旅游
+        & 在 $30$ 天内优先最大化覆盖，并在同覆盖下最小化除餐饮外费用
+        & 题面优先字典序定向游模型，并以鲁棒仿真校准执行风险 \\
+        \addlinespace[0.25em]
+
+        第二问
+        & 王先生夫妇两年暑期旅游
+        & 在覆盖普通游客可达景点的前提下最小化新疆境内交通费用
+        & 两年多模式路径覆盖与交通费用优化模型 \\
+        \addlinespace[0.25em]
+
+        第三问
+        & 高校少数民族研究所三组考察队
+        & 在三组并行考察条件下最小化最晚完成时间
+        & 三团队文化考察 \mbox{MinMax} 调度模型 \\
+        \addlinespace[0.25em]
+
+        第四问
+        & 新疆文旅部门
+        & 在五一 $12$ 天接待周期内设计多条线路并分散游客压力
+        & 线路产品组合与分时多资源容量优化模型 \\
+        \bottomrule
+    \end{tabularx}
+\end{table}
+
+在求解策略上，本文不直接追求单一封闭形式的全局模型，而是依据不同问题规模和约束结构采用相应的运筹优化方法。对于第一问和第二问，景点数量、交通方式、时间窗和鲁棒情景共同作用，使问题呈现组合爆炸特征，本文采用多模式交通标签生成、候选路径构造、局部搜索改进、排程可行性检查和 Monte Carlo 鲁棒性评估相结合的数学启发式框架，并在固定子问题上引入 HiGHS-MILP 精确校验。对于第三问，由于文化考察候选点规模相对较小，本文在固定特殊准入政策空间下结合 Held--Karp 动态规划和 0--1 集合划分模型进行精确求解。对于第四问，本文先生成候选线路产品列，再进行线路选择、游客分配和分时容量检查，并在固定候选线路、产品配额和区域覆盖政策下建立混合整数规划校验候选空间内的最优投放组合。
+
+综上，本文的建模思路并非将四个问题割裂求解，而是在统一的新疆旅游多模式网络基础上，根据不同决策主体和目标函数构造相应的优化模型。这样的处理方式既保留了图论路径规划的基本结构，又能够进一步刻画旅游线路安排中的时间预算、交通费用、文化考察资源、节假日容量约束和不确定性风险，为后续模型建立、算法设计和结果分析提供统一逻辑基础。
+
+\subsection{模型假设}
+\label{subsec:model_assumptions}
+
+为便于对新疆旅游线路安排问题进行统一建模，本文结合题目条件和旅游活动的现实特征，作如下基本假设。
+
+\textbf{假设一：旅游网络结构在规划期内保持稳定。}
+在暑假和五一黄金周等规划周期内，新疆主要景点、交通枢纽、住宿节点及其空间关系相对稳定。景点之间的道路、铁路、航班和景区接驳等交通联系可抽象为多模式交通网络中的边，其通行时间和费用可由代表性参数刻画。
+
+\textbf{假设二：游客行程满足基本可执行性要求。}
+游客每日活动安排应符合正常旅游作息，景点停留时间、景区开放时间、长距离转场和夜间住宿需求共同决定行程是否可执行。对于普通旅游场景，景点停留时间采用推荐游览时间；对于文化考察场景，考察时间按照题目要求取普通观光时间的四倍。
+
+\textbf{假设三：费用估算采用题面规定的统计口径。}
+第一问中总费用包括交通、住宿、门票及必要当地费用，不包括餐饮费用；第二问中以新疆境内交通费用作为主要优化对象。各类费用在同一规划周期内保持相对稳定，可作为路线比较和方案选择的依据。
+
+\textbf{假设四：旅游接待资源具有确定的容量边界。}
+景区、住宿、车辆、导游和景区接驳等旅游接待资源在给定周期内具有相对确定的服务能力。五一黄金周线路设计中，游客人数与线路接待能力之间满足题面给定的比例关系，线路容量、景区容量和服务资源容量共同约束可接待规模。
+
+\subsection{符号说明}
+\label{subsec:notation}
+
+为便于后续模型表述，本文先给出四个子问题中反复使用的集合、参数和决策变量。由于四个子问题的决策主体和目标函数不同，部分局部变量将在相应模型小节中进一步说明。本节主要列出贯穿全文的公共符号及各子问题中的核心变量。
+
+\begin{table}[htbp]
+    \centering
+    \caption{集合与索引符号说明}
+    \label{tab:notation_sets}
+    \small
+    \renewcommand{\arraystretch}{1.18}
+    \setlength{\tabcolsep}{5pt}
+    \begin{tabularx}{\textwidth}{L{3.0cm} L{3.2cm} Y}
+        \toprule
+        符号 & 类型 & 含义 \\
+        \midrule
+        $\mathcal{V}$ & 集合 & 新疆旅游景点集合。 \\
+        $\mathcal{V}^{o}$ & 集合 & 普通游客可达景点集合，主要用于第一问和第二问。 \\
+        $\mathcal{V}^{c}$ & 集合 & 文化考察候选景点集合，主要用于第三问。 \\
+        $\mathcal{H}$ & 集合 & 交通与住宿服务枢纽集合。 \\
+        $\mathcal{N}$ & 集合 & 多模式交通网络节点集合，包括景点、枢纽、机场和铁路站点等。 \\
+        $\mathcal{E}$ & 集合 & 多模式交通网络边集合。 \\
+        $\mathcal{M}$ & 集合 & 交通方式集合，包括道路交通、铁路、航班、景区接驳和本地换乘等。 \\
+        $\mathcal{L}_{ij}$ & 集合 & 从节点 $i$ 到节点 $j$ 的可选交通标签集合。 \\
+        $\Omega$ & 集合 & 情景集合，用于刻画天气、道路延误、预约紧张、客流高峰等扰动。 \\
+        $\mathcal{D}^{(1)}$ & 集合 & 第一问中 $30$ 天旅游周期的日期集合。 \\
+        $\mathcal{D}^{(4)}$ & 集合 & 第四问中五一 $12$ 天接待周期的日期集合。 \\
+        $\mathcal{S}$ & 集合 & 分时预约时段集合，通常包括上午、下午和晚上。 \\
+        $\mathcal{G}$ & 集合 & 第三问中文化考察小组集合。 \\
+        $\mathcal{K}$ & 集合 & 第四问中车辆、导游、摆渡和停车等服务资源类型集合。 \\
+        $\mathcal{P}$ & 集合 & 第四问中的候选线路产品集合。 \\
+        $i,j$ & 索引 & 景点或交通网络节点索引。 \\
+        $h$ & 索引 & 交通或住宿枢纽索引。 \\
+        $e$ & 索引 & 多模式交通网络边索引。 \\
+        $\ell$ & 索引 & 交通标签索引，$\ell\in \mathcal{L}_{ij}$。 \\
+        $d$ & 索引 & 日期索引。 \\
+        $s$ & 索引 & 分时预约时段索引。 \\
+        $g$ & 索引 & 文化考察小组索引。 \\
+        $k$ & 索引 & 服务资源类型索引。 \\
+        $r$ & 索引 & 线路产品索引。 \\
+        $\omega$ & 索引 & 情景索引。 \\
+        \bottomrule
+    \end{tabularx}
+\end{table}
+
+\begin{table}[htbp]
+    \centering
+    \caption{主要参数符号说明}
+    \label{tab:notation_parameters}
+    \small
+    \renewcommand{\arraystretch}{1.18}
+    \setlength{\tabcolsep}{5pt}
+    \begin{tabularx}{\textwidth}{L{3.2cm} L{3.0cm} Y}
+        \toprule
+        符号 & 类型 & 含义 \\
+        \midrule
+        $\tau_e$ & 参数 & 交通边 $e$ 的通行时间。 \\
+        $c_e$ & 参数 & 交通边 $e$ 对应的两人交通费用。 \\
+        $\rho_e$ & 参数 & 交通边 $e$ 的风险系数。 \\
+        $m_e$ & 参数 & 交通边 $e$ 的交通方式。 \\
+        $\tau_{ij\ell}$ & 参数 & 从节点 $i$ 到节点 $j$ 选择交通标签 $\ell$ 时的转场时间。 \\
+        $c_{ij\ell}$ & 参数 & 从节点 $i$ 到节点 $j$ 选择交通标签 $\ell$ 时的两人交通费用。 \\
+        $\rho_{ij\ell}$ & 参数 & 从节点 $i$ 到节点 $j$ 选择交通标签 $\ell$ 时的风险水平。 \\
+        $\phi_{ij\ell}$ & 参数 & 从节点 $i$ 到节点 $j$ 选择交通标签 $\ell$ 时的疲劳水平。 \\
+        $w_i$ & 参数 & 景点 $i$ 的综合游览价值或偏好权重。 \\
+        $p_i$ & 参数 & 景点 $i$ 的门票及必要当地费用。 \\
+        $t_i$ & 参数 & 景点 $i$ 的普通观光停留时间。 \\
+        $\tilde{t}_i$ & 参数 & 景点 $i$ 的文化考察时间，第三问中取 $\tilde{t}_i=4t_i$。 \\
+        $[a_i,b_i]$ & 参数 & 景点 $i$ 的开放时间窗。 \\
+        $B$ & 参数 & 单日有效活动时间上限。 \\
+        $T_{\max}$ & 参数 & 旅游或考察任务允许的最大周期。第一问中 $T_{\max}=30$。 \\
+        $Q$ & 参数 & 线路或路线要求覆盖的景点数量下界。 \\
+        $\operatorname{Cap}_{i d s}$ & 参数 & 景点 $i$ 在日期 $d$、时段 $s$ 的分时接待容量。 \\
+        $\operatorname{Room}_{h d}$ & 参数 & 枢纽 $h$ 在日期 $d$ 的住宿接待能力。 \\
+        $\operatorname{Res}_{h d k}$ & 参数 & 枢纽 $h$ 在日期 $d$ 对资源 $k$ 的服务能力。 \\
+        $\operatorname{Cap}_{r}$ & 参数 & 线路产品 $r$ 在规划周期内的接待能力。 \\
+        $D$ & 参数 & 第四问中五一黄金周外地游客总需求。 \\
+        $\alpha,\beta,\gamma,\eta$ & 参数 & 目标函数中价值、费用、时间、风险或舒适度相关权重。 \\
+        $M$ & 参数 & 大常数，用于逻辑约束或松弛惩罚项。 \\
+        \bottomrule
+    \end{tabularx}
+\end{table}
+
+\begin{table}[htbp]
+    \centering
+    \caption{主要决策变量与评价指标符号说明}
+    \label{tab:notation_variables}
+    \small
+    \renewcommand{\arraystretch}{1.18}
+    \setlength{\tabcolsep}{5pt}
+    \begin{tabularx}{\textwidth}{L{3.2cm} L{3.0cm} Y}
+        \toprule
+        符号 & 类型 & 含义 \\
+        \midrule
+        $y_i^{(1)}$ & 决策变量 & 第一问中景点 $i$ 是否被选入 $30$ 天旅游路线。 \\
+        $x_{ij\ell}^{(1)}$ & 决策变量 & 第一问中是否从节点 $i$ 到节点 $j$ 选择交通标签 $\ell$。 \\
+        $z_{id}^{(1)}$ & 决策变量 & 第一问中景点 $i$ 是否安排在第 $d$ 天游览。 \\
+        $T_{id}^{(1)}$ & 决策变量 & 第一问中第 $d$ 天到达景点 $i$ 的时间。 \\
+        $u_d^{(1)}$ & 辅助变量 & 第一问中第 $d$ 天活动强度或时间超限的松弛量。 \\
+        $a_{iq}^{(2)}$ & 决策变量 & 第二问中景点 $i$ 是否分配给第 $q$ 年，$q=1,2$。 \\
+        $x_{ij\ell q}^{(2)}$ & 决策变量 & 第二问中第 $q$ 年路线是否从节点 $i$ 到节点 $j$ 选择交通标签 $\ell$。 \\
+        $g_{hq}^{\mathrm{in}}$ & 决策变量 & 第二问中第 $q$ 年是否选择枢纽 $h$ 作为入疆口岸。 \\
+        $g_{hq}^{\mathrm{out}}$ & 决策变量 & 第二问中第 $q$ 年是否选择枢纽 $h$ 作为离疆口岸。 \\
+        $a_{ig}^{(3)}$ & 决策变量 & 第三问中文化考察点 $i$ 是否分配给第 $g$ 组。 \\
+        $x_{ijg}^{(3)}$ & 决策变量 & 第三问中第 $g$ 组是否从考察点 $i$ 转移至考察点 $j$。 \\
+        $T_g^{(3)}$ & 辅助变量 & 第三问中第 $g$ 组完成全部考察任务所需时间。 \\
+        $T_{\max}^{(3)}$ & 辅助变量 & 第三问中三组考察任务的最晚完成时间。 \\
+        $x_r^{(4)}$ & 决策变量 & 第四问中线路产品 $r$ 是否被投放。 \\
+        $q_r^{(4)}$ & 决策变量 & 第四问中分配至线路产品 $r$ 的游客人数。 \\
+        $l_{i d s}^{(4)}$ & 辅助变量 & 第四问中景点 $i$ 在日期 $d$、时段 $s$ 的游客负载。 \\
+        $u_{h d}^{(4)}$ & 辅助变量 & 第四问中枢纽 $h$ 在日期 $d$ 的住宿负载。 \\
+        $v_{h d k}^{(4)}$ & 辅助变量 & 第四问中枢纽 $h$ 在日期 $d$ 对资源 $k$ 的服务负载。 \\
+        $m_{r r'}^{(4)}$ & 决策变量 & 第四问中由线路 $r$ 分流至替代线路 $r'$ 的游客人数。 \\
+        $P^{\mathrm{op}}$ & 评价指标 & 运营成功率，即路线在情景扰动下满足基本周期、住宿和预约要求的概率。 \\
+        $P^{\mathrm{sc}}$ & 评价指标 & 严格舒适成功率，即在运营可行基础上进一步满足舒适性要求的概率。 \\
+        $\operatorname{CVaR}_{\alpha}$ & 评价指标 & 置信水平 $\alpha$ 下的条件风险价值，用于度量尾部损失。 \\
+        $C_{\mathrm{total}}$ & 评价指标 & 方案总费用，具体统计口径随子问题而定。 \\
+        $N_{\mathrm{red}}$ & 评价指标 & 红色压力日数量，用于描述高强度或高拥堵日程。 \\
+        \bottomrule
+    \end{tabularx}
+\end{table}
+
+\section{数据处理与统一多模式网络构建}
+\label{sec:data_network}
+
+\subsection{数据来源与基础表结构}
+\label{subsec:data_sources}
+
+本文的数据处理以题目给定的新疆旅游线路安排资料为基础，并结合公开交通、景区容量、文化资源和节假日客流资料进行补充整理。原始数据首先被清洗为景点、交通枢纽、交通边、住宿、费用和情景参数等基础表；随后进一步扩展为多模式交通网络、景区时间窗、容量约束、文化标签、特殊准入约束和情景扰动参数。由此形成的结构化数据既能够描述新疆旅游空间网络，也能够支撑后续四个子问题中的路径选择、费用估算、文化考察分组和节假日容量优化。
+
+从数据层次看，本文使用的数据可分为三类。第一类为基础地理与旅游属性数据，主要描述景点名称、所属区域、推荐停留时间、门票费用、景点类型、偏好属性和特殊准入条件等信息。第二类为交通与服务资源数据，主要包括交通枢纽、景点到枢纽的映射关系、景点间道路连接、铁路与航班代表性信息、住宿价格和住宿枢纽等。第三类为运营约束与扩展数据，主要包括景区开放时间窗、景区接待容量、酒店容量、文化价值标签、节假日客流情景和道路延误风险等。
+
+原始基础数据经清洗后形成若干核心表，其结构和用途如表~\ref{tab:basic_data_tables} 所示。
+
+\begin{table}[htbp]
+    \centering
+    \caption{基础数据表结构与建模用途}
+    \label{tab:basic_data_tables}
+    \small
+    \renewcommand{\arraystretch}{1.20}
+    \setlength{\tabcolsep}{3pt}
+    \begin{tabularx}{\textwidth}{@{}L{5.0cm} C{1.8cm} Y@{}}
+        \toprule
+        \TableHeader{数据表} & \TableHeader{数据规模} & \TableHeader{主要用途} \\
+        \midrule
+        \texttt{spot\_clean.csv}
+        & $40\times 30$
+        & 景点建模主表，记录景点属性、推荐停留时间、门票费用、偏好标签和特殊准入信息，是景点选择、费用估算和文化考察筛选的基础。 \\
+        \addlinespace[0.15em]
+
+        \texttt{hub\_clean.csv}
+        & $25\times 6$
+        & 交通与住宿枢纽表，用于构建主交通网络中的城市、县镇和服务节点。 \\
+        \addlinespace[0.15em]
+
+        \texttt{spot\_hub\_map.csv}
+        & $40\times 8$
+        & 景点到交通枢纽的映射表，用于将景点节点挂接到交通枢纽，解决景点名称与交通节点名称不一致的问题。 \\
+        \addlinespace[0.15em]
+
+        \texttt{edge\_road\_directed.csv}
+        & $56\times 13$
+        & 基础公路有向边表，用于构建道路交通子图和计算枢纽间最短路闭包。 \\
+        \addlinespace[0.15em]
+
+        \texttt{hotel\_options\_clean.csv}
+        & $29\times 10$
+        & 住宿价格选项表，用于估算个人路线中的住宿费用，并为住宿可行性检查提供价格依据。 \\
+        \addlinespace[0.15em]
+
+        \texttt{hotel\_place\_default.csv}
+        & $19\times 7$
+        & 默认住宿价格表，用于缺少精确住宿选项时的快速费用估算。 \\
+        \addlinespace[0.15em]
+
+        \texttt{transport\_cost\_clean.csv}
+        & $33\times 14$
+        & 交通费用参数表，记录机票、火车、大巴、包车、租车和景区交通等费用口径。 \\
+        \addlinespace[0.15em]
+
+        \texttt{scenario\_parameters.csv}
+        & $10\times 5$
+        & 情景参数表，用于设置旅游周期、人数、容量阈值和扰动情景等默认参数。 \\
+        \addlinespace[0.15em]
+
+        \texttt{data\_quality\_issues.csv}
+        & $20\times 7$
+        & 数据质量审计表，用于记录名称匹配、道路稀疏、特殊准入、费用字段和容量缺失等建模风险。 \\
+        \bottomrule
+    \end{tabularx}
+\end{table}
+
+需要说明的是，基础表并不直接等同于最终模型输入。由于新疆景点之间空间跨度较大，若直接以景点名称构建道路网络，容易出现景点与交通节点无法匹配的问题。因此，本文采用“景点--枢纽--交通网络”的分层结构：景点属性由 \texttt{spot\_clean.csv} 描述，交通主图由 \texttt{hub\_clean.csv} 和交通边表描述，景点与主交通图之间通过 \texttt{spot\_hub\_map.\allowbreak csv} 连接。这样既保留了景点层面的游览属性，又避免了将景点名直接作为交通网络节点所造成的连通性问题。
+
+在基础表之外，本文还引入了增强数据表以支撑更细粒度的建模需求。例如，道路交通层使用高德驾车 OD 快照补充景点间行驶时间和距离；铁路层使用 12306 核心铁路 OD 代表班次修正长距离铁路时间；航空层使用公开航班时刻与价格快照作为主要机场间航线代理；容量层结合景区公告和节假日公开数据构造景区日容量、瞬时容量和五一客流校准参数；文化层依据文化遗产、文保单位、宗教民族文化和博物馆等信息建立文化价值标签。这些增强数据共同服务于多模式交通边构造、文化考察候选点筛选和黄金周接待容量约束。
+
+数据处理过程中还设置了数据质量审计机制。审计结果显示，部分景点名称与公路节点不能精确对应，基础公路边相对稀疏，个别铁路时间字段存在明显偏乐观风险，楼兰古城和尼雅遗址等景点存在普通游客不可直接进入或需审批的问题，部分容量数据需要通过公开承载量或模型参数进行补充。针对这些问题，本文在后续处理中分别采用景点--枢纽映射、最短路闭包、多模式交通标签、特殊准入约束和容量参数化等方式进行修正，从而保证基础数据能够转化为后续优化模型可调用的结构化输入。
+
+\subsection{景点属性与普通游客可达性处理}
+\label{subsec:spot_attributes_accessibility}
+
+景点是旅游线路优化中的基本服务对象。与一般图论路径问题不同，本文中的景点并非只具有空间位置属性，而是同时具有游览时间、门票费用、主题偏好、文化价值、自然属性、开放时间和特殊准入等多维属性。因此，在建立路线优化模型之前，需要先将原始景点资料转化为可供模型调用的结构化景点集合。
+
+本文以清洗后的景点表作为景点属性主表。对每个景点 $i\in \mathcal{V}$，记录其景点编号、景点名称、所属区域、所属交通枢纽、推荐停留时间、门票及必要当地费用、文化属性、自然属性、题面偏好属性、预约要求、边防证要求、高海拔或远程属性以及普通游客限制等信息。其中，景点编号 $\texttt{spot\_id}$ 作为全局唯一主键，用于连接交通、住宿、容量、文化标签和特殊准入等后续数据表。
+
+在空间组织上，本文不直接以景点名称构建交通网络，而是将景点挂接到相应交通或住宿枢纽。设景点 $i$ 对应的服务枢纽为 $h(i)$，则景点层面的游览属性由景点表描述，景点间长距离转场则主要通过枢纽层交通网络计算。该处理能够避免由于景点名称与道路节点名称不一致导致的网络断裂问题，也便于在后续模型中统一处理道路、铁路、航班和本地接驳等多模式交通。
+
+根据游客可达性和任务类型，本文将景点集合进一步划分为普通游客可达景点集合、特殊准入景点集合和文化考察候选景点集合。普通游客可达景点集合记为
+\[
+\mathcal{V}^{o}
+=
+\{ i\in \mathcal{V}\mid i \text{ 不需要专项文物审批且不属于普通游客限制点} \}.
+\]
+该集合主要用于第一问和第二问中普通游客旅游路线的设计。对于需要边防证、预约或存在高海拔远程特征的景点，若其不涉及专项审批，则仍可保留在普通游客可达集合中，但在后续模型中通过准入条件、服务时间或风险参数进行刻画。
+
+特殊准入景点集合记为 $\mathcal{V}^{s}$。该类景点通常具有较高文化或考古价值，但普通游客难以直接进入，可能需要提前审批、持证向导、越野车辆、安全缓冲或最低成团规模等条件。对于第一问和第二问，本文不将此类景点作为普通游客基准路线中的必选节点，而是通过替代文化景点或扩展方案进行说明；对于第三问文化考察场景，由于决策主体为高校研究机构，特殊准入景点可进入考察候选集合，但需显式计入审批和安全约束。
+
+文化考察候选景点集合记为 $\mathcal{V}^{c}$。该集合主要服务于第三问，其构造不仅考虑普通旅游价值，还考虑丝绸之路遗址、宗教文化、民族民俗、考古遗存、世界遗产或重点文物保护等文化属性。若景点文化价值分数较高，或其虽存在特殊准入条件但具有重要考察意义，则可进入文化考察候选集合。由此，第三问中的考察路线并非简单从普通游客景点中抽取，而是根据文化研究任务重新形成候选点集合。
+
+景点集合划分逻辑如表~\ref{tab:spot_set_partition} 所示。
+
+\begin{table}[htbp]
+    \centering
+    \caption{景点集合划分与建模用途}
+    \label{tab:spot_set_partition}
+    \small
+    \renewcommand{\arraystretch}{1.20}
+    \setlength{\tabcolsep}{4.5pt}
+    \begin{tabularx}{\textwidth}{L{2.6cm} L{3.2cm} Y}
+        \toprule
+        集合 & 划分依据 & 建模用途 \\
+        \midrule
+        $\mathcal{V}$
+        & 清洗后的全部景点集合
+        & 作为景点属性、区域分布、费用估算、交通挂接和容量分析的全集。 \\
+
+        $\mathcal{V}^{o}$
+        & 普通游客可达，且不需要专项文物审批
+        & 用于第一问 $30$ 天普通旅游路线和第二问两年暑期普通旅游路线。 \\
+
+        $\mathcal{V}^{s}$
+        & 需要审批、持证向导、越野车辆或其他专项条件
+        & 不作为普通游客基准路线中的必选点；在文化考察或审批扩展方案中单独处理。 \\
+
+        $\mathcal{V}^{c}$
+        & 具有较高文化价值或特殊考察意义
+        & 用于第三问三组文化考察任务分配与路线设计。 \\
+        \bottomrule
+    \end{tabularx}
+\end{table}
+
+在属性处理上，本文主要保留三类景点特征。第一类为时间与费用特征，包括普通游览时间 $t_i$、门票及必要当地费用 $p_i$、开放时间窗 $[a_i,b_i]$ 等，用于计算路线总时间、总费用和每日排程可行性。第二类为价值与偏好特征，包括题面偏好、自然景观、文化景观和综合优先级等，用于第一问中景点选择收益和路线主题多样性评价。第三类为准入与风险特征，包括预约要求、边防证要求、审批要求、高海拔或远程属性和安全缓冲等，用于判断路线是否具备现实可执行性。
+
+需要强调的是，普通游客可达性并不等同于景点是否值得访问。楼兰古城、尼雅遗址等景点具有较高文化价值，但由于其进入条件明显不同于一般景区，若直接纳入普通旅游路线，会造成模型结果与现实执行条件不一致。因此，本文在普通旅游问题中将其排除出基准可达集合，而在文化考察问题中重新作为专项任务处理。这样既保持了第一问和第二问普通游客路线的可执行性，又保留了第三问对高价值文化遗址进行专项考察的合理性。
+
+通过上述处理，原始景点资料被转化为带属性、带准入条件、可与交通网络连接的结构化节点集合。后续第一问和第二问将在 $\mathcal{V}^{o}$ 上进行普通旅游路线优化，第三问将在 $\mathcal{V}^{c}$ 上进行文化考察任务分配，第四问则基于景点容量、区域分布和线路产品覆盖关系进行节假日接待优化。
+
+\subsection{多模式交通网络构建}
+\label{subsec:multimodal_network}
+
+新疆地域辽阔，景点之间空间距离大，单纯依靠景点间直连道路难以准确描述实际旅游转场过程。实际旅行中，游客可能在道路交通、铁路、航班、景区接驳和本地换乘之间组合选择。因此，本文在基础景点与枢纽数据之上构建统一的多模式交通网络，为后续路线优化、费用估算、文化考察调度和节假日容量分析提供共同的交通底座。
+
+设多模式交通网络为有向图
+\[
+G=(\mathcal{N},\mathcal{E}),
+\]
+其中 $\mathcal{N}$ 为交通网络节点集合，$\mathcal{E}$ 为交通边集合。节点集合由景点节点、交通与住宿枢纽节点、铁路站点节点、机场节点及必要的换乘节点共同构成，即
+\[
+\mathcal{N}
+=
+\mathcal{V}
+\cup
+\mathcal{H}
+\cup
+\mathcal{R}
+\cup
+\mathcal{A}.
+\]
+其中，$\mathcal{V}$ 表示景点集合，$\mathcal{H}$ 表示城市、县镇和服务枢纽集合，$\mathcal{R}$ 表示铁路站点集合，$\mathcal{A}$ 表示机场节点集合。对于任一景点 $i\in\mathcal{V}$，先通过景点--枢纽映射确定其对应服务枢纽 $h(i)$，再由枢纽层交通网络承担长距离转场计算。
+
+交通边集合由不同交通方式的边共同组成：
+\[
+\mathcal{E}
+=
+\mathcal{E}^{\mathrm{road}}
+\cup
+\mathcal{E}^{\mathrm{rail}}
+\cup
+\mathcal{E}^{\mathrm{air}}
+\cup
+\mathcal{E}^{\mathrm{transfer}}
+\cup
+\mathcal{E}^{\mathrm{shuttle}}
+\cup
+\mathcal{E}^{\mathrm{access}}.
+\]
+其中，$\mathcal{E}^{\mathrm{road}}$ 表示道路交通边，$\mathcal{E}^{\mathrm{rail}}$ 表示铁路边，$\mathcal{E}^{\mathrm{air}}$ 表示航班边，$\mathcal{E}^{\mathrm{transfer}}$ 表示枢纽内部或枢纽间换乘边，$\mathcal{E}^{\mathrm{shuttle}}$ 表示景区接驳边，$\mathcal{E}^{\mathrm{access}}$ 表示景点到枢纽之间的本地接入边。通过上述分层结构，模型既能保留景点层面的游览属性，又能利用枢纽层网络描述跨区域交通联系。
+
+对于每条交通边 $e\in\mathcal{E}$，本文记录其交通方式 $m_e$、通行时间 $\tau_e$、两人交通费用 $c_e$、风险系数 $\rho_e$ 以及必要的班次或等待时间信息。记边 $e$ 的广义权重向量为
+\[
+\boldsymbol{w}_e
+=
+(\tau_e,c_e,\rho_e,\phi_e),
+\]
+其中 $\phi_e$ 表示由交通方式和行程时长诱导的疲劳水平。对于一条由若干交通边组成的路径 $P$，其时间、费用、风险和疲劳分别定义为
+\[
+\tau(P)=\sum_{e\in P}\tau_e,\qquad
+c(P)=\sum_{e\in P}c_e,
+\]
+\[
+\rho(P)=\sum_{e\in P}\rho_e,\qquad
+\phi(P)=\sum_{e\in P}\phi_e.
+\]
+上述四类指标共同构成路线优化中评价转场方案的基础。
+
+在道路交通层，本文以高德驾车 OD 快照和基础公路边为主要依据，补充景点之间及枢纽之间的道路转场时间和距离。由于原始公路边较为稀疏，模型不直接假定任意景点之间均存在原始直连边，而是先在枢纽层交通图上计算最短路闭包，再结合景点接入边形成景点级 OD 转场方案。在公共交通层，铁路和航班通过代表性班次、运行时间、票价和换乘等待时间刻画；在本地交通层，则通过景区接驳、出租转乘、租车和包车等方式描述最后一公里或区域内短途转场。
+
+为便于后续模型调用，本文进一步将从节点 $i$ 到节点 $j$ 的可行转场方案压缩为交通标签集合 $\mathcal{L}_{ij}$。每个交通标签 $\ell\in\mathcal{L}_{ij}$ 对应一条具体的多模式路径，记为
+\[
+\ell
+=
+(P_{\ell},m_{\ell},
+\tau_{ij\ell},
+c_{ij\ell},
+\rho_{ij\ell},
+\phi_{ij\ell}),
+\]
+其中 $P_{\ell}$ 表示该标签对应的节点路径，$m_{\ell}$ 表示交通方式序列，$\tau_{ij\ell}$、$c_{ij\ell}$、$\rho_{ij\ell}$ 和 $\phi_{ij\ell}$ 分别表示该转场方案的总时间、总费用、风险和疲劳水平。这样，后续模型无须直接在完整多模式图上重复搜索路径，而可以直接在交通标签集合上选择转场方案。
+
+交通标签生成主要包括两类路径。第一类为直接道路标签，即由道路交通或本地接驳直接连接两个景点或枢纽；第二类为组合公共交通标签，即采用“本地接驳--公共主边--本地接驳”的模板，将景点接入铁路站、机场或核心交通枢纽，再通过铁路、航班或长途客运完成跨区域转场。对于同一 OD 对，如果存在多种交通方式组合，则保留多条候选标签；如果多个候选标签在时间、费用、风险和疲劳上存在明显劣势，则通过非支配筛选将其剔除。
+
+具体地，若两个交通标签 $\ell_1,\ell_2\in\mathcal{L}_{ij}$ 满足
+\[
+\tau_{ij\ell_1}\leq \tau_{ij\ell_2},\quad
+c_{ij\ell_1}\leq c_{ij\ell_2},\quad
+\rho_{ij\ell_1}\leq \rho_{ij\ell_2},\quad
+\phi_{ij\ell_1}\leq \phi_{ij\ell_2},
+\]
+且至少有一个不等式严格成立，则称标签 $\ell_1$ 支配标签 $\ell_2$。在最终交通标签集合中，仅保留未被其他标签支配的方案。非支配筛选可以减少后续优化模型中的候选边数量，同时保留时间较短、费用较低、风险较小或疲劳较低的典型交通选择。
+
+需要说明的是，原始数据中的 \texttt{self\_drive} 并不完全等同于现实中的单一自驾行为。对于不同距离和时长的道路转场，本文将其规范化为出租接驳、租车或包车等更贴近旅游场景的道路交通方式。短距离转场主要解释为本地出租或接驳，中等距离转场解释为租车，高强度长距离转场则解释为包车或专车服务。对于景区接驳边，若原始费用缺失或为零，则根据转场时间设置最低接驳费用，避免将景区交通误认为免费资源。
+
+经过上述处理，原始交通资料被转化为具有明确节点路径、交通方式序列、时间、费用、风险、疲劳和可行性标记的交通标签表。后续第一问和第二问中的路径变量不再直接表示“是否从景点 $i$ 到景点 $j$”，而是进一步表示“是否在 $i$ 到 $j$ 之间选择交通标签 $\ell$”。这种表示方式能够同时保留图论路径结构和多模式交通选择空间，为路线覆盖、费用最小化、鲁棒性评价和节假日线路产品生成提供统一基础。
+
+\subsection{时间窗、住宿与容量约束处理}
+\label{subsec:time_lodging_capacity}
+
+在旅游线路优化问题中，景点访问顺序只是路线可行性的一个方面。对于新疆长距离旅游而言，若仅根据景点间最短时间或最低费用确定访问序列，可能出现到达时间超出景区开放时段、长距离转场后无法落地住宿、节假日期间热点景区超载等问题。因此，本文在多模式交通网络的基础上，进一步引入景区时间窗、每日活动时间、住宿落点和接待容量等约束，将抽象路径转化为具有现实执行意义的旅游行程。
+
+\subsubsection{景区开放时间窗处理}
+
+设景点 $i$ 的开放时间窗为
+\[
+[a_i,b_i],
+\]
+其中 $a_i$ 表示最早可入园时间，$b_i$ 表示最晚离园时间。若景点 $i$ 被安排在第 $d$ 天访问，且到达时间为 $A_{id}$，普通游览或考察停留时间为 $t_i$，则应满足
+\[
+a_i \leq A_{id}, \qquad
+A_{id}+t_i \leq b_i.
+\]
+其中，第一问和第二问中的 $t_i$ 取普通游览时间，第三问文化考察中的现场服务时间按照题意取
+\[
+\tilde{t}_i = 4t_i.
+\]
+
+对于全天开放景点，本文将其时间窗统一记为 $[0,24]$；对于开放时间存在季节规则或特殊周规则的景点，则保留其规则字段，并在排程中按照目标旅行季节进行解释。对于少数需审批或缺少明确开放时间的特殊点，采用默认时间窗仅作为模型化表达，并在普通游客基准路线中通过特殊准入约束单独处理。
+
+除单个景点的开放时间外，日程安排还需要满足每日有效活动时间约束。设第 $d$ 天安排的景点集合为 $\mathcal{V}_d$，当日转场边集合为 $\mathcal{A}_d$，则当日活动强度可表示为
+\[
+H_d
+=
+\sum_{i\in \mathcal{V}_d} t_i
++
+\sum_{(i,j,\ell)\in \mathcal{A}_d} \tau_{ij\ell}.
+\]
+若 $B$ 表示普通游客每日可接受的活动时间上限，则有
+\[
+H_d \leq B + u_d,
+\]
+其中 $u_d\geq 0$ 为超强度松弛变量。该变量用于识别高强度日程，而不是鼓励突破作息限制。在后续结果分析中，本文进一步将日活动强度较高或转场压力较大的日期标记为红色压力日，用于评价路线舒适性和现实可执行性。
+
+\subsubsection{住宿落点与夜间可执行性处理}
+
+对于多日旅游线路，每日结束位置必须能够连接到可住宿枢纽。设 $\mathcal{H}^{L}\subseteq \mathcal{H}$ 为具备住宿服务能力的枢纽集合，$h(i)$ 为景点 $i$ 对应的服务枢纽。若第 $d$ 天行程结束于景点或枢纽 $i$，则该日夜间住宿点应满足
+\[
+h_d \in \mathcal{H}^{L},
+\]
+并且从当日结束位置到住宿点之间存在可执行接驳方案。若住宿点与结束景点不在同一枢纽，则需要额外计入晚间转场时间和费用。
+
+设 $R_{hd}$ 表示枢纽 $h$ 在日期 $d$ 的可用房量，$O_{hd}$ 表示该枢纽当晚由线路产生的住宿需求，则住宿容量约束可写为
+\[
+O_{hd}\leq R_{hd}, \qquad h\in\mathcal{H}^{L}.
+\]
+对于第一问和第二问，住宿数据主要用于判断每日行程是否能够落地，并估算双人房住宿费用；对于第四问，住宿不再只是个人费用项，而是节假日团队线路接待能力的重要约束。若某一线路组合在某枢纽某日产生的住宿需求超过房量上限，则说明该线路产品在实际投放时可能受到住宿资源制约，需要通过调整线路、错峰发团或分流至替代枢纽进行修正。
+
+住宿费用按房间而非按人数重复计算。设枢纽 $h$ 的默认双人房价格为 $r_h$，若个人旅游路线在该枢纽住宿一晚，则其住宿费用计为 $r_h$。若线路在多个枢纽连续落地，则总住宿费用为各晚住宿费用之和：
+\[
+C^{\mathrm{hotel}}
+=
+\sum_{d} r_{h_d}.
+\]
+该口径与第一问中“除吃饭之外的费用估算”保持一致。
+
+\subsubsection{景区容量与分时接待约束处理}
+
+第四问面向五一黄金周集中客流，单纯判断线路总容量是否大于需求并不足够，还需要考察游客在不同日期和不同时段是否集中涌入同一景区。为此，本文对景区容量进行日容量和瞬时容量两层处理。
+
+设 $K_i^{\mathrm{day}}$ 表示景点 $i$ 的日最大接待容量，$K_i^{\mathrm{inst}}$ 表示瞬时接待容量。考虑安全裕度后，定义有效日容量为
+\[
+\bar{K}_i = \beta K_i^{\mathrm{day}},
+\]
+其中 $\beta\in(0,1)$ 为容量折减系数。若进一步将一天划分为若干预约时段 $s\in\mathcal{S}$，则景点 $i$ 在日期 $d$、时段 $s$ 的有效容量可记为
+\[
+\operatorname{Cap}_{ids}.
+\]
+对于线路产品 $r$，若其在第 $d$ 天第 $s$ 时段访问景点 $i$，记参数 $a_{rids}=1$，否则为 $0$。设 $q_r$ 为分配至线路 $r$ 的游客人数，则景点分时负载为
+\[
+l_{ids}
+=
+\sum_{r\in\mathcal{P}} a_{rids}q_r,
+\]
+并应满足
+\[
+l_{ids}\leq \operatorname{Cap}_{ids},
+\qquad
+i\in\mathcal{V},\ d\in\mathcal{D}^{(4)},\ s\in\mathcal{S}.
+\]
+该约束用于刻画热门景区在黄金周期间的分时拥挤风险。若只使用日总量容量约束，可能掩盖上午或下午某一时段的瞬时拥堵；引入分时容量后，模型能够进一步比较不同线路组合和错峰预约策略的接待效果。
+
+\subsubsection{线路产品与服务资源容量处理}
+
+除景区容量外，第四问还需要考虑住宿、车辆、导游、摆渡和停车等服务资源。设 $x_r$ 表示线路产品 $r$ 是否投放，$\operatorname{Cap}_{r}$ 表示线路 $r$ 在规划期内的接待能力，则线路游客分配满足
+\[
+0\leq q_r \leq \operatorname{Cap}_{r}x_r.
+\]
+若五一外地游客总需求为 $D$，则线路组合的服务量与未接待需求之间满足
+\[
+\sum_{r\in\mathcal{P}} q_r + \xi = D,
+\]
+其中 $\xi\geq 0$ 表示未被当前线路组合接待的游客量。
+
+对于住宿枢纽 $h$ 在日期 $d$ 的房量负载，记
+\[
+u_{hd}
+=
+\sum_{r\in\mathcal{P}} b_{rhd} q_r /\kappa,
+\]
+其中 $b_{rhd}$ 表示线路 $r$ 在日期 $d$ 是否使用枢纽 $h$ 住宿，$\kappa$ 表示平均每间房容纳人数。住宿容量约束为
+\[
+u_{hd}\leq \operatorname{Room}_{hd}.
+\]
+类似地，对于车辆、导游、摆渡和停车等资源，设 $v_{hdk}$ 为枢纽 $h$ 在日期 $d$ 对资源 $k$ 的需求负载，则有
+\[
+v_{hdk}
+=
+\sum_{r\in\mathcal{P}} c_{rhdk} q_r
+\leq
+\operatorname{Res}_{hdk},
+\]
+其中 $\operatorname{Res}_{hdk}$ 为对应资源服务能力。该约束使第四问从简单线路容量问题扩展为多资源协同接待问题。
+
+\subsubsection{约束数据在四个子问题中的作用}
+
+综上，时间窗、住宿和容量数据在四个子问题中的作用并不完全相同。第一问侧重于检验个人 $30$ 天路线的小时级可执行性，即景点能否在开放时间内访问、每日强度是否合理、夜间能否住宿落地。第二问侧重于两年暑假路线的年度可行性和住宿落点合理性。第三问侧重于文化考察任务的现场服务时间、特殊点安全缓冲和三组完成时间平衡。第四问则将景区容量、住宿容量和服务资源容量提升为核心约束，用于判断线路产品组合能否在五一黄金周集中客流下稳定投放。
+
+通过上述处理，本文将景点开放时间、住宿条件和接待能力统一纳入结构化约束体系，使后续模型输出不只是图上的最短路径或最低费用路径，而是具备日期、时段、住宿和容量含义的可执行旅游方案。
+
+\subsection{情景扰动与鲁棒性评价数据}
+\label{subsec:scenario_robustness_data}
+
+新疆旅游线路具有明显的不确定性。一方面，景点间距离远、山区和边境线路较多，实际转场时间容易受到天气、道路通行和交通班次影响；另一方面，暑期和五一黄金周属于旅游高峰期，住宿余量、景区预约、车辆导游资源和景区接待能力均可能出现紧张。因此，本文在确定性交通网络和容量数据的基础上，进一步构造情景扰动数据，用于评价路线和线路产品在不同风险条件下的稳定性。
+
+设情景集合为 $\Omega$，其中任一情景 $\omega\in\Omega$ 表示一种可能的旅游运行环境。根据扰动来源，本文将情景因素划分为三类：
+\[
+\Omega
+=
+\Omega^{\mathrm{tr}}
+\cup
+\Omega^{\mathrm{res}}
+\cup
+\Omega^{\mathrm{dem}},
+\]
+其中，$\Omega^{\mathrm{tr}}$ 表示交通扰动情景，$\Omega^{\mathrm{res}}$ 表示住宿、预约和资源可用性扰动情景，$\Omega^{\mathrm{dem}}$ 表示节假日客流需求扰动情景。三类情景并非相互独立，在复合极端情景中可能同时发生。
+
+\subsubsection{交通与费用扰动}
+
+对于多模式交通网络中的任意边 $e\in\mathcal{E}$，其基准通行时间和费用分别为 $\tau_e$ 和 $c_e$。在情景 $\omega$ 下，交通时间和费用可表示为
+\[
+\tau_e(\omega)
+=
+\lambda^{\tau}_{m_e}(\omega)\tau_e
++
+\Delta^{\tau}_e(\omega),
+\]
+\[
+c_e(\omega)
+=
+\lambda^{c}_{m_e}(\omega)c_e,
+\]
+其中，$m_e$ 为边 $e$ 的交通方式，$\lambda^{\tau}_{m_e}(\omega)$ 和 $\lambda^{c}_{m_e}(\omega)$ 分别表示该交通方式在情景 $\omega$ 下的时间扰动因子和费用扰动因子，$\Delta^{\tau}_e(\omega)$ 表示由高温、道路封闭、班次等待或临时绕行导致的附加时间。
+
+针对不同交通方式，本文分别设置道路、铁路、航班、客运和本地接驳的扰动因子。道路交通主要受到拥堵、天气和山区道路通行条件影响；铁路和航班主要受到班次等待、延误和价格波动影响；本地接驳和景区交通则主要受到景区周边拥堵和预约组织方式影响。由此，情景扰动不仅改变路径的总时间和总费用，也会改变后续路线评价中的疲劳水平和风险水平。
+
+对于任一交通标签 $\ell\in\mathcal{L}_{ij}$，其在情景 $\omega$ 下的时间、费用和风险记为
+\[
+\tau_{ij\ell}(\omega),\qquad
+c_{ij\ell}(\omega),\qquad
+\rho_{ij\ell}(\omega).
+\]
+若标签 $\ell$ 由多条边组成，则相应情景值由路径中各边的情景扰动累加得到。
+
+\subsubsection{预约、住宿与舒适性扰动}
+
+除交通扰动外，旅游路线还受到景区预约、酒店余量和天气舒适性的影响。设 $p_i^{\mathrm{res}}(\omega)$ 表示景点 $i$ 在情景 $\omega$ 下的预约失败概率，$p_h^{\mathrm{hotel}}(\omega)$ 表示住宿枢纽 $h$ 在情景 $\omega$ 下的满房概率，$\Delta^{\mathrm{heat}}(\omega)$ 表示高温条件引起的额外时间或舒适性惩罚。对于一条路线 $R$，可据此统计其预约失败次数、酒店满房次数和红色压力日数量。
+
+为刻画游客体验，本文定义路线 $R$ 在情景 $\omega$ 下的舒适度指标为
+\[
+\operatorname{Comfort}(R,\omega),
+\]
+该指标综合考虑每日活动时长、长距离转场、高温惩罚、连续高强度日和住宿落点等因素。若某日活动时间明显超过合理阈值，或长距离转场叠加高温、晚到等因素，则该日被标记为红色压力日。记路线 $R$ 在情景 $\omega$ 下的红色压力日数量为
+\[
+N_{\mathrm{red}}(R,\omega).
+\]
+
+\subsubsection{节假日需求与容量扰动}
+
+第四问面向五一黄金周集中客流，游客需求本身具有波动性。设基准需求为 $D$，情景 $\omega$ 下需求规模表示为
+\[
+D(\omega)=\lambda^{D}(\omega)D,
+\]
+其中 $\lambda^{D}(\omega)$ 为需求放大系数。相应地，景区、酒店和车辆导游等资源在高峰情景下也可能存在有效容量折减，记为
+\[
+\operatorname{Cap}_{ids}(\omega)
+=
+\lambda^{\mathrm{spot}}(\omega)\operatorname{Cap}_{ids},
+\]
+\[
+\operatorname{Room}_{hd}(\omega)
+=
+\lambda^{\mathrm{hotel}}(\omega)\operatorname{Room}_{hd},
+\]
+\[
+\operatorname{Res}_{hdk}(\omega)
+=
+\lambda^{\mathrm{res}}(\omega)\operatorname{Res}_{hdk}.
+\]
+其中，$\lambda^{\mathrm{spot}}(\omega)$、$\lambda^{\mathrm{hotel}}(\omega)$ 和 $\lambda^{\mathrm{res}}(\omega)$ 分别表示景区、住宿和服务资源在情景 $\omega$ 下的有效能力系数。该处理能够同时刻画游客需求上浮和服务能力下降所造成的复合压力。
+
+\subsubsection{鲁棒性评价指标}
+
+在情景扰动数据基础上，本文对候选路线或线路产品进行鲁棒性评价。对于个人旅游路线 $R$，首先定义其总行程天数、总费用和舒适度在情景 $\omega$ 下的取值为
+\[
+T(R,\omega),\qquad
+C(R,\omega),\qquad
+\operatorname{Comfort}(R,\omega).
+\]
+若路线满足最大旅行周期、基本舒适度、预约失败次数和酒店满房次数等基本要求，则认为其在情景 $\omega$ 下运营成功。运营成功率定义为
+\[
+\begin{aligned}
+P^{\mathrm{op}}(R)
+&=
+\frac{1}{|\Omega|}
+\sum_{\omega\in\Omega}
+\mathbb{I}\!\left[
+\begin{array}{@{}l@{}}
+T(R,\omega)\leq T_{\max},\\
+\operatorname{Comfort}(R,\omega)\geq \theta,\\
+F^{\mathrm{res}}(R,\omega)\leq \bar{F}^{\mathrm{res}},\\
+F^{\mathrm{hotel}}(R,\omega)\leq \bar{F}^{\mathrm{hotel}}
+\end{array}
+\right].
+\end{aligned}
+\]
+其中，$\mathbb{I}[\cdot]$ 为示性函数，$\theta$ 为舒适度下界，$F^{\mathrm{res}}$ 和 $F^{\mathrm{hotel}}$ 分别表示预约失败次数和酒店满房次数。
+
+严格舒适成功率进一步要求红色压力日数量不超过阈值，即
+\[
+\begin{aligned}
+P^{\mathrm{sc}}(R)
+&=
+\frac{1}{|\Omega|}
+\sum_{\omega\in\Omega}
+\mathbb{I}\!\left[
+\begin{array}{@{}l@{}}
+T(R,\omega)\leq T_{\max},\\
+\operatorname{Comfort}(R,\omega)\geq \theta,\\
+F^{\mathrm{res}}(R,\omega)\leq \bar{F}^{\mathrm{res}},\\
+F^{\mathrm{hotel}}(R,\omega)\leq \bar{F}^{\mathrm{hotel}},\\
+N_{\mathrm{red}}(R,\omega)\leq \bar{N}_{\mathrm{red}}
+\end{array}
+\right].
+\end{aligned}
+\]
+二者的区别在于，运营成功率强调路线是否基本可执行，严格舒适成功率进一步强调执行过程是否具有较高舒适性。
+
+为评价尾部风险，本文定义路线损失函数 $L(R,\omega)$，用于综合刻画超期、费用上浮、舒适度下降、预约失败和资源紧张等不利结果。给定置信水平 $\alpha$，条件风险价值定义为
+\[
+\operatorname{CVaR}_{\alpha}(R)
+=
+\mathbb{E}
+\left[
+L(R,\omega)
+\mid
+L(R,\omega)\geq
+\operatorname{VaR}_{\alpha}(R)
+\right],
+\]
+其中 $\operatorname{VaR}_{\alpha}(R)$ 为损失分布在置信水平 $\alpha$ 下的分位数。与均值损失相比，$\operatorname{CVaR}_{\alpha}$ 更关注尾部高风险情景，因此适合用于路线方案的鲁棒性排序。
+
+对于第三问文化考察任务，情景扰动主要用于评价不同缓冲策略下项目延期风险。设策略 $\pi$ 下项目完成时间为 $T^{(3)}(\pi,\omega)$，若其不超过计划周期，则视为策略在情景 $\omega$ 下成功。相应地，可定义策略成功率、最差情景成功率、期望延期损失和尾部延期损失。对于第四问节假日接待问题，鲁棒性评价则主要关注在需求上浮和资源折减情景下的游客服务量、景区分时超载比例、住宿和车辆导游瓶颈以及未接待游客规模。
+
+综上，情景扰动数据将确定性路线优化扩展为鲁棒性评价框架。通过对交通时间、交通费用、预约压力、住宿紧张、天气高温、道路封闭、节假日需求上浮和资源能力折减进行统一建模，本文能够比较不同方案在常规情景和极端情景下的可执行性、舒适性和尾部风险，为后续方案选择和策略解释提供依据。
+
+\clearpage
+
+\section{四个子问题的模型构建与求解}
+\label{sec:question_models}
+
+在完成数据清洗、多模式交通网络、时间窗、住宿容量和情景扰动数据构建后，本文分别针对四个子问题建立对应的优化模型。四问共用第二章形成的数据底座，但决策主体、目标函数和约束重点并不相同：第一问侧重个人旅游路线的覆盖、费用与鲁棒性折中；第二问侧重两年分期覆盖和新疆境内交通费用最小化；第三问侧重三组文化考察任务的并行调度；第四问侧重五一黄金周线路产品组合和分时容量接待。因此，本章按问题顺序展开模型定位、变量定义、约束条件、求解流程和结果解释。
+
+\subsection{第一问：30天夫妇旅游路线优化模型}
+\label{subsec:q1_model}
+
+\subsubsection{问题描述与模型定位}
+\label{subsubsec:q1_problem_position}
+
+第一问要求为王先生夫妇设计今年暑假一个月内的新疆旅游路线，使其“花最少的钱游尽可能多的地方”，并估算除餐饮之外的旅行费用。该问题并非简单的最短路问题，也不是必须访问所有景点的旅行商问题。其核心在于：在有限旅行周期内，从普通游客可达景点集合中选择尽可能多且具有代表性的景点，并确定景点访问顺序、交通方式、逐日行程和住宿落点；在覆盖数量相同或相近时，再比较除餐饮外总费用。
+
+因此，本文将第一问建模为题面优先的多模式奖励收集定向游问题。模型首先以 $30$ 天内严格可执行作为可行性前提，其次按字典序优先最大化景点覆盖数量，再在同覆盖层级下最小化除餐饮之外的总费用。时间窗、每日活动强度、缓冲天数、运营成功率和严格舒适成功率不抢占题面主目标，而作为“合适旅游路线”的执行校准与方案解释指标。设普通游客可达景点集合为 $\mathcal{V}^{o}$，多模式交通标签集合为 $\mathcal{L}_{ij}$，旅行日期集合为
+\[
+\mathcal{D}^{(1)}=\{1,2,\ldots,30\}.
+\]
+模型在 $\mathcal{V}^{o}$ 中选择景点，在 $\mathcal{L}_{ij}$ 中选择转场方式，并在 $30$ 天旅行周期内构造可执行行程。
+
+第一问的建模重点包括三个层次。第一，路线选择层决定访问哪些景点以及以何种顺序访问；第二，交通标签层决定景点间采用道路、铁路、景区接驳或组合公共交通等哪一种转场方式；第三，排程与鲁棒评价层检验路线在开放时间、每日强度、住宿落点和情景扰动下是否具有现实可执行性。由此得到的模型既能给出题面意义下的最高覆盖低费用方案，也能进一步解释为何某些高覆盖路线虽然数学上可排入 $30$ 天，却在缓冲日、红色压力日和扰动成功率上不宜作为现实主推。
+
+\subsubsection{决策变量与目标函数}
+\label{subsubsec:q1_variables_objective}
+
+为描述第一问模型，定义如下主要决策变量：
+\[
+y_i=
+\begin{cases}
+1, & \text{若景点 } i \text{ 被选入旅游路线},\\
+0, & \text{否则},
+\end{cases}
+\qquad i\in\mathcal{V}^{o},
+\]
+\[
+x_{ij\ell}=
+\begin{cases}
+1, & \text{若路线中从景点 } i \text{ 到景点 } j \text{ 选择交通标签 } \ell,\\
+0, & \text{否则},
+\end{cases}
+\qquad \ell\in\mathcal{L}_{ij},
+\]
+\[
+z_{id}=
+\begin{cases}
+1, & \text{若景点 } i \text{ 安排在第 } d \text{ 天游览},\\
+0, & \text{否则},
+\end{cases}
+\qquad d\in\mathcal{D}^{(1)}.
+\]
+此外，设 $A_{id}$ 为第 $d$ 天到达景点 $i$ 的时间，$u_d$ 为第 $d$ 天活动强度超限松弛量，$L_{hd}$ 表示第 $d$ 晚是否在住宿枢纽 $h$ 落地。
+
+考虑题面中“花最少的钱游尽可能多的地方”的双重要求，本文不把所有指标直接压缩为单一加权和，而采用字典序目标。首先定义题面可执行路线集合
+\[
+\mathcal{R}^{\mathrm{feas}}
+=
+\{P\mid D(P)\leq 30,\;
+\operatorname{TW}(P)=0,\;
+P\subseteq\mathcal{V}^{o},\;
+P\text{ 可住宿落地}\},
+\]
+其中 $D(P)$ 为计划天数，$\operatorname{TW}(P)$ 为小时级时间窗违规数。对于任一路线 $P$，其覆盖数量为
+\[
+N(P)=\sum_{i\in\mathcal{V}^{o}}y_i .
+\]
+第一层目标为在题面可执行集合中最大化覆盖数量：
+\[
+N^{*}
+=
+\max_{P\in\mathcal{R}^{\mathrm{feas}}} N(P).
+\]
+第二层目标是在给定覆盖水平 $q$ 下最小化除餐饮之外的总费用：
+\[
+C^{*}(q)
+=
+\min_{P\in\mathcal{R}^{\mathrm{feas}},\;N(P)\geq q}
+C^{\mathrm{tour}}(P).
+\]
+当 $q=N^{*}$ 时得到题面优先最高覆盖方案；当 $q$ 取 $20,22,24,26,28$ 等不同层级时，得到成本--覆盖前沿。第三层不再改变题面最优性定义，而是记录路线的缓冲天数、红色压力日、运营成功率、严格舒适成功率和尾部损失，用于判断该题面方案是否适合作为现实执行主推。
+
+除餐饮之外的总费用由交通费用、门票及必要当地费用、住宿费用构成：
+\[
+C^{\mathrm{tour}}
+=
+\sum_{i\in\mathcal{V}^{o}} p_i y_i
++
+\sum_{i,j\in\mathcal{V}^{o}}\sum_{\ell\in\mathcal{L}_{ij}} c_{ij\ell}x_{ij\ell}
++
+\sum_{d\in\mathcal{D}^{(1)}}\sum_{h\in\mathcal{H}^{L}} r_h L_{hd},
+\]
+其中 $p_i$ 为景点 $i$ 的门票及必要当地费用，$c_{ij\ell}$ 为交通标签 $\ell$ 的两人交通费用，$r_h$ 为住宿枢纽 $h$ 的默认双人房价格。
+
+总转场时间、疲劳水平和风险水平分别表示为
+\[
+T^{\mathrm{travel}}
+=
+\sum_{i,j\in\mathcal{V}^{o}}\sum_{\ell\in\mathcal{L}_{ij}}
+\tau_{ij\ell}x_{ij\ell},
+\]
+\[
+\Phi
+=
+\sum_{i,j\in\mathcal{V}^{o}}\sum_{\ell\in\mathcal{L}_{ij}}
+\phi_{ij\ell}x_{ij\ell},
+\qquad
+R
+=
+\sum_{i,j\in\mathcal{V}^{o}}\sum_{\ell\in\mathcal{L}_{ij}}
+\rho_{ij\ell}x_{ij\ell}.
+\]
+在候选路线生成阶段，景点综合游览价值 $w_i$、区域覆盖多样性 $\operatorname{Reg}(y)$、主题多样性 $\operatorname{Theme}(y)$ 和题面偏好满足程度 $\operatorname{Pref}(y)$ 仍用于构造高质量初始解与局部搜索评价；但最终结果解释以 $N(P)$ 和 $C^{\mathrm{tour}}(P)$ 为题面主指标，以 $\Phi$、$R$、红色压力日和仿真成功率作为执行质量指标。
+
+\subsubsection{约束条件}
+\label{subsubsec:q1_constraints}
+
+第一问约束主要包括景点选择、路线连续性、交通标签可用性、时间窗、每日活动强度、住宿落点、特殊准入和鲁棒性筛选等方面。
+
+\paragraph{1. 景点覆盖与特殊准入约束}
+
+给定覆盖下界 $q$，路线至少访问 $q$ 个普通游客可达景点：
+\[
+\sum_{i\in\mathcal{V}^{o}}y_i\geq q.
+\]
+对于不属于普通游客可达集合的景点，特别是需要专项审批或普通游客不可直接进入的遗址类景点，基准路线中不予选择：
+\[
+y_i=0,\qquad i\in \mathcal{V}\setminus \mathcal{V}^{o}.
+\]
+对于题面中特别偏好的楼兰文化，由于楼兰古城不作为普通游客基准路线节点，本文设置文化替代约束。设 $\mathcal{S}^{L}$ 为楼兰文化替代景点集合，包括丝路遗址、宗教城市文化和南疆/巴州文化补偿节点，则有
+\[
+\sum_{i\in\mathcal{S}^{L}}y_i\geq 2.
+\]
+该约束保证即便不直接访问楼兰古城，路线仍能覆盖一定数量的相关文化景点。
+
+\paragraph{2. 路线连续性约束}
+
+引入虚拟起点 $o$ 和虚拟终点 $t$，记
+\[
+\overline{\mathcal{V}}=\mathcal{V}^{o}\cup\{o,t\}.
+\]
+路线从虚拟起点出发，并最终到达虚拟终点：
+\[
+\sum_{j\in\mathcal{V}^{o}}\sum_{\ell\in\mathcal{L}_{oj}}x_{oj\ell}=1,
+\qquad
+\sum_{i\in\mathcal{V}^{o}}\sum_{\ell\in\mathcal{L}_{it}}x_{it\ell}=1.
+\]
+对于任意被选景点，其入边和出边各有一条；未被选景点不允许出现在路线中：
+\[
+\sum_{j\in\overline{\mathcal{V}}}\sum_{\ell\in\mathcal{L}_{ij}}x_{ij\ell}
+=
+y_i,
+\qquad
+\sum_{j\in\overline{\mathcal{V}}}\sum_{\ell\in\mathcal{L}_{ji}}x_{ji\ell}
+=
+y_i,
+\qquad i\in\mathcal{V}^{o}.
+\]
+为避免产生与主路线无关的子回路，引入访问顺序变量 $\pi_i$，并设置 Miller--Tucker--Zemlin 型约束：
+\[
+\pi_i-\pi_j+
+|\mathcal{V}^{o}|
+\sum_{\ell\in\mathcal{L}_{ij}}x_{ij\ell}
+\leq
+|\mathcal{V}^{o}|-1,
+\qquad i\neq j,\; i,j\in\mathcal{V}^{o}.
+\]
+
+\paragraph{3. 交通标签可行性约束}
+
+对于任意 OD 对 $(i,j)$，只有在交通标签 $\ell\in\mathcal{L}_{ij}$ 对普通游客可行时才能被选择。设 $a_{ij\ell}^{o}$ 表示标签 $\ell$ 是否普通游客可用，则有
+\[
+x_{ij\ell}\leq a_{ij\ell}^{o},
+\qquad
+i,j\in\mathcal{V}^{o},\;\ell\in\mathcal{L}_{ij}.
+\]
+该约束将交通方式选择限制在非支配且可执行的交通标签集合内。
+
+\paragraph{4. 景点排程与时间窗约束}
+
+每个被选景点必须被安排到唯一一天：
+\[
+\sum_{d\in\mathcal{D}^{(1)}} z_{id}=y_i,
+\qquad i\in\mathcal{V}^{o}.
+\]
+若景点 $i$ 安排在第 $d$ 天访问，则其到达和离开时间必须满足开放时间窗：
+\[
+A_{id}\geq a_i-M(1-z_{id}),
+\]
+\[
+A_{id}+t_i\leq b_i+M(1-z_{id}),
+\qquad i\in\mathcal{V}^{o},\;d\in\mathcal{D}^{(1)}.
+\]
+其中 $[a_i,b_i]$ 为景点 $i$ 的开放时间窗，$t_i$ 为普通游览停留时间。
+
+\paragraph{5. 每日活动强度约束}
+
+设 $r_{ij\ell d}$ 表示交通标签 $\ell$ 对应的转场是否安排在第 $d$ 天，且满足
+\[
+\sum_{d\in\mathcal{D}^{(1)}}r_{ij\ell d}=x_{ij\ell}.
+\]
+第 $d$ 天活动强度由游览时间和转场时间共同构成：
+\[
+H_d
+=
+\sum_{i\in\mathcal{V}^{o}}t_i z_{id}
++
+\sum_{i,j\in\mathcal{V}^{o}}
+\sum_{\ell\in\mathcal{L}_{ij}}
+\tau_{ij\ell}r_{ij\ell d}.
+\]
+若 $B$ 表示普通游客每日合理活动时间上限，则
+\[
+H_d\leq B+u_d,\qquad d\in\mathcal{D}^{(1)}.
+\]
+其中 $u_d$ 为超强度松弛量，用于识别并惩罚高强度日程。若 $u_d$ 较大或当日存在长距离转场、高温避让和晚到风险，则该日将在结果分析中被标记为红色压力日。
+
+\paragraph{6. 住宿落点约束}
+
+每日行程结束后必须能够落地到可住宿枢纽。设 $\mathcal{H}^{L}$ 为可住宿枢纽集合，$L_{hd}$ 表示第 $d$ 晚是否在枢纽 $h$ 住宿，则有
+\[
+\sum_{h\in\mathcal{H}^{L}}L_{hd}=a_d,
+\qquad d\in\mathcal{D}^{(1)},
+\]
+其中 $a_d$ 表示第 $d$ 天是否为活动日。若某枢纽不具备住宿条件，则
+\[
+L_{hd}=0,\qquad h\notin\mathcal{H}^{L}.
+\]
+对于单个家庭旅行，住宿容量通常不构成确定性硬瓶颈，但住宿落点决定夜间可执行性和住宿费用，并在情景仿真中进一步影响酒店满房风险。
+
+\paragraph{7. 旅行周期与缓冲约束}
+
+路线总周期不得超过 $30$ 天。设活动日集合由 $a_d$ 表示，则有
+\[
+\sum_{d\in\mathcal{D}^{(1)}} a_d \leq 30.
+\]
+缓冲天数定义为
+\[
+B^{\mathrm{buf}}=30-\sum_{d\in\mathcal{D}^{(1)}}a_d.
+\]
+缓冲天数越多，路线对天气、道路延误、预约失败和酒店紧张等扰动的吸收能力越强。
+
+\paragraph{8. 鲁棒性筛选约束}
+
+确定性可行路线还需在情景集合 $\Omega$ 下进行鲁棒性评价。对于候选路线 $R$，运营成功率定义为
+\[
+P^{\mathrm{op}}(R)
+=
+\frac{1}{|\Omega|}
+\sum_{\omega\in\Omega}
+\mathbb{I}\!\left[
+\begin{aligned}
+&T(R,\omega)\leq 30,\quad
+\operatorname{Comfort}(R,\omega)\geq \theta,\\
+&F^{\mathrm{res}}(R,\omega)\leq \bar{F}^{\mathrm{res}},\quad
+F^{\mathrm{hotel}}(R,\omega)\leq \bar{F}^{\mathrm{hotel}}
+\end{aligned}
+\right].
+\]
+严格舒适成功率进一步要求红色压力日数量不超过阈值：
+\[
+P^{\mathrm{sc}}(R)
+=
+\frac{1}{|\Omega|}
+\sum_{\omega\in\Omega}
+\mathbb{I}\!\left[
+\begin{aligned}
+&T(R,\omega)\leq 30,\quad
+\operatorname{Comfort}(R,\omega)\geq \theta,\\
+&F^{\mathrm{res}}(R,\omega)\leq \bar{F}^{\mathrm{res}},\quad
+F^{\mathrm{hotel}}(R,\omega)\leq \bar{F}^{\mathrm{hotel}},\\
+&N_{\mathrm{red}}(R,\omega)\leq \bar{N}_{\mathrm{red}}
+\end{aligned}
+\right].
+\]
+在实际求解中，机会约束不作为单一精确随机规划的硬约束，而是在候选路线生成后通过 Monte Carlo 仿真进行筛选。题面主答案首先由覆盖数量和除餐饮外费用决定；若多条方案在题面指标上接近，则优先选择运营成功率更高、缓冲天数更多、红色压力日更少的路线作为现实执行推荐。
+
+\subsubsection{求解流程}
+\label{subsubsec:q1_solution_process}
+
+由于第一问同时包含景点选择、路径排序、交通方式选择、时间窗排程和鲁棒性评价，直接求解完整随机混合整数规划难度较大。本文采用数学启发式求解框架，其核心步骤如下。
+
+\begin{enumerate}
+    \item \textbf{多模式交通标签生成。}
+    基于多模式交通网络生成景点间交通标签，包括直接道路标签和“本地接驳--公共主边--本地接驳”组合标签。每个标签记录时间、费用、风险、疲劳、交通方式序列和普通游客可行性。对同一 OD 对上的多个标签进行非支配筛选，仅保留具有代表性的候选转场方式。
+
+    \item \textbf{覆盖层级重搜索。}
+    为刻画题面“尽可能多游”和“同覆盖下省钱”的关系，分别设置覆盖层级
+    \[
+    q\in\{20,22,24,26,28,30,32\},
+    \]
+    并在每个覆盖水平下重新搜索候选路线，而不是简单从高覆盖路线中删除景点。
+
+    \item \textbf{候选路线构造与局部改进。}
+    在每个覆盖水平下，根据景点价值、题面偏好、区域多样性、文化主题、交通代价和风险代理构造初始路线，并通过交换、重定位、局部重排和随机重启等操作改进候选解。
+
+    \item \textbf{交通标签选择与费用精算。}
+    对路线中相邻景点之间的转场直接选择交通标签 $\ell$，使每段转场的时间、费用、风险和疲劳均来自具体标签，而不是使用单一最短路闭包值。由此计算除餐饮之外的交通费、门票费和住宿费。
+
+    \item \textbf{小时级排程与可行性检查。}
+    对每条候选路线构造小时级行程，显式检查景区开放时间、午休、高温避让、长距离转场恢复和晚到住宿等因素，得到时间窗违规数、红色压力日、黄色压力日和缓冲天数等排程指标。
+
+    \item \textbf{成本--覆盖前沿重分类。}
+    在所有小时级可执行候选路线中，先按景点覆盖数分层，再在同一覆盖层中选择除餐饮外费用最低的路线，得到题面口径下的成本--覆盖前沿。
+
+    \item \textbf{路线级情景仿真。}
+    对每条候选路线使用情景样本进行 Monte Carlo 仿真，计算运营成功率、严格舒适成功率、超期概率、期望损失、P95 天数和 CVaR 等鲁棒性指标。
+
+    \item \textbf{代表方案选择。}
+    按字典序主目标选择题面优先最高覆盖方案；再结合运营成功率、缓冲日、红色压力日和费用节省幅度，给出题面+运营鲁棒方案、同覆盖最低费用对照、原鲁棒综合方案和舒适保守参考方案。
+\end{enumerate}
+
+该求解流程强调可复现性和风险可解释性。对于完整问题，本文不声称得到全局最优解；对于固定景点集合与固定首尾点的排序子问题，则进一步采用 HiGHS-MILP 精确求解开放 Hamilton 路径，评估启发式排序与精确排序之间的差距。
+
+\subsubsection{结果与方案解释}
+\label{subsubsec:q1_results}
+
+第一问求解得到多个覆盖层级下的候选路线。为贴合题面，本文首先从小时级可执行候选路线中提取成本--覆盖前沿，再在前沿上比较鲁棒性与舒适性。代表方案如表~\ref{tab:q1_representative_routes} 所示。其中，费用为除餐饮之外的估算费用，主要包括新疆境内交通、门票及必要当地费用和住宿费用。
+
+\begin{table}[htbp]
+    \centering
+    \caption{第一问题面优先成本--覆盖校准代表方案}
+    \label{tab:q1_representative_routes}
+    \small
+    \renewcommand{\arraystretch}{1.18}
+    \setlength{\tabcolsep}{3.5pt}
+    \begin{tabularx}{\textwidth}{
+        L{2.3cm}
+        L{2.3cm}
+        >{\centering\arraybackslash}p{1.8cm}
+        >{\centering\arraybackslash}p{1.0cm}
+        >{\centering\arraybackslash}p{1.0cm}
+        >{\centering\arraybackslash}p{1.7cm}
+        Y
+    }
+        \toprule
+        方案 & 路线编号 & 景点/缓冲/红日 & $P^{\mathrm{op}}$ & $P^{\mathrm{sc}}$ & 费用/元 & 方案定位 \\
+        \midrule
+        题面优先最高覆盖
+        & {\scriptsize Q1V3\_Q28\_269}
+        & 28/1/4
+        & 0.720
+        & 0.000
+        & 13022.84
+        & 30天严格可执行候选中覆盖最高，作为题面主答案，但缓冲较少、强度较高。 \\
+
+        题面+运营鲁棒
+        & {\scriptsize Q1V3\_Q26\_215}
+        & 26/2/4
+        & 0.862
+        & 0.000
+        & 10557.60
+        & 少游2个景点但节省2465.24元，运营成功率明显提高，适合作为执行主推候选。 \\
+
+        24景点最低成本对照
+        & {\scriptsize Q1V3\_Q24\_124}
+        & 24/5/2
+        & 0.940
+        & 0.000
+        & 9620.98
+        & 固定24景点层级下费用最低，体现同覆盖下省钱目标。 \\
+
+        原鲁棒综合方案
+        & {\scriptsize Q1V3\_Q24\_120}
+        & 24/5/2
+        & 0.940
+        & 0.000
+        & 9919.65
+        & 保留原鲁棒多目标主推逻辑，费用略高于同覆盖最低成本方案，但主题覆盖更均衡。 \\
+
+        舒适保守参考
+        & {\scriptsize Q1V3\_Q20\_012}
+        & 20/9/1
+        & 0.950
+        & 0.428
+        & 8055.84
+        & 费用最低且缓冲充足，适合低强度偏好，但覆盖数量明显下降。 \\
+        \bottomrule
+    \end{tabularx}
+\end{table}
+
+从题面主目标看，30天严格可执行候选中最高覆盖路线为 Q1V3\_Q28\_269。该方案覆盖28个景点，除餐饮外总费用为13022.84元，可作为“一个月内尽可能多游”的主答案。其路线顺序为：
+\begin{quote}
+\small
+天山天池 $\rightarrow$ 江布拉克草原 $\rightarrow$ 北庭故城遗址 $\rightarrow$ 吐峪沟麻扎村 $\rightarrow$ 高昌故城 $\rightarrow$ 火焰山 $\rightarrow$ 葡萄沟 $\rightarrow$ 苏公塔 $\rightarrow$ 交河故城 $\rightarrow$ 坎儿井民俗园 $\rightarrow$ 达坂城古镇 $\rightarrow$ 果子沟大桥 $\rightarrow$ 赛里木湖 $\rightarrow$ 霍城薰衣草花田 $\rightarrow$ 喀拉峻大草原 $\rightarrow$ 昭苏草原 $\rightarrow$ 夏塔古道 $\rightarrow$ 那拉提草原 $\rightarrow$ 罗布人村寨 $\rightarrow$ 克孜尔石窟 $\rightarrow$ 库车王府 $\rightarrow$ 和田博物馆 $\rightarrow$ 香妃园 $\rightarrow$ 喀什古城 $\rightarrow$ 艾提尕尔清真寺 $\rightarrow$ 奥依塔克冰川 $\rightarrow$ 帕米尔高原白沙湖 $\rightarrow$ 石头城遗址。
+\end{quote}
+
+该路线覆盖乌鲁木齐周边、东疆、伊犁、南疆、帕米尔和巴州--南疆北线等多个区域，兼顾自然景观、丝路遗址、城市博物馆、宗教文化和西域古城等主题。但它只有1天缓冲，红色压力日达到4天，运营成功率为0.720，说明该方案更接近“题面极限执行”而不是最稳妥的现实旅行建议。
+
+若在题面主目标之外进一步强调执行稳定性，Q1V3\_Q26\_215 是更均衡的运营鲁棒方案。该方案覆盖26个景点，费用为10557.60元，比28景点题面最高覆盖方案少2个景点，但节省2465.24元，运营成功率由0.720提升至0.862。其路线顺序为：
+\begin{quote}
+\small
+天山天池 $\rightarrow$ 北庭故城遗址 $\rightarrow$ 罗布人村寨 $\rightarrow$ 香妃园 $\rightarrow$ 喀什古城 $\rightarrow$ 艾提尕尔清真寺 $\rightarrow$ 石头城遗址 $\rightarrow$ 帕米尔高原白沙湖 $\rightarrow$ 和田博物馆 $\rightarrow$ 库车王府 $\rightarrow$ 克孜尔石窟 $\rightarrow$ 那拉提草原 $\rightarrow$ 昭苏草原 $\rightarrow$ 夏塔古道 $\rightarrow$ 喀拉峻大草原 $\rightarrow$ 霍城薰衣草花田 $\rightarrow$ 果子沟大桥 $\rightarrow$ 赛里木湖 $\rightarrow$ 达坂城古镇 $\rightarrow$ 交河故城 $\rightarrow$ 坎儿井民俗园 $\rightarrow$ 苏公塔 $\rightarrow$ 葡萄沟 $\rightarrow$ 火焰山 $\rightarrow$ 高昌故城 $\rightarrow$ 吐峪沟麻扎村。
+\end{quote}
+
+成本--覆盖前沿还显示，从20景点提高到22景点的边际费用约为262.34元/景点，从22景点提高到24景点约为520.23元/景点，从24景点提高到26景点约为468.31元/景点，而从26景点提高到28景点上升至1232.62元/景点，并伴随缓冲日下降和运营成功率下降。因此，第一问可形成两层结论：题面主答案为28景点最高覆盖路线；现实执行主推可选26景点运营鲁棒路线；若王先生夫妇更重视缓冲和费用，则24景点最低成本对照或原Q1-V3鲁棒综合方案更稳妥。
+
+鲁棒性结果还说明，第一问中“运营可行”和“严格舒适”需要区分。运营成功率主要衡量路线是否能够在30天内完成，并满足基本舒适、预约和住宿条件；严格舒适成功率进一步要求红色压力日数量较低。当前候选空间中尚未出现严格舒适成功率达到80\% 的路线，因此本文不把28景点或26景点方案表述为完全舒适方案。若实际旅游者对舒适性要求更高，可选择20景点舒适保守参考方案，以减少每日强度并增加缓冲天数。
+
+在最优性检验方面，本文对原Q1-V3鲁棒综合方案的固定24景点集合进行了精确排序校验。在固定首点天山天池、固定尾点吐峪沟麻扎村、交通时间取多模式非支配标签最小值的条件下，采用 HiGHS-MILP 求解开放 Hamilton 路径，求解状态为 optimal。原启发式顺序在同一时间矩阵下的转场时间为80.339小时，精确重排后为76.620小时，相对差距为4.8538\%。该结果说明，固定景点集合的排序仍有局部优化空间；同时，该校验只针对固定集合排序子问题，不构成完整选点、排序、排程和鲁棒仿真联合模型的全局最优证明。
+
+\subsection{第二问：两年暑假旅游路线与境内交通费用优化模型}
+\label{subsec:q2_model}
+
+\subsubsection{问题描述与模型定位}
+\label{subsubsec:q2_problem_position}
+
+第二问要求王先生夫妇利用今、明两年暑假完成新疆旅游，并使新疆境内交通费用尽量节省。与第一问不同，第二问的核心目标不再是单次旅行内的景点收益最大化，而是在两年旅行周期内覆盖普通游客可达景点，并将这些景点合理分配到两个暑假中，使两年新疆境内交通费用之和尽可能小。
+
+因此，本文将第二问建模为两年多模式路径覆盖与境内交通费用最小化问题。设普通游客可达景点集合为 $\mathcal{V}^{o}$，年份集合为
+\[
+\mathcal{Y}=\{1,2\},
+\]
+其中 $k=1$ 表示今年暑假，$k=2$ 表示明年暑假。模型需要将每个景点 $i\in\mathcal{V}^{o}$ 分配给某一年，并在每一年形成一条连续可执行路线。
+
+由于进出疆方式会显著影响新疆境内交通成本，本文同时考虑两类口岸政策。第一类为固定乌鲁木齐起讫方案，即两年路线均从乌鲁木齐进入并返回乌鲁木齐；该方案实施简单、外部大交通组织稳定，适合作为保守执行方案。第二类为开放式多口岸方案，即每一年可从候选口岸中选择入疆口岸和离疆口岸；该方案更有利于降低新疆境内绕行成本，但是否降低总费用还取决于华东至不同新疆口岸的外部大交通差价。
+
+需要强调的是，第二问的主目标是新疆境内交通费用最小化。外部进出疆大交通费用不直接进入主目标函数，而是在结果解释中通过多口岸差价阈值进行判断。若开放式多口岸节省的新疆境内交通费用大于外部大交通额外差价，则开放式方案在总费用意义下更优。
+
+\subsubsection{决策变量与目标函数}
+\label{subsubsec:q2_variables_objective}
+
+定义如下决策变量：
+\[
+a_{ik}=
+\begin{cases}
+1, & \text{若景点 } i \text{ 被安排在第 } k \text{ 年游览},\\
+0, & \text{否则},
+\end{cases}
+\qquad i\in\mathcal{V}^{o},\; k\in\mathcal{Y},
+\]
+\[
+x_{ij\ell k}=
+\begin{cases}
+1, & \text{若第 } k \text{ 年路线中从景点 } i \text{ 到景点 } j \text{ 选择交通标签 } \ell,\\
+0, & \text{否则},
+\end{cases}
+\]
+其中 $\ell\in\mathcal{L}_{ij}$。对于开放式多口岸模型，进一步定义
+\[
+g_{bk}^{\mathrm{in}}=
+\begin{cases}
+1, & \text{若第 } k \text{ 年选择口岸 } b \text{ 作为入疆口岸},\\
+0, & \text{否则},
+\end{cases}
+\]
+\[
+g_{bk}^{\mathrm{out}}=
+\begin{cases}
+1, & \text{若第 } k \text{ 年选择口岸 } b \text{ 作为离疆口岸},\\
+0, & \text{否则},
+\end{cases}
+\]
+其中 $b\in\mathcal{B}$，$\mathcal{B}$ 为候选入离疆口岸集合。为刻画口岸至景点之间的接驳，定义入疆接驳变量 $s_{bi\ell k}^{\mathrm{in}}$ 和离疆接驳变量 $s_{ib\ell k}^{\mathrm{out}}$。
+
+第二问的目标函数为两年新疆境内交通费用最小化。对于开放式多口岸模型，目标函数写为
+\[
+\min C^{(2)}
+=
+\sum_{k\in\mathcal{Y}}
+\sum_{i,j\in\mathcal{V}^{o}}
+\sum_{\ell\in\mathcal{L}_{ij}}
+c_{ij\ell}x_{ij\ell k}
++
+\sum_{k\in\mathcal{Y}}
+\sum_{b\in\mathcal{B}}
+\sum_{i\in\mathcal{V}^{o}}
+\sum_{\ell\in\mathcal{L}_{bi}}
+c_{bi\ell}^{\mathrm{in}}s_{bi\ell k}^{\mathrm{in}}
++
+\sum_{k\in\mathcal{Y}}
+\sum_{i\in\mathcal{V}^{o}}
+\sum_{b\in\mathcal{B}}
+\sum_{\ell\in\mathcal{L}_{ib}}
+c_{ib\ell}^{\mathrm{out}}s_{ib\ell k}^{\mathrm{out}}.
+\]
+其中，第一项为两年路线内部景点间转场费用，第二项和第三项分别为入疆口岸到当年首个景点、当年最后一个景点到离疆口岸的新疆境内接驳费用。
+
+固定乌鲁木齐起讫模型是开放式模型的特例。设 $b_0$ 表示乌鲁木齐口岸，则有
+\[
+g_{b_0k}^{\mathrm{in}}=g_{b_0k}^{\mathrm{out}}=1,
+\qquad
+g_{bk}^{\mathrm{in}}=g_{bk}^{\mathrm{out}}=0,
+\quad b\neq b_0.
+\]
+在该口径下，每年路线均以乌鲁木齐为起讫点，目标函数仍为新疆境内交通费用之和。
+
+为提高方案的现实可执行性，除费用目标外，本文在候选方案评价中进一步记录年度天数、两年天数差、红色压力日、时间窗违规、运营成功率、严格舒适成功率和尾部损失等指标。这些指标不改变第二问“境内交通费用最小化”的主目标，但用于从低费用候选中选择更稳健的主推方案。
+
+\subsubsection{约束条件}
+\label{subsubsec:q2_constraints}
+
+第二问模型的约束主要包括景点覆盖、年度路线连续性、口岸选择、年度天数、普通游客可达性和鲁棒性筛选等。
+
+\paragraph{1. 景点覆盖约束}
+
+每个普通游客可达景点必须且只能被分配给一个暑假：
+\[
+\sum_{k\in\mathcal{Y}} a_{ik}=1,
+\qquad i\in\mathcal{V}^{o}.
+\]
+对于需要专项审批或普通游客不可直接进入的景点，不进入第二问普通游客主模型：
+\[
+a_{ik}=0,
+\qquad i\in\mathcal{V}\setminus\mathcal{V}^{o},\; k\in\mathcal{Y}.
+\]
+若需要给出审批扩展方案，可在普通游客主模型之外单独加入特殊准入点和审批约束。
+
+\paragraph{2. 年度路线连续性约束}
+
+对于每一年 $k$，被分配到该年的景点必须构成一条从入疆口岸出发、经若干景点、最终到达离疆口岸的连续路径。对任意景点 $i\in\mathcal{V}^{o}$，其出流和入流分别满足
+\[
+\sum_{j\in\mathcal{V}^{o}}
+\sum_{\ell\in\mathcal{L}_{ij}}x_{ij\ell k}
++
+\sum_{b\in\mathcal{B}}
+\sum_{\ell\in\mathcal{L}_{ib}}s_{ib\ell k}^{\mathrm{out}}
+=
+a_{ik},
+\]
+\[
+\sum_{j\in\mathcal{V}^{o}}
+\sum_{\ell\in\mathcal{L}_{ji}}x_{ji\ell k}
++
+\sum_{b\in\mathcal{B}}
+\sum_{\ell\in\mathcal{L}_{bi}}s_{bi\ell k}^{\mathrm{in}}
+=
+a_{ik}.
+\]
+上述约束保证若景点 $i$ 被安排在第 $k$ 年，则其在该年路线中恰有一个前驱和一个后继；若未被安排在该年，则不会出现在该年路线中。
+
+为避免子回路，引入顺序变量 $\pi_{ik}$，并设置
+\[
+\pi_{ik}-\pi_{jk}
++
+|\mathcal{V}^{o}|
+\sum_{\ell\in\mathcal{L}_{ij}}x_{ij\ell k}
+\leq
+|\mathcal{V}^{o}|-1,
+\qquad i\neq j,\; i,j\in\mathcal{V}^{o},\; k\in\mathcal{Y}.
+\]
+
+\paragraph{3. 入离疆口岸约束}
+
+开放式多口岸模型中，每一年选择一个入疆口岸和一个离疆口岸：
+\[
+\sum_{b\in\mathcal{B}}g_{bk}^{\mathrm{in}}=1,
+\qquad
+\sum_{b\in\mathcal{B}}g_{bk}^{\mathrm{out}}=1,
+\qquad k\in\mathcal{Y}.
+\]
+口岸接驳变量与口岸选择变量之间满足
+\[
+s_{bi\ell k}^{\mathrm{in}}\leq g_{bk}^{\mathrm{in}},
+\qquad
+s_{ib\ell k}^{\mathrm{out}}\leq g_{bk}^{\mathrm{out}}.
+\]
+若采用固定乌鲁木齐起讫方案，则令入离疆口岸均固定为乌鲁木齐，不再优化口岸选择。
+
+\paragraph{4. 年度天数约束}
+
+设第 $k$ 年路线的总游览服务时间为
+\[
+S_k=\sum_{i\in\mathcal{V}^{o}} t_i a_{ik},
+\]
+总交通时间为
+\[
+T_k^{\mathrm{tr}}
+=
+\sum_{i,j\in\mathcal{V}^{o}}
+\sum_{\ell\in\mathcal{L}_{ij}}
+\tau_{ij\ell}x_{ij\ell k}
++
+\sum_{b,i,\ell}\tau_{bi\ell}^{\mathrm{in}}s_{bi\ell k}^{\mathrm{in}}
++
+\sum_{i,b,\ell}\tau_{ib\ell}^{\mathrm{out}}s_{ib\ell k}^{\mathrm{out}}.
+\]
+若每日有效活动时间为 $B$，则第 $k$ 年所需天数可近似表示为
+\[
+D_k
+=
+\left\lceil
+\frac{S_k+T_k^{\mathrm{tr}}}{B}
+\right\rceil .
+\]
+每年暑假路线需满足
+\[
+D_k\leq 30,
+\qquad k\in\mathcal{Y}.
+\]
+在候选方案筛选中，本文进一步记录两年天数差
+\[
+\Delta_D=|D_1-D_2|,
+\]
+并将其作为年度负担均衡性指标。对于可执行主推方案，本文要求年度天数差不宜过大，以避免其中一年旅行负担明显过重。
+
+\paragraph{5. 时间窗与排程可行性约束}
+
+与第一问类似，第二问每一年路线也需满足景区开放时间和住宿落点要求。若景点 $i$ 在第 $k$ 年某日访问，其到达时间应满足
+\[
+a_i \leq A_i^{(k)},\qquad
+A_i^{(k)}+t_i\leq b_i.
+\]
+年度排程还需避免过多高强度日和晚到住宿风险。本文将时间窗违规数、红色压力日和排程严格可行性作为候选方案筛选指标。
+
+\paragraph{6. 鲁棒性评价约束}
+
+对每个候选两年方案 $P$，在情景集合 $\Omega$ 上进行路线级 Monte Carlo 仿真。若方案在扰动情景下仍满足年度天数、时间窗、住宿和基本舒适度要求，则认为该情景下运营成功。运营成功率和严格舒适成功率分别记为
+\[
+P^{\mathrm{op}}(P),
+\qquad
+P^{\mathrm{sc}}(P).
+\]
+在代表方案选择中，本文优先保留
+\[
+P^{\mathrm{op}}(P)\geq \theta^{\mathrm{op}},
+\]
+且排程严格可行的方案。严格舒适成功率用于进一步比较舒适性，但不替代第二问的主目标函数。
+
+\subsubsection{求解流程}
+\label{subsubsec:q2_solution_process}
+
+第二问同时包含景点跨年分配、年度路径排序、交通标签选择和口岸策略选择，直接求解完整混合整数规划较为困难。本文采用数学启发式求解框架，主要步骤如下。
+
+\begin{enumerate}
+    \item \textbf{多模式交通标签生成与费用校准。}
+    基于增强 OD、高德道路 OD、铁路代表班次和航班种子生成景点间多模式交通标签，并对同一 OD 对上的候选方案进行非支配筛选。为避免低估费用，景区接驳若费用缺失或为零，则施加最低接驳费用；原始 \texttt{self\_drive} 标签按转场时长规范化为出租接驳、租车或包车。
+
+    \item \textbf{口岸接驳标签生成。}
+    对候选入离疆口岸与景点之间生成接驳标签，形成固定乌鲁木齐起讫和开放式多口岸两种模型口径。
+
+    \item \textbf{初始方案构造。}
+    结合历史图论基线、高德 OD 重实验、谱聚类分区、区域路线、全疆大环线和随机种子构造两年候选方案。每个候选方案给出两年景点划分、年度访问顺序和入离疆口岸。
+
+    \item \textbf{局部搜索改进。}
+    对候选方案进行 $2$-opt、relocate 和 swap 等局部操作，改进年度路径顺序和跨年景点分配，以降低新疆境内交通费用并保持年度可执行性。
+
+    \item \textbf{年度排程与鲁棒仿真。}
+    对改进后的候选方案进行年度天数、时间窗、红色压力日和住宿落点检查，并使用情景样本进行两年路线级 Monte Carlo 仿真，计算运营成功率、严格舒适成功率和尾部损失。
+
+    \item \textbf{Pareto 筛选与代表方案选择。}
+    根据新疆境内交通费用、年度天数、两年天数差、时间窗违规、运营成功率、严格舒适成功率和 CVaR 等指标筛选非支配方案，并输出固定乌鲁木齐起讫方案、开放多口岸最低费用方案、开放多口岸鲁棒主推方案和舒适均衡备选方案。
+\end{enumerate}
+
+该流程给出的是可复现的高质量可行解框架。为检验路径排序与两年覆盖约束的可求解性，本文在代表性子问题上建立 HiGHS-MILP 精确模型进行校验；但该校验不等同于完整 $38$ 个普通游客景点、两年多口岸、鲁棒排程联合问题的全局最优证明。
+
+\subsubsection{结果与多口岸阈值策略解释}
+\label{subsubsec:q2_results_gateway}
+
+第二问最终保留三类主方案及一个均衡备选方案：固定乌鲁木齐起讫方案、开放多口岸最低费用方案、开放多口岸鲁棒主推方案和舒适均衡备选方案。主要结果如表~\ref{tab:q2_representative_plans} 所示。
+
+\begin{table}[htbp]
+    \centering
+    \caption{第二问代表方案比较}
+    \label{tab:q2_representative_plans}
+    \small
+    \renewcommand{\arraystretch}{1.20}
+    \setlength{\tabcolsep}{3pt}
+    \begin{tabularx}{\textwidth}{@{}
+        L{4.1cm}
+        C{1.4cm}
+        C{1.4cm}
+        C{1.9cm}
+        C{1.9cm}
+        Y
+    @{}}
+        \toprule
+        \TableHeader{方案} &
+        \TableHeader{口岸策略} &
+        \TableHeader{年度天数} &
+        \TableHeader{\makecell{境内交通费}} &
+        \TableHeader{$P^{\mathrm{op}}/P^{\mathrm{sc}}$} &
+        \TableHeader{方案定位} \\
+        \midrule
+        固定乌鲁木齐起讫方案
+        & 乌鲁木齐起讫
+        & 12/19
+        & 4027.71
+        & 1.000/0.934
+        & 保守执行方案，组织难度低，适合作为基准路线。 \\
+        \addlinespace[0.2em]
+
+        开放多口岸最低费用方案
+        & 多口岸
+        & 24/5
+        & 2856.80
+        & 0.980/0.970
+        & 新疆境内交通费用下界，但两年负担不均衡。 \\
+        \addlinespace[0.2em]
+
+        开放多口岸鲁棒主推方案
+        & 多口岸
+        & 12/17
+        & 3099.91
+        & 1.000/0.994
+        & 综合考虑费用、年度均衡和鲁棒性的主推方案。 \\
+        \addlinespace[0.2em]
+
+        舒适均衡备选方案
+        & 多口岸
+        & 15/15
+        & 3507.50
+        & 0.996/0.976
+        & 两年天数完全均衡，适合作为舒适备选。 \\
+        \bottomrule
+    \end{tabularx}
+\end{table}
+
+固定乌鲁木齐起讫方案覆盖全部 $38$ 个普通游客可达景点，两年分别安排 $17$ 个和 $21$ 个景点，年度天数为 $12$ 天和 $19$ 天，新疆境内交通费用为 $4027.71$ 元。该方案的优点是进出疆组织简单，外部大交通安排稳定；缺点是需要回到乌鲁木齐起讫，存在一定绕行成本。
+
+开放多口岸最低费用方案同样覆盖 $38$ 个普通游客可达景点，但第 $1$ 年从伊宁进入、阿勒泰离开，第 $2$ 年从和田进入、喀什离开，新疆境内交通费用降至 $2856.80$ 元。与固定乌鲁木齐起讫方案相比，其境内交通费用节省
+\[
+4027.71-2856.80=1170.91 \text{ 元}.
+\]
+因此，若两人因选择多口岸进出疆而产生的外部大交通额外差价小于 $1170.91$ 元，则开放多口岸最低费用方案在总费用意义下更优；若外部差价高于该阈值，则固定乌鲁木齐起讫方案更稳妥。
+
+然而，开放多口岸最低费用方案的年度天数为 $24$ 天和 $5$ 天，两年负担差达到 $19$ 天，虽然费用最低，但执行均衡性不足。为此，本文进一步选择开放多口岸鲁棒主推方案作为最终推荐的多口岸执行方案。该方案第 $1$ 年从阿勒泰进入、吐鲁番离开，第 $2$ 年从和田进入、伊宁离开；两年分别用时 $12$ 天和 $17$ 天，天数差为 $5$ 天，新疆境内交通费用为 $3099.91$ 元，运营成功率为 $1.000$，严格舒适成功率为 $0.994$，时间窗违规和红色压力日均为 $0$。
+
+开放多口岸鲁棒主推方案的年度路线如下：
+\begin{quote}
+\small
+第 $1$ 年：世界魔鬼城 $\rightarrow$ 五彩滩 $\rightarrow$ 禾木村 $\rightarrow$ 喀纳斯湖 $\rightarrow$ 白哈巴村 $\rightarrow$ 可可托海 $\rightarrow$ 北庭故城遗址 $\rightarrow$ 天山天池 $\rightarrow$ 江布拉克草原 $\rightarrow$ 达坂城古镇 $\rightarrow$ 吐峪沟麻扎村 $\rightarrow$ 高昌故城 $\rightarrow$ 火焰山 $\rightarrow$ 葡萄沟 $\rightarrow$ 苏公塔 $\rightarrow$ 坎儿井民俗园 $\rightarrow$ 交河故城。
+\end{quote}
+\begin{quote}
+\small
+第 $2$ 年：和田博物馆 $\rightarrow$ 千里葡萄长廊 $\rightarrow$ 奥依塔克冰川 $\rightarrow$ 石头城遗址 $\rightarrow$ 帕米尔高原白沙湖 $\rightarrow$ 艾提尕尔清真寺 $\rightarrow$ 喀什古城 $\rightarrow$ 香妃园 $\rightarrow$ 库车王府 $\rightarrow$ 克孜尔石窟 $\rightarrow$ 天山神秘大峡谷 $\rightarrow$ 罗布人村寨 $\rightarrow$ 博斯腾湖 $\rightarrow$ 巴音布鲁克草原 $\rightarrow$ 那拉提草原 $\rightarrow$ 夏塔古道 $\rightarrow$ 昭苏草原 $\rightarrow$ 喀拉峻大草原 $\rightarrow$ 霍城薰衣草花田 $\rightarrow$ 果子沟大桥 $\rightarrow$ 赛里木湖。
+\end{quote}
+
+相较于固定乌鲁木齐起讫方案，开放多口岸鲁棒主推方案节省新疆境内交通费用
+\[
+4027.71-3099.91=927.80 \text{ 元}.
+\]
+因此，若两人采用开放多口岸鲁棒主推方案所增加的外部大交通差价低于 $927.80$ 元，则该方案在总费用和执行质量之间更具优势。若实际外部机票或火车票差价较高，则可采用固定乌鲁木齐起讫方案作为保守替代。
+
+从费用--天数--鲁棒前沿看，开放多口岸方案整体上能够显著降低新疆境内交通费用，但最低费用解未必是最均衡、最适合执行的方案。开放多口岸鲁棒主推方案相比开放多口岸最低费用方案增加约 $243.11$ 元境内交通费用，却将年度天数差由 $19$ 天降至 $5$ 天，并保持更高的运营成功率和严格舒适成功率。因此，本文将开放多口岸最低费用方案解释为境内交通费用下界，将开放多口岸鲁棒主推方案解释为可执行主推方案，将固定乌鲁木齐起讫方案解释为保守执行方案。
+
+在精确校验方面，本文从固定乌鲁木齐起讫主方案中抽取两年各 $10$ 个代表景点，建立 $20$ 节点两路径覆盖 MILP：两条路线均从乌鲁木齐出发并返回乌鲁木齐，每个景点恰好访问一次，每年景点数限制在 $8$ 至 $12$ 个之间，目标为最小化两人新疆境内交通费用。HiGHS-MILP 求解状态为 optimal，原抽样顺序费用为 $2594.34$ 元，精确模型费用为 $1681.10$ 元，相对差距为 $54.3240\%$。该结果说明标准 MILP 能在代表性子问题上精确求解费用最小两路径覆盖结构，也提示启发式路线在局部费用排序上仍有改进空间；但由于完整 $38$ 点、多口岸、时间窗与鲁棒仿真联合问题规模更大，本文不声称第二问结果为完整问题空间上的全局最优解。
+
+\subsection{第三问：三组文化考察路线调度模型}
+\label{subsec:q3_model}
+
+\subsubsection{问题描述与模型定位}
+\label{subsubsec:q3_problem_position}
+
+第三问要求高校少数民族研究所组织三组人员赴新疆开展文化考察。与前两问普通旅游不同，第三问的任务目标不是尽可能多地游览景点，也不是使交通费用最小，而是在三组并行开展考察的条件下，使整体考察任务尽早完成。由于三组可以同时出发、同时考察，项目总完成时间取决于三组中完成最晚的一组。因此，本文将第三问建模为三团队文化考察任务分配与路线调度问题，其核心目标为最晚完成时间最小化，即 MinMax 调度模型。
+
+设文化考察小组集合为
+\[
+\mathcal{G}=\{1,2,3\},
+\]
+文化考察候选景点集合为 $\mathcal{V}^{c}$。对于每个文化考察点 $i\in\mathcal{V}^{c}$，普通观光停留时间为 $t_i$。根据题意，文化考察所需现场服务时间取普通观光时间的四倍，即
+\[
+\tilde{t}_i=4t_i.
+\]
+若景点 $i$ 还涉及审批、持证向导、越野车辆、边境或高风险环境，则额外设置安全缓冲时间 $b_i$。因此，第三问中一个考察点的实际现场占用时间由 $\tilde{t}_i+b_i$ 共同决定。
+
+由于楼兰古城、尼雅遗址等遗址类景点具有较高文化考察价值，同时又涉及审批、向导和越野车辆等条件，本文将其作为专项审批点处理。在当前模型口径下，楼兰古城和尼雅遗址固定由同一专项审批组执行，其余文化考察点在三组之间枚举分配。该处理反映了特殊准入资源集中管理的现实要求，也明确限定了后续最优性结论的适用范围。
+
+\subsubsection{文化考察候选点构建}
+\label{subsubsec:q3_candidate_set}
+
+第三问的候选点不直接等同于普通游客景点集合，而是根据文化考察任务重新筛选。设景点 $i$ 的文化价值评分为 $s_i^{c}$，特殊准入指示变量为 $r_i^{s}$。本文构造文化考察候选集合
+\[
+\mathcal{V}^{c}
+=
+\{i\in\mathcal{V}\mid s_i^{c}\geq \theta_c \}
+\cup
+\{i\in\mathcal{V}\mid r_i^{s}=1\},
+\]
+其中 $\theta_c$ 为文化价值阈值。第一部分表示具有较高文化价值的普通文化景点，第二部分表示虽具有特殊准入要求但具备重要考察意义的遗址或边远点。
+
+候选点的文化属性包括丝绸之路遗址、宗教文化、民族民俗、考古遗存、世界遗产或重点遗产、自然文化复合属性等。对于普通旅游而言，这些属性可作为偏好或主题多样性指标；对于第三问而言，它们直接决定考察对象的选择。设 $\mathcal{V}^{A}\subseteq\mathcal{V}^{c}$ 为专项审批点集合，则在当前模型中有
+\[
+\mathcal{V}^{A}=\{\text{楼兰古城},\text{尼雅遗址}\}.
+\]
+该集合中的点由专项审批组统一执行，以避免审批、向导和越野车辆等资源跨组重复配置。
+
+\subsubsection{决策变量与目标函数}
+\label{subsubsec:q3_variables_objective}
+
+定义如下决策变量：
+\[
+a_{ig}=
+\begin{cases}
+1, & \text{若文化考察点 } i \text{ 分配给第 } g \text{ 组},\\
+0, & \text{否则},
+\end{cases}
+\qquad i\in\mathcal{V}^{c},\;g\in\mathcal{G},
+\]
+\[
+x_{ijg}=
+\begin{cases}
+1, & \text{若第 } g \text{ 组路线中从考察点 } i \text{ 转移至考察点 } j,\\
+0, & \text{否则},
+\end{cases}
+\]
+其中 $i,j\in \mathcal{V}^{c}\cup\{0\}$，$0$ 表示乌鲁木齐起讫点。设 $T_g$ 为第 $g$ 组完成全部考察任务所需总时间，$Z$ 为三组中最晚完成时间，则第三问的目标函数为
+\[
+\min Z
+\]
+\[
+\text{s.t.}\qquad T_g\leq Z,\qquad g\in\mathcal{G}.
+\]
+
+对第 $g$ 组而言，总完成时间由交通时间、现场考察时间和安全缓冲时间组成：
+\[
+T_g
+=
+\sum_{i,j\in\mathcal{V}^{c}\cup\{0\}}
+\tau_{ij}x_{ijg}
++
+\sum_{i\in\mathcal{V}^{c}}
+\tilde{t}_i a_{ig}
++
+\sum_{i\in\mathcal{V}^{c}}
+b_i a_{ig}.
+\]
+其中，$\tau_{ij}$ 为沿用前两问交通口径得到的考察点 $i$ 至 $j$ 的转场时间，$\tilde{t}_i=4t_i$ 为文化考察现场时间，$b_i$ 为特殊准入或高风险点的安全缓冲时间。该目标函数直接对应“尽早完成考察任务”的题意。
+
+\subsubsection{约束条件}
+\label{subsubsec:q3_constraints}
+
+第三问约束主要包括任务唯一分配、专项审批组、组内路线连续性、子回路消除和完成时间计算等。
+
+\paragraph{1. 考察点唯一分配约束}
+
+每个文化考察点必须且只能分配给一个小组：
+\[
+\sum_{g\in\mathcal{G}}a_{ig}=1,
+\qquad i\in\mathcal{V}^{c}.
+\]
+该约束保证全部候选文化点均被考察，且不存在重复考察。
+
+\paragraph{2. 专项审批点固定组约束}
+
+设 $g=1$ 为专项审批组。对于楼兰古城、尼雅遗址等专项审批点，固定分配给第 $1$ 组：
+\[
+a_{i1}=1,
+\qquad i\in\mathcal{V}^{A},
+\]
+\[
+a_{ig}=0,
+\qquad i\in\mathcal{V}^{A},\;g\neq 1.
+\]
+该约束表示审批、持证向导、越野车辆和安全管理资源由专项审批组集中使用。在此政策空间下，特殊资源不跨组共享。
+
+\paragraph{3. 组内路线起讫约束}
+
+每个考察小组均从乌鲁木齐出发并返回乌鲁木齐。令 $0$ 表示乌鲁木齐起讫节点，则对每组 $g$ 有
+\[
+\sum_{j\in\mathcal{V}^{c}}x_{0jg}=1,
+\qquad
+\sum_{i\in\mathcal{V}^{c}}x_{i0g}=1.
+\]
+该约束使每组形成一条以乌鲁木齐为根节点的闭合考察路线。
+
+\paragraph{4. 组内流平衡约束}
+
+若考察点 $i$ 被分配给第 $g$ 组，则该点在第 $g$ 组路线中恰有一条入边和一条出边：
+\[
+\sum_{j\in\mathcal{V}^{c}\cup\{0\}}x_{ijg}=a_{ig},
+\qquad i\in\mathcal{V}^{c},\;g\in\mathcal{G},
+\]
+\[
+\sum_{j\in\mathcal{V}^{c}\cup\{0\}}x_{jig}=a_{ig},
+\qquad i\in\mathcal{V}^{c},\;g\in\mathcal{G}.
+\]
+该约束将任务分配变量与组内路线变量连接起来。
+
+\paragraph{5. 子回路消除约束}
+
+为避免同一小组内部出现与乌鲁木齐起讫路线无关的子回路，引入顺序变量 $\pi_{ig}$，并设置 Miller--Tucker--Zemlin 型约束：
+\[
+\pi_{ig}-\pi_{jg}
++
+|\mathcal{V}^{c}|x_{ijg}
+\leq
+|\mathcal{V}^{c}|-1,
+\qquad i\neq j,\; i,j\in\mathcal{V}^{c},\; g\in\mathcal{G}.
+\]
+该约束保证每组考察点能够形成一条连通路线。
+
+\paragraph{6. 最晚完成时间约束}
+
+第 $g$ 组完成时间 $T_g$ 由交通、考察和安全缓冲组成，并满足
+\[
+T_g
+=
+\sum_{i,j\in\mathcal{V}^{c}\cup\{0\}}\tau_{ij}x_{ijg}
++
+\sum_{i\in\mathcal{V}^{c}}(4t_i+b_i)a_{ig},
+\qquad g\in\mathcal{G}.
+\]
+项目最晚完成时间 $Z$ 满足
+\[
+T_g\leq Z,\qquad g\in\mathcal{G}.
+\]
+最小化 $Z$ 即可使三组并行考察任务尽早整体完成。
+
+\paragraph{7. 项目天数换算}
+
+若每日有效考察工作时间为 $B$，则第 $g$ 组基础项目天数记为
+\[
+D_g=\left\lceil\frac{T_g}{B}\right\rceil .
+\]
+总项目工期由最晚完成组决定：
+\[
+D_{\max}=\max_{g\in\mathcal{G}}D_g.
+\]
+在后续缓冲策略中，项目计划周期在 $D_{\max}$ 基础上叠加项目缓冲、机动小组或延期拆期策略。
+
+\subsubsection{求解流程}
+\label{subsubsec:q3_solution_process}
+
+第三问的候选点规模相对前两问较小，但同时包含三组任务分配和组内路线排序。本文采用“候选点筛选--子集精确路径--三组分配枚举--鲁棒缓冲评价”的求解流程。
+
+\begin{enumerate}
+    \item \textbf{文化候选点筛选。}
+    根据文化价值评分和特殊准入条件构造 $\mathcal{V}^{c}$。文化价值评分达到阈值的景点进入候选集合；楼兰古城、尼雅遗址等具有重要考察意义的特殊点即使存在准入限制，也作为候选点进入模型。
+
+    \item \textbf{交通时间矩阵构造。}
+    沿用前两问的多模式交通时间口径，构造文化考察点之间及乌鲁木齐起讫点到各考察点之间的转场时间矩阵、费用矩阵和风险矩阵。
+
+    \item \textbf{全子集组内路径精确计算。}
+    对文化候选点的任意子集，使用 Held--Karp 动态规划计算以乌鲁木齐为起讫点的最短组内考察路线。这样，在三组任务分配时，可直接调用任意子集对应的最优组内路线时间。
+
+    \item \textbf{固定特殊准入政策下的三组分配枚举。}
+    在楼兰古城和尼雅遗址固定由专项审批组执行的政策空间内，对其余文化考察点枚举三组分配。对每个分配方案，根据预先计算的子集最优路径时间、现场考察时间和安全缓冲时间计算各组完成时间，并以 $\max_g T_g$ 作为评价值。
+
+    \item \textbf{MinMax 方案选择。}
+    在所有可行分配方案中选择最小化 $Z=\max_gT_g$ 的方案，同时记录组间完成时间差、风险水平、交通费用和文化价值覆盖等指标。
+
+    \item \textbf{缓冲策略鲁棒性评价。}
+    对得到的主方案进行路线级 Monte Carlo 仿真，考虑审批返工、天气延期、道路扰动和安全缓冲不足等风险，并比较不同项目缓冲和机动资源策略下的成功率、延期损失和额外成本。
+\end{enumerate}
+
+该流程的特点是：在固定特殊准入组政策下，组内路径排序采用精确动态规划，三组任务分配采用枚举评价，因此可以在该政策空间内给出精确或半精确的 MinMax 结果；但若开放楼兰古城、尼雅遗址跨组共享或错日使用等替代资源政策，则需重新建模求解。
+
+\subsubsection{结果与缓冲策略解释}
+\label{subsubsec:q3_results}
+
+在文化价值阈值和特殊准入约束共同作用下，第三问最终得到 $14$ 个文化考察候选点。模型在楼兰古城、尼雅遗址固定由专项审批组执行、三组均乌鲁木齐起讫、特殊资源不跨组共享的政策空间下，对可行分配进行枚举，并对每个子集的组内路线进行 Held--Karp 精确排序。枚举评价结果显示，在该固定政策空间下最优最大完成时间为 $99.19$ 小时，组间完成时间差为 $9.99$ 小时。
+
+三组考察路线结果如表~\ref{tab:q3_assignment_routes} 所示。
+
+\begin{table}[htbp]
+    \centering
+    \caption{第三问三组文化考察路线结果}
+    \label{tab:q3_assignment_routes}
+    \small
+    \renewcommand{\arraystretch}{1.20}
+    \setlength{\tabcolsep}{3pt}
+    \begin{tabularx}{\textwidth}{@{}
+        >{\raggedright\arraybackslash}m{1.4cm}
+        >{\raggedright\arraybackslash}m{2.0cm}
+        >{\centering\arraybackslash}m{1.0cm}
+        >{\centering\arraybackslash}m{2.0cm}
+        >{\centering\arraybackslash}m{1.6cm}
+        >{\centering\arraybackslash}m{1.0cm}
+        Y
+    @{}}
+        \toprule
+        \TableHeader{小组} &
+        \TableHeader{路线定位} &
+        \TableHeader{点数} &
+        \TableHeader{\makecell{时间构成/h\\交通/考察}} &
+        \TableHeader{总时间/h} &
+        \TableHeader{天数} &
+        \TableHeader{考察路线} \\
+        \midrule
+        Group1
+        & 专项审批组
+        & 2
+        & 27.19/64
+        & 99.19
+        & 13
+        & 楼兰古城 $\rightarrow$ 尼雅遗址 \\
+        \addlinespace[0.2em]
+
+        Group2
+        & 标准文化组
+        & 7
+        & 30.19/59
+        & 89.19
+        & 12
+        & 吐峪沟麻扎村 $\rightarrow$ 苏公塔 $\rightarrow$ 交河故城 $\rightarrow$ 罗布人村寨 $\rightarrow$ 库车王府 $\rightarrow$ 艾提尕尔清真寺 $\rightarrow$ 喀什古城 \\
+        \addlinespace[0.2em]
+
+        Group3
+        & 标准文化组
+        & 5
+        & 41.40/46
+        & 89.40
+        & 12
+        & 北庭故城遗址 $\rightarrow$ 高昌故城 $\rightarrow$ 克孜尔石窟 $\rightarrow$ 石头城遗址 $\rightarrow$ 香妃园 \\
+        \bottomrule
+    \end{tabularx}
+\end{table}
+
+从结果看，Group1 虽然只承担两个考察点，但楼兰古城和尼雅遗址均为专项审批点，现场考察时间合计 $64$ 小时，并额外需要 $8$ 小时安全缓冲，因此其总完成时间达到 $99.19$ 小时，成为决定项目工期的瓶颈组。Group2 和 Group3 分别承担 $7$ 个和 $5$ 个标准文化考察点，总完成时间约为 $89$ 小时，二者较为接近。整体来看，该方案不是追求三组景点数量平均，而是通过 MinMax 目标使三组完成时间尽量均衡。
+
+进一步换算项目天数，在每日有效工作时间为 $8$ 小时的口径下，Group1 约需 $13$ 天，Group2 和 Group3 各约需 $12$ 天。因此，基础考察项目周期由 Group1 决定，基础现场项目天数为 $13$ 天。考虑到文化考察包含审批、天气、道路和安全风险，仅按基础天数安排项目并不稳妥，需要进一步设置项目缓冲。
+
+缓冲策略评价结果如表~\ref{tab:q3_buffer_policy} 所示。
+
+\begin{table}[H]
+    \centering
+    \caption{第三问项目缓冲策略比较}
+    \label{tab:q3_buffer_policy}
+    \small
+    \renewcommand{\arraystretch}{1.24}
+    \setlength{\tabcolsep}{3.5pt}
+    \begin{tabularx}{\textwidth}{@{}
+        >{\raggedright\arraybackslash}m{2.7cm}
+        >{\centering\arraybackslash}m{1.55cm}
+        >{\centering\arraybackslash}m{1.55cm}
+        >{\centering\arraybackslash}m{1.85cm}
+        >{\centering\arraybackslash}m{1.75cm}
+        Y
+    @{}}
+        \toprule
+        \TableHeader{策略} &
+        \TableHeader{\makecell[c]{加权\\成功率}} &
+        \TableHeader{\makecell[c]{最差\\成功率}} &
+        \TableHeader{\makecell[c]{期望延期\\损失/d}} &
+        \TableHeader{\makecell[c]{额外成本\\(元)}} &
+        \TableHeader{策略定位} \\
+        \midrule
+        4 天项目缓冲
+        & 0.6303
+        & 0.056
+        & 1.232
+        & 2272.58
+        & 常规可控选项，极端情景下保障不足。 \\
+        \addlinespace[0.2em]
+
+        5 天项目缓冲
+        & 0.7190
+        & 0.140
+        & 0.905
+        & 2275.12
+        & 成本敏感均衡策略，适合作为基本缓冲安排。 \\
+        \addlinespace[0.2em]
+
+        \makecell[l]{机动小组\\+5 天缓冲}
+        & 0.8170
+        & 0.374
+        & 0.484
+        & 4334.60
+        & 高可靠执行策略，适合强调项目按期完成的组织场景。 \\
+        \addlinespace[0.2em]
+
+        \makecell[l]{延后/拆期\\+7 天缓冲}
+        & 0.9560
+        & 0.808
+        & 0.090
+        & 5751.42
+        & 复合极端预案，适合审批返工或严重天气扰动情景。 \\
+        \bottomrule
+    \end{tabularx}
+\end{table}
+
+可以看出，单纯增加到 $5$ 天项目缓冲后，加权成功率提高至 $0.719$，但最差情景成功率仍仅为 $0.14$，因此本文将其定位为成本敏感均衡策略，而不将其表述为高可靠主推。若组织方更重视按期完成，应采用“机动小组 + 5 天缓冲”策略，其加权成功率达到 $0.817$，期望延期损失降至 $0.484$ 天。若遇到审批返工、道路封闭和天气延期叠加的复合极端情景，则应采用“延后/拆期 + 7 天缓冲”作为预案，该策略的加权成功率达到 $0.956$，最差情景成功率达到 $0.808$。
+
+综上，第三问的推荐方案可分为两层：在基础路线层面，采用表~\ref{tab:q3_assignment_routes} 中的三组 MinMax 分配路线，使固定特殊准入政策空间下的最大完成时间为 $99.19$ 小时；在项目组织层面，若强调成本控制，则采用 $5$ 天项目缓冲作为均衡策略，若强调执行可靠性，则采用“机动小组 + 5 天缓冲”，若面对复合极端风险，则采用“延后/拆期 + 7 天缓冲”。该结论的最优性仅在楼兰古城和尼雅遗址固定由专项审批组执行、三组均乌鲁木齐起讫、特殊资源不跨组共享的政策空间内成立；若允许审批资源跨组共享或错日使用，则需要重新开放资源政策并再求解。
+
+\subsection{第四问：五一黄金周线路产品组合与分时容量优化模型}
+\label{subsec:q4_model}
+
+\subsubsection{问题描述与模型定位}
+\label{subsubsec:q4_problem_position}
+
+第四问要求新疆维吾尔自治区旅游部门在五一旅游黄金周期间，为自治区外游客组织多条自治区内 $12$ 天游线路，以分散游客并提高接待质量。与前三问不同，第四问的决策主体不再是单个游客、家庭或考察小组，而是文旅部门或旅游平台；决策对象也不再是一条具体路线，而是面向集中客流的线路产品组合、线路投放容量、分时预约安排和多资源接待能力。
+
+因此，本文将第四问建模为线路产品组合与分时多资源容量优化问题。设候选线路产品集合为 $\mathcal{R}$，每条线路产品 $r\in\mathcal{R}$ 均为完整的 $12$ 天游线路。模型需要从候选线路集合中选择若干条线路向游客推介，确定各线路接待人数，并检验景区、住宿、车辆、导游、摆渡和停车等资源在五一 $12$ 天窗口内是否满足容量约束。
+
+第四问的核心不在于某一条线路是否最短，而在于以下三个问题：第一，线路组合是否具有足够接待能力；第二，热点景区在某日某时段是否发生局部超载；第三，住宿和服务资源是否成为新的接待瓶颈。若仅比较线路总容量与游客总需求，可能掩盖景区上午时段拥挤、酒店房量不足或车辆导游资源短缺等现实问题。因此，本文在总容量约束之外进一步引入分时预约容量和多资源负载约束。
+
+\subsubsection{候选线路产品生成}
+\label{subsubsec:q4_route_generation}
+
+第四问首先需要形成可投放的 $12$ 天游线路产品库。设原始线路种子集合为 $\mathcal{R}^{0}$，候选产品集合为 $\mathcal{R}$。本文从原九条线路种子出发，按大众均衡、亲子舒适、长者慢游、错峰分流、文化深游、自然风景和精品预约等产品类型进行扩展，生成多类满足 $12$ 天周期要求的候选线路产品。
+
+每条线路产品 $r$ 具有如下属性：
+\[
+r=
+(\mathcal{V}_r,\mathcal{D}^{(4)},\operatorname{Cap}_r,
+Q_r^{\mathrm{comfort}},
+Q_r^{\mathrm{low}},
+Q_r^{\mathrm{div}}),
+\]
+其中，$\mathcal{V}_r$ 表示线路覆盖景点集合，$\mathcal{D}^{(4)}=\{1,\ldots,12\}$ 表示五一运营周期，$\operatorname{Cap}_r$ 表示该线路在 $12$ 天窗口内的接待能力，$Q_r^{\mathrm{comfort}}$、$Q_r^{\mathrm{low}}$ 和 $Q_r^{\mathrm{div}}$ 分别表示线路舒适度、低压力分流能力和主题多样性指标。
+
+候选线路生成并不追求枚举所有可能线路，而是生成具有运营解释性的线路产品列。线路产品既包括大众均衡型线路，也包括面向亲子、长者、文化深游和错峰分流的细分产品。这样可以在总容量扩张的同时提高线路类型多样性，避免全部游客集中到传统热点线路。
+
+为保证线路产品质量，本文对每条入选线路进行强度审计。设 $H_{rd}$ 为线路 $r$ 在第 $d$ 天的活动强度，若某日活动时间超过阈值，则记为红色压力日；若跨区域转场时间过长，则记为长转场日。线路质量审计指标包括
+\[
+N_r^{\mathrm{red}},
+\qquad
+N_r^{\mathrm{long}},
+\qquad
+B_r^{\mathrm{buf}},
+\]
+分别表示红色压力日数、长转场日数和缓冲日数。若线路存在过多高强度日或缓冲不足，则不宜直接作为普通团队产品投放，而应通过拆段、分批、小交通补充或改为小团深度产品进行修正。
+
+\subsubsection{决策变量与目标函数}
+\label{subsubsec:q4_variables_objective}
+
+定义如下决策变量：
+\[
+x_r=
+\begin{cases}
+1, & \text{若线路产品 } r \text{ 被选入五一推介组合},\\
+0, & \text{否则},
+\end{cases}
+\qquad r\in\mathcal{R},
+\]
+\[
+q_r\geq 0,
+\qquad r\in\mathcal{R},
+\]
+表示分配至线路产品 $r$ 的游客人数。进一步定义景区分时负载变量
+\[
+l_{ids},
+\qquad i\in\mathcal{V},\ d\in\mathcal{D}^{(4)},\ s\in\mathcal{S},
+\]
+其中 $s$ 表示上午、下午或晚间预约时段。住宿枢纽负载变量为
+\[
+u_{hd},
+\qquad h\in\mathcal{H},\ d\in\mathcal{D}^{(4)},
+\]
+服务资源负载变量为
+\[
+v_{hdk},
+\qquad h\in\mathcal{H},\ d\in\mathcal{D}^{(4)},\ k\in\mathcal{K},
+\]
+其中 $\mathcal{K}$ 包括车辆、导游、摆渡和停车等资源类型。若考虑动态分流，定义
+\[
+m_{rr'}\geq 0,
+\]
+表示从线路 $r$ 分流至替代线路 $r'$ 的游客人数。
+
+第四问采用多目标加权优化。目标函数写为
+\[
+\max F^{(4)}
+=
+\omega_1 S
+-
+\omega_2 P^{\mathrm{cong}}
+-
+\omega_3 P^{\mathrm{hotel}}
+-
+\omega_4 P^{\mathrm{res}}
+-
+\omega_5 P^{\mathrm{pref}}
+-
+\omega_6 P^{\mathrm{trans}}
++
+\omega_7 Q^{\mathrm{div}}
++
+\omega_8 Q^{\mathrm{low}}.
+\]
+其中，$S$ 表示接待游客人数，$P^{\mathrm{cong}}$ 表示景区分时拥挤惩罚，$P^{\mathrm{hotel}}$ 表示住宿资源不足惩罚，$P^{\mathrm{res}}$ 表示车辆、导游、摆渡等服务资源不足惩罚，$P^{\mathrm{pref}}$ 表示游客偏好损失，$P^{\mathrm{trans}}$ 表示动态分流产生的额外转移惩罚，$Q^{\mathrm{div}}$ 表示线路组合多样性，$Q^{\mathrm{low}}$ 表示低压力线路接待能力。该目标函数使模型不仅追求接待人数最大，也同时考虑拥堵、资源瓶颈和线路质量。
+
+\subsubsection{约束条件}
+\label{subsubsec:q4_constraints}
+
+第四问约束主要包括线路投放容量、题面比例分配、景区分时容量、住宿容量、车辆导游资源容量、线路质量和动态分流等。
+
+\paragraph{1. 线路投放与接待量约束}
+
+若线路 $r$ 未被投放，则其接待游客数为 $0$；若线路被投放，则接待人数不超过线路容量：
+\[
+0\leq q_r\leq \operatorname{Cap}_r x_r,
+\qquad r\in\mathcal{R}.
+\]
+设五一外地游客需求为 $D$，未被接待游客量为 $\xi$，则
+\[
+\sum_{r\in\mathcal{R}}q_r+\xi=D,
+\qquad \xi\geq 0.
+\]
+模型优先减少 $\xi$，即提高总接待率。
+
+\paragraph{2. 题面容量比例分配约束}
+
+题面要求参加各条线路的游客人数与整条线路接待能力成比例。因此，本文首先设置严格容量比例分配基准：
+\[
+q_r^{0}
+=
+D\cdot
+\frac{\operatorname{Cap}_r x_r}
+{\sum_{r'\in\mathcal{R}}\operatorname{Cap}_{r'}x_{r'}},
+\qquad r\in\mathcal{R}.
+\]
+该口径作为题面基准解。进一步地，为贴近现实游客偏好，模型还设置偏好弹性分配和运营均衡分配两类扩展口径。偏好弹性分配允许游客适度向吸引力高、舒适度高的线路集中；运营均衡分配则在游客偏好、线路容量、舒适度和低压力分流之间折中。三种口径并列保留，以区分题面比例假设与现实运营优化。
+
+\paragraph{3. 景区分时容量约束}
+
+设 $a_{rids}=1$ 表示线路 $r$ 在第 $d$ 天时段 $s$ 访问景点 $i$，否则为 $0$。由于 $q_r$ 表示 $12$ 天窗口内的线路总接待量，在滚动发团近似下，记
+\[
+\bar{q}_r=\frac{q_r}{12}
+\]
+为线路 $r$ 对单个运营日的平均负载。景点 $i$ 在第 $d$ 天时段 $s$ 的游客负载为
+\[
+l_{ids}
+=
+\sum_{r\in\mathcal{R}}a_{rids}\bar{q}_r.
+\]
+设 $\operatorname{Cap}_{ids}$ 为景点 $i$ 在日期 $d$、时段 $s$ 的有效接待容量，则
+\[
+l_{ids}\leq \operatorname{Cap}_{ids}+\delta_{ids},
+\qquad
+\delta_{ids}\geq 0.
+\]
+其中 $\delta_{ids}$ 为分时超载量，进入拥挤惩罚项 $P^{\mathrm{cong}}$。若要求严格可行，则进一步要求
+\[
+\delta_{ids}=0.
+\]
+
+\paragraph{4. 住宿容量约束}
+
+设 $b_{rhd}=1$ 表示线路 $r$ 在第 $d$ 晚使用枢纽 $h$ 住宿，$\kappa$ 表示每间房平均容纳人数。枢纽 $h$ 在第 $d$ 晚的房量需求为
+\[
+u_{hd}
+=
+\sum_{r\in\mathcal{R}}
+b_{rhd}\frac{\bar{q}_r}{\kappa}.
+\]
+设 $\operatorname{Room}_{hd}$ 为枢纽 $h$ 在第 $d$ 晚可协调住宿房量，则
+\[
+u_{hd}\leq \operatorname{Room}_{hd}+\Delta_{hd}^{\mathrm{hotel}},
+\qquad
+\Delta_{hd}^{\mathrm{hotel}}\geq 0.
+\]
+其中 $\Delta_{hd}^{\mathrm{hotel}}$ 表示住宿缺口，进入住宿资源不足惩罚项。
+
+\paragraph{5. 车辆、导游与摆渡资源约束}
+
+设 $c_{rhdk}$ 表示线路 $r$ 在日期 $d$、枢纽 $h$ 对资源 $k$ 的单位游客资源需求，资源 $k$ 包括车辆、导游、摆渡或停车等。则资源负载为
+\[
+v_{hdk}
+=
+\sum_{r\in\mathcal{R}} c_{rhdk}\bar{q}_r.
+\]
+若 $\operatorname{Res}_{hdk}$ 表示对应服务资源能力，则
+\[
+v_{hdk}\leq \operatorname{Res}_{hdk}+\Delta_{hdk}^{\mathrm{res}},
+\qquad
+\Delta_{hdk}^{\mathrm{res}}\geq 0.
+\]
+当 $\Delta_{hdk}^{\mathrm{res}}=0$ 对所有资源均成立时，说明线路组合在服务资源维度上严格可行。
+
+\paragraph{6. 线路质量约束}
+
+为了提高接待质量，线路产品不能出现过多高强度日或长距离转场日。设 $N_r^{\mathrm{red}}$ 为线路 $r$ 的红色压力日数量，$N_r^{\mathrm{long}}$ 为长转场日数量，$B_r^{\mathrm{buf}}$ 为缓冲日数量。对于直接投放线路，应满足
+\[
+N_r^{\mathrm{red}}\leq \bar{N}^{\mathrm{red}},
+\qquad
+N_r^{\mathrm{long}}\leq \bar{N}^{\mathrm{long}},
+\qquad
+B_r^{\mathrm{buf}}\geq \bar{B}^{\mathrm{buf}}.
+\]
+若线路未完全满足上述条件，则可作为储备线路或经拆段、分批、小交通补充后再投放，而不直接作为普通团队产品。
+
+\paragraph{7. 动态分流约束}
+
+当某条线路达到容量上限或游客偏好集中导致局部拥堵时，模型允许将部分游客分流到替代线路。设 $\mathcal{A}(r)$ 为线路 $r$ 的可替代线路集合，则
+\[
+m_{rr'}=0,\qquad r'\notin\mathcal{A}(r).
+\]
+线路 $r$ 的实际接待量可写为
+\[
+q_r
+=
+q_r^{\mathrm{base}}
+-
+\sum_{r'\in\mathcal{A}(r)}m_{rr'}
++
+\sum_{r':r\in\mathcal{A}(r')}m_{r'r}.
+\]
+分流惩罚 $P^{\mathrm{trans}}$ 与分流人数、主题差异和区域距离有关，用于避免将全部溢出游客简单压向某一传统热点线路。
+
+\subsubsection{求解流程}
+\label{subsubsec:q4_solution_process}
+
+第四问采用“线路产品库构建、可投放组合筛选、游客需求分配、分时多资源校验、情景策略评估和质量审计”的求解流程。为便于论文表述，求解结果不保留程序内部版本号和候选线路编号，而统一转化为具有运营含义的中文线路产品名称和接待策略名称。
+
+\begin{enumerate}
+    \item \textbf{线路产品库构建。}
+    从原九条线路种子出发，按大众均衡、亲子舒适、长者慢游、错峰分流、文化深游、自然风景和精品预约等产品类型扩展为完整 $12$ 天游线路产品。每条候选产品以“区域组合 + 产品主题”的方式命名，并计算线路容量、景点覆盖、舒适度、低压力分流能力和主题多样性。
+
+    \item \textbf{可投放组合筛选。}
+    根据线路容量、目标客群、区域覆盖、主题多样性、舒适度和低压力容量等指标，对候选产品进行综合评分，并从中筛选形成五一扩展推介组合。筛选时同时保留质量分层信息，将线路区分为可直接投放、经微调后投放和储备投放三类。
+
+    \item \textbf{游客需求分配。}
+    首先按题面要求计算严格容量比例分配，作为与题意一致的基准口径；随后构造偏好弹性分配和运营均衡分配，分别刻画游客对高吸引力线路的偏好和管理者对舒适度、低压力线路的主动引导。三种口径共同用于比较线路利用率、接待压力和分流效果。
+
+    \item \textbf{分时多资源校验。}
+    将景区日容量拆分为上午、下午、晚上三个预约时段，计算景区分时负载、住宿负载以及车辆、导游、摆渡和停车等服务资源负载。若某一时段或某类资源超过阈值，则记录为局部压力点，并进一步判断其是否可通过错峰预约、拆团入园、小交通补充或人工调度修复。
+
+    \item \textbf{需求冲击与策略实验。}
+    在基准需求、轻度上浮、高峰上浮、强高峰和复合极端需求情景下，比较原九条线路基线、扩展线路组合全量投放、安全上限控制、舒适上限控制、分时预约分流、补充运力与分时预约联动等接待策略。比较指标包括接待率、溢出人数、分时资源通过情况、严格多资源通过情况、拥挤等待和期望损失。
+
+    \item \textbf{质量审计与策略推荐。}
+    对入选线路输出质量审计，区分可直接投放线路、需微调线路和储备线路；再结合不同需求情景下的策略表现，形成基准接待、需求上浮和复合极端情景下的分层推荐。
+\end{enumerate}
+
+该求解流程以可解释的线路产品列为基础，不声称枚举所有可行线路空间。在线路产品库固定后，本文进一步建立候选空间内的混合整数规划校验：在 $63$ 条候选线路、入选 $18$ 条、保持产品类型配额、区域覆盖和质量代理下界的条件下，精确选择综合投放分最高的线路组合。该精确层用于强化候选产品组合质量，但其最优性只在给定候选线路与政策约束内成立。
+
+\subsubsection{结果与接待策略解释}
+\label{subsubsec:q4_results}
+
+第四问首先从 $63$ 条完整 $12$ 天候选线路产品中选择 $18$ 条，形成五一扩展线路产品组合。容量仿真组合的 $12$ 天总接待能力为 $160190$ 人，原九条线路模型容量为 $111956$ 人，基准需求为 $106358$ 人。在线路质量审计中，$18$ 条入选线路中有 $8$ 条可直接投放，其余线路建议作为储备或经拆段、分批、小交通和人工微调后投放。
+
+在此基础上，本文进一步对固定候选产品空间进行精确组合优化。保持 Q4-V2 入选组合的产品类型配额、已覆盖区域、容量下界和可计算质量代理下界不变，使用 HiGHS-MILP 从 $63$ 条候选线路中精确选择 $18$ 条线路。求解状态为 optimal，综合投放分由 $921.989$ 提升至 $993.393$，相对提升 $7.745\%$；组合容量由 $160190$ 人提升至 $187550$ 人，与原入选组合重合 $10/18$ 条。该结果说明，在线路产品库固定时，后续投放组合选择本身可以作为一个标准 $0$--$1$ 优化问题精确求解。
+
+主要容量结果如表~\ref{tab:q4_capacity_summary} 所示。
+
+\begin{table}[htbp]
+    \centering
+    \caption{第四问线路组合与容量结果}
+    \label{tab:q4_capacity_summary}
+    \small
+    \renewcommand{\arraystretch}{1.18}
+    \setlength{\tabcolsep}{4pt}
+    \begin{tabularx}{\textwidth}{
+        L{4.6cm}
+        >{\centering\arraybackslash}p{2.4cm}
+        Y
+    }
+        \toprule
+        指标 & 数值 & 说明 \\
+        \midrule
+        候选线路产品数 & 63 & 由原九条线路种子扩展生成的完整 $12$ 天游候选产品。 \\
+        入选线路产品数 & 18 & 进入五一扩展推介组合的线路产品。 \\
+        可直接投放线路数 & 8 & 质量审计通过，产品强度处于可投放范围。 \\
+        容量仿真组合总容量 & 160190 人 & $18$ 条线路在 $12$ 天窗口内的总接待能力。 \\
+        候选空间精确组合容量 & 187550 人 & 固定产品配额、区域覆盖和质量代理下界后，HiGHS-MILP 选择的 $18$ 条线路容量。 \\
+        精确组合综合分提升 & 7.745\% & 综合投放分由 $921.989$ 提升至 $993.393$。 \\
+        精确组合重合度 & 10/18 & 精确组合与容量仿真组合中共同入选的线路数量。 \\
+        原九条线路总容量 & 111956 人 & 原线路容量流模型的总量基线。 \\
+        基准需求 & 106358 人 & 五一基准外地游客接待需求。 \\
+        基准分时预约接待量 & 106358 人 & 基准策略下全部接待，溢出为 $0$。 \\
+        复合极端联动接待量 & 143583 人 & 需求上浮 $35\%$ 时补充运力与分时预约联动策略的可接待量。 \\
+        基准最大景区分时利用率 & 1.0585 & 基准下仍存在局部时段轻微超载。 \\
+        基准红色压力时段数 & 1 & 需要通过人工错峰或预约微调修复。 \\
+        \bottomrule
+    \end{tabularx}
+\end{table}
+
+容量仿真组合中的部分入选线路产品如表~\ref{tab:q4_selected_route_examples} 所示。完整线路组合覆盖巴州、东疆、乌鲁木齐周边、伊犁、北疆和南疆等区域，并包含亲子舒适、长者慢游、错峰分流、文化深游、自然风景和精品预约等多种产品类型。
+
+\begin{table}[htbp]
+    \centering
+    \caption{第四问部分入选线路产品示例}
+    \label{tab:q4_selected_route_examples}
+    \small
+    \renewcommand{\arraystretch}{1.16}
+    \setlength{\tabcolsep}{3pt}
+    \begin{tabularx}{\textwidth}{
+        L{2.7cm}
+        L{4.0cm}
+        >{\centering\arraybackslash}p{1.6cm}
+        >{\centering\arraybackslash}p{1.6cm}
+        >{\centering\arraybackslash}p{1.5cm}
+        Y
+    }
+        \toprule
+        代表线路 & 线路产品 & 容量/人 & 优化分配/人 & 产品类型 & 主要作用 \\
+        \midrule
+        巴州亲子舒适线
+        & 巴州—乌鲁木齐—东疆亲子舒适12日线
+        & 6850
+        & 6708
+        & 亲子舒适
+        & 降低长转场和高强度日，提升家庭游客体验。 \\
+
+        东疆错峰分流线
+        & 乌鲁木齐—东疆—巴州错峰分流12日线
+        & 10240
+        & 7477
+        & 错峰分流
+        & 以高承载、低压力点承担热点分流任务。 \\
+
+        巴州文化深游线
+        & 巴州—东疆—乌鲁木齐文化深游12日线
+        & 5190
+        & 5190
+        & 文化深游
+        & 增强丝路、民俗和考古主题吸引力。 \\
+
+        喀什长者慢游线
+        & 帕米尔—喀什—巴州长者慢游12日线
+        & 2000
+        & 2000
+        & 长者慢游
+        & 低节奏、小容量、高舒适度产品。 \\
+
+        东疆大众均衡线
+        & 乌鲁木齐—东疆大众均衡12日线
+        & 16320
+        & 7169
+        & 大众均衡
+        & 面向大规模基础客流，承担主力接待。 \\
+
+        东疆长者慢游线
+        & 乌鲁木齐—东疆长者慢游12日线
+        & 9180
+        & 7169
+        & 长者慢游
+        & 低转场、低强度的慢节奏产品。 \\
+        \bottomrule
+    \end{tabularx}
+\end{table}
+
+从结果看，五一扩展线路产品组合相比原九条线路模型的主要提升不只是总容量增加，而是将新增接待能力具体化为可解释的线路产品组合。原九条线路模型能够解释基准需求 $106358$ 人在总容量上是否可接待，但缺少新增线路、分时预约和资源补给机制；扩展线路产品组合则通过 $18$ 条线路产品覆盖不同区域和客群，提高了线路选择多样性和接待弹性。进一步的精确组合结果说明，即使候选线路库不变，仅优化 $18$ 条线路的入选组合，也能在保持产品类型和区域政策的前提下显著提高综合投放分与总容量。
+
+在游客分配口径上，本文保留题面给定的严格容量比例分配作为基准，同时给出偏好弹性分配和运营均衡分配。严格容量比例分配满足题目假设；偏好弹性分配反映游客可能更偏好高吸引力线路；运营均衡分配则进一步考虑线路容量、舒适度和低压力分流能力。通过三种口径并列比较，可以避免把题面比例假设与现实运营优化混为一谈。
+
+分时容量结果说明，游客总量能够被接待并不代表所有景区时段均可控。基准策略下，最大景区分时利用率约为 $1.0585$，存在 $1$ 个红色压力时段，主要瓶颈出现在吐峪沟麻扎村第 $11$ 日上午时段。该结果表明，第四问必须引入分时预约约束；若只看景区日容量或线路总容量，将无法识别局部时段拥挤。
+
+需求冲击实验进一步比较了不同策略在基准、轻度上浮、高峰上浮、强高峰和复合极端情景下的表现。基准场景下，分时预约与偏好弹性分流策略可接待 $106358$ 人，接待率为 $1.000$，溢出为 $0$。在复合极端 $1.35$ 倍需求情景下，原九条线路只能接待 $111956$ 人，溢出 $31627$ 人；而“补充运力与分时预约联动”策略可接待 $143583$ 人，溢出为 $0$。这说明在需求显著上浮时，仅靠原有线路组合无法满足接待需求，必须同时采用新增线路、补充运力和分时预约策略。
+
+策略评价结果显示，在成本敏感、运营均衡、高可靠和复合极端四类画像下，推荐策略均为“补充运力与分时预约联动”策略。其优势在于既提高总供给能力，又通过分时预约降低局部拥挤风险。不过需要区分软可行和严格可行：接待率达到 $1$ 仅表示总需求能够被接收，不代表所有景区时段、酒店和车辆导游资源均不超过 $100\%$。因此，本文将“策略软通过”解释为总量接待可行，将“严格多资源通过”解释为景区分时、住宿和服务资源均满足阈值约束。
+
+综上，第四问的推荐方案为：以 $18$ 条扩展线路产品作为五一推介组合，在基准需求下采用“分时预约与偏好弹性分流”完成 $106358$ 人接待；在需求上浮或复合极端情景下，采用“补充运力与分时预约联动”复合策略。对于质量审计通过的 $8$ 条线路，可直接作为团队线路投放；其余线路作为储备产品或经拆段、分批、小交通补充后投放。若文旅部门能够接受固定产品配额和区域覆盖政策下的候选空间优化，则可采用 HiGHS-MILP 精确组合结果作为进一步投放优化方案。该结果适合作为数学建模意义下的高级运营仿真和策略评估，不应直接表述为真实文旅部门的最终排班单。
+
+\clearpage
+
+\section{综合结果分析与模型评价}
+\label{sec:result_analysis}
+
+\subsection{四问推荐方案汇总}
+\label{subsec:summary_recommendations}
+
+前文分别针对四个子问题建立了不同类型的优化模型。由于四问的决策主体和优化目标不同，最终推荐结果也不能用单一指标进行比较。第一问强调个人旅游路线在覆盖、费用和稳健性之间的折中；第二问强调两年暑假覆盖普通游客可达景点前提下的新疆境内交通费用节省；第三问强调三组文化考察并行条件下的最晚完成时间最小化；第四问强调五一黄金周集中客流下的线路产品组合、分时预约和多资源接待能力。
+
+四问推荐方案汇总如表~\ref{tab:overall_recommendations} 所示。
+
+\begin{table}[htbp]
+    \centering
+    \caption{四问推荐方案汇总}
+    \label{tab:overall_recommendations}
+    \small
+    \renewcommand{\arraystretch}{1.20}
+    \setlength{\tabcolsep}{4pt}
+    \begin{tabularx}{\textwidth}{
+        >{\centering\arraybackslash}p{1.4cm}
+        p{3.4cm}
+        X
+        p{3.6cm}
+    }
+        \toprule
+        问题 & 推荐方案 & 核心结果 & 方案定位 \\
+        \midrule
+        第一问
+        & 30天题面优先旅游路线及鲁棒执行备选
+        & 题面最高覆盖方案游览 $28$ 个景点，除餐饮外费用约 $13022.84$ 元；若强调执行稳健性，$26$ 景点方案费用约 $10557.60$ 元，运营成功率为 $0.862$。
+        & 先满足“尽可能多游、同覆盖下省钱”，再用缓冲日、红色压力日和仿真成功率选择现实执行方案。 \\
+
+        第二问
+        & 开放多口岸鲁棒均衡两年路线
+        & 覆盖 $38$ 个普通游客可达景点；两年分别用时 $12$ 天和 $17$ 天，新疆境内交通费用约 $3099.91$ 元；运营成功率为 $1.000$，严格舒适成功率为 $0.994$。
+        & 面向两年暑假旅游的综合主推方案，在境内交通费用、年度天数均衡和鲁棒性之间取得折中。 \\
+
+        第三问
+        & 固定特殊准入组的三团队文化考察方案
+        & 文化考察候选点共 $14$ 个；三组并行考察的最晚完成时间为 $99.19$ 小时，基础现场项目周期约 $13$ 天。
+        & 在楼兰古城和尼雅遗址固定由专项审批组执行的政策空间下，最小化三组最晚完成时间。 \\
+
+        第四问
+        & 18条五一12天线路产品组合与分时预约策略
+        & 由 $63$ 条候选线路中选出 $18$ 条，容量仿真组合总容量为 $160190$ 人；固定政策空间精确组合容量为 $187550$ 人；复合极端补运力策略可接待 $143583$ 人。
+        & 面向文旅部门的节假日运营接待方案，兼顾线路组合、游客分流、分时预约、多资源容量和候选空间精确投放。 \\
+        \bottomrule
+    \end{tabularx}
+\end{table}
+
+从表~\ref{tab:overall_recommendations} 可以看出，本文没有将四问强行纳入同一个目标函数，而是在统一多模式旅游网络和统一数据口径下，根据不同决策场景分别构造模型。这样既保留了图论路径规划的基本结构，又能够体现普通旅游、两年分期旅游、文化考察和黄金周接待组织之间的本质差异。
+
+\subsection{覆盖、费用与鲁棒性的权衡分析}
+\label{subsec:tradeoff_analysis}
+
+四问结果共同表明，旅游线路安排问题不能简单追求某一个极端指标。对于个人旅游和两年旅游而言，景点覆盖数量、交通费用、每日活动强度和风险缓冲之间存在明显冲突；对于文化考察和黄金周接待而言，任务完成时间、资源可用性和高峰风险之间也存在权衡。
+
+第一问中，若仅从原始候选空间观察，32景点和30景点方案能够给出覆盖上界参照，但前者小时级排程不可执行，后者仍存在时间窗违规和较多红色压力日。因此本文进一步在严格可执行候选中构造成本--覆盖前沿。题面最高覆盖方案为28景点，费用约13022.84元，但仅有1天缓冲，运营成功率为0.720；26景点运营鲁棒方案少游2个景点，却节省2465.24元，并将运营成功率提高至0.862；24景点层级则可获得5天缓冲和约0.940的运营成功率。该结果说明，第一问应先回答题面最高覆盖与费用问题，再根据执行风险给出鲁棒备选，而不是直接把单一鲁棒方案解释为唯一答案。
+
+第二问中，开放多口岸最低境内费用方案可以将新疆境内交通费用降至 $2856.80$ 元，比固定乌鲁木齐起讫保守方案节省 $1170.91$ 元。但该方案两年用时分别为 $24$ 天和 $5$ 天，年度负担明显不均衡。开放多口岸鲁棒均衡两年路线的境内交通费用为 $3099.91$ 元，虽然比最低费用方案增加约 $243.11$ 元，但将两年天数调整为 $12$ 天和 $17$ 天，并保持 $1.000$ 的运营成功率和 $0.994$ 的严格舒适成功率。因此，第二问的主推方案不是绝对最低费用方案，而是费用、年度均衡和鲁棒性的综合折中。
+
+第三问中，三组文化考察不宜以景点数量平均作为主要目标。专项审批组只承担楼兰古城和尼雅遗址两个点，但由于两个点考察时间长，并且包含审批、向导、越野车辆和安全缓冲等要求，其总完成时间达到 $99.19$ 小时，成为项目瓶颈。另两个标准文化组分别承担 $7$ 个和 $5$ 个文化点，总完成时间约为 $89$ 小时。由此可见，第三问的均衡标准不是景点数量均衡，而是完成时间均衡。
+
+第四问中，旧9线路容量流模型可以解释基准游客需求在总量上是否可接待，但无法回答热点景区某日某时段是否拥挤、酒店和导游车辆是否成为瓶颈等问题。五一线路组合模型将容量仿真组合总容量提升至 $160190$ 人，并通过候选空间精确组合进一步将容量提升至 $187550$ 人；但基准策略下仍存在最大分时利用率约 $1.0585$ 的局部时段压力。因此，第四问的核心不是简单扩大线路总容量，而是同时控制分时预约、住宿、车辆、导游、摆渡和停车等多资源约束。
+
+综上，四问结果均体现了多目标运筹优化的基本特征：覆盖上界、费用下界和总量容量上界都只能作为参考，真正可推荐的方案必须同时满足可执行性、舒适性和风险可控性要求。
+
+\subsection{模型可行性与最优性检验}
+\label{subsec:feasibility_optimality}
+
+本文分别根据四问问题规模和模型结构选择不同的求解与校验方式。由于第一问、第二问和第四问均包含大规模组合选择、路径排序、时间窗、容量和情景扰动，本文将其定位为高质量可行解框架，并对固定子问题或固定候选空间进行精确校验，而不声称完整问题空间上的全局最优。第三问由于文化候选点数量较小，在固定特殊准入政策空间下可以进行精确求解。
+
+表~\ref{tab:model_validity_audit} 汇总了四问可行性与最优性说明。
+
+\begin{table}[htbp]
+    \centering
+    \caption{四问模型可行性与最优性说明}
+    \label{tab:model_validity_audit}
+    \small
+    \renewcommand{\arraystretch}{1.20}
+    \setlength{\tabcolsep}{4pt}
+    \begin{tabularx}{\textwidth}{
+        >{\centering\arraybackslash}p{1.4cm}
+        p{3.2cm}
+        X
+        p{3.4cm}
+    }
+        \toprule
+        问题 & 校验方式 & 主要结论 & 最优性边界 \\
+        \midrule
+        第一问
+        & 固定24景点开放路径 MILP 校验
+        & 在固定景点集合、固定首尾点和交通时间矩阵下，精确重排将转场时间由 $80.339$ 小时降至 $76.620$ 小时，差距为 $4.8538\%$。
+        & 仅校验固定集合排序子问题，不证明完整选点--排程--鲁棒模型全局最优。 \\
+
+        第二问
+        & 20节点两年覆盖 MILP 校验
+        & 抽样两年各 $10$ 个景点，精确费用由原顺序的 $2594.34$ 元降至 $1681.10$ 元，说明费用排序仍有改进空间。
+        & 不证明完整 $38$ 景点、多口岸、时间窗和鲁棒约束联合问题的全局最优。 \\
+
+        第三问
+        & Held--Karp 子集列与 HiGHS-MILP 集合划分
+        & 在楼兰古城和尼雅遗址固定由专项审批组执行、三组均乌鲁木齐起讫、资源不跨组共享的条件下，精确缺口为 $0$。
+        & 仅对固定特殊准入资源政策成立；若资源跨组共享，需重新求解。 \\
+
+        第四问
+        & 容量仿真审计与候选空间 MILP
+        & 在 $63$ 条候选线路、固定产品配额和区域覆盖政策下，精确组合综合分提升 $7.745\%$，容量提升至 $187550$ 人。
+        & 候选线路不是所有可能线路全集，精确性仅对固定候选产品空间成立。 \\
+        \bottomrule
+    \end{tabularx}
+\end{table}
+
+第一问的校验结果表明，在固定24景点集合和固定首尾点下，开放路径排序可由 HiGHS-MILP 精确求解，启发式顺序相对精确重排仍有 $4.8538\%$ 的交通时间差距。第二问的20节点两年覆盖 MILP 校验进一步表明，固定子问题中费用最小两路径结构与启发式抽样顺序之间可能存在较大差距。这些结果并不削弱主模型的可执行性，而是提醒本文不能把启发式完整路线误称为全局最优；相反，应将其解释为在真实约束和鲁棒仿真下得到的高质量可行方案。
+
+第三问在固定特殊准入政策空间下共评估 $474254$ 个可行分配，最优最大完成时间为 $99.187$ 小时，固定政策空间下最优性缺口为 $0$。该结果是四问中最接近精确最优证明的一项，但其成立依赖于楼兰古城和尼雅遗址固定由专项审批组执行、三组均乌鲁木齐起讫和特殊资源不跨组共享等政策假设。
+
+第四问的可行性主要来自容量与资源压力校验。模型不仅检查线路总容量，还检查景区分时容量、酒店、车辆、导游、摆渡和停车等多类资源负载。由于候选线路由规则化产品列生成得到，并未枚举所有可能的 $12$ 天游线路，因此第四问结果应解释为在候选产品空间中的可解释高质量接待方案；其中候选空间 MILP 证明的是固定产品库和固定政策约束下的最优投放组合。
+
+\subsection{灵敏度与情景分析}
+\label{subsec:sensitivity_scenario}
+
+为避免模型结果只适用于单一确定性参数，本文在四问中均进行了不同形式的情景或灵敏度分析。分析对象包括个人路线扰动、外部口岸差价、文化考察缓冲和五一需求冲击等。
+
+第一问中，情景仿真表明，运营成功率和严格舒适成功率需要分开解释。运营成功率衡量路线是否能够在 $30$ 天内基本完成，并满足预约和住宿等执行要求；严格舒适成功率进一步要求红色压力日较少。28景点题面最高覆盖方案的运营成功率为0.720，26景点运营鲁棒方案提升至0.862，24景点层级可达到约0.940；但当前候选路线中尚未出现严格舒适成功率达到 $80\%$ 的方案。因此，本文将高覆盖方案定位为题面主答案或运营鲁棒备选，而不是完全舒适主推。若游客对舒适性要求更高，应选择景点数量更少、缓冲天数更多的慢游方案。
+
+第二问中，最关键的灵敏度参数是开放多口岸所带来的外部大交通额外差价。固定乌鲁木齐起讫保守方案的新疆境内交通费用为 $4027.71$ 元，开放多口岸最低境内费用方案为 $2856.80$ 元，两者差额为
+\[
+4027.71-2856.80=1170.91.
+\]
+因此，若两人采用多口岸进出疆所增加的外部大交通费用低于 $1170.91$ 元，则开放多口岸最低境内费用方案在总费用意义下更优。若采用开放多口岸鲁棒均衡两年路线，则相对固定乌鲁木齐方案节省
+\[
+4027.71-3099.91=927.80
+\]
+元，故其外部大交通差价阈值为 $927.80$ 元。接驳费用下限的敏感性实验显示，在低、中、高三种接驳费用水平下，代表方案选择未发生变化，说明多口岸策略具有一定稳定性。
+
+第三问中，缓冲策略对项目可靠性影响显著。仅设置 $5$ 天项目缓冲时，加权成功率为 $0.719$，但最差情景成功率仅为 $0.14$，因此该方案只能作为成本敏感均衡策略。加入机动小组并保留 $5$ 天缓冲后，加权成功率提升至 $0.817$；若采用延后或拆期并设置 $7$ 天缓冲，则加权成功率可达 $0.956$，最差情景成功率达 $0.808$。这说明文化考察项目的风险主要来自审批、天气和道路扰动等低频高影响因素，单纯增加少量缓冲不能完全覆盖复合极端风险。
+
+第四问中，需求冲击实验设置基准、轻度上浮、高峰上浮、强高峰上浮和复合极端上浮等情景。基准情景下，分时预约与偏好弹性分流策略能够接待 $106358$ 人，溢出为 $0$；在复合极端 $1.35$ 倍需求情景下，旧9线路基线只能接待 $111956$ 人，溢出 $31627$ 人，而补运力加分时预约复合策略可接待 $143583$ 人，溢出为 $0$。不过，即使总量能够接待，部分情景下仍存在景区分时段过载，因此高峰策略需要配合人工预约微调和现场分流。
+
+综上，灵敏度与情景分析表明，本文模型并非只给出静态最优路线，而是能够解释在外部费用、风险扰动和需求上浮条件下方案如何变化，从而为实际决策提供条件化建议。
+
+\subsection{模型优点与局限性}
+\label{subsec:model_advantages_limitations}
+
+本文模型的主要优点体现在以下几个方面。
+
+首先，本文在统一多模式旅游网络基础上处理四个子问题，避免了传统图论模型只考虑单一距离或单一道路边的局限。道路、铁路、航班、景区接驳和本地换乘被统一为多模式交通标签，使模型能够比较不同交通方式在时间、费用、风险和疲劳上的差异。
+
+其次，本文区分了普通游客可达景点、特殊准入景点和文化考察点。楼兰古城、尼雅遗址等点在普通旅游基准路线中不直接纳入，而在文化考察模型中通过专项审批组处理。这种处理保持了普通旅游路线的现实可执行性，同时也保留了高价值文化遗址在第三问中的考察意义。
+
+再次，本文没有将路线可行性简化为景点顺序，而是进一步考虑时间窗、住宿落点、每日活动强度、缓冲日、分时预约和多资源容量。特别是在第四问中，模型不仅比较线路总容量，还识别景区某日某时段、住宿枢纽和车辆导游摆渡等资源瓶颈，使节假日接待问题更接近实际运营管理场景。
+
+最后，本文在四问中均引入了鲁棒性或情景评价。第一问和第二问通过运营成功率、严格舒适成功率和尾部损失解释旅游路线风险；第三问通过缓冲策略比较文化考察项目延期风险；第四问通过需求冲击实验比较不同接待政策在高峰情景下的服务能力。这使模型结果从单一确定性解扩展为具有风险解释能力的策略组合。
+
+同时，本文模型仍存在若干局限。
+
+第一，交通班次、票价和预约库存并非实时数据。铁路、航班和部分接驳费用使用代表性时刻、公开价格或模型校准值，不能替代正式出行日期的实时售票和预约系统。
+
+第二，部分容量与资源数据为校准或模拟参数。景区容量中既有公开承载量，也有按景区类型设定的模拟容量；住宿房量为枢纽可协调房源池的校准容量，车辆、导游和摆渡资源由接待规模推导得到，不等同于实时平台库存。
+
+第三，第一问、第二问和第四问均为高质量可行解框架，虽然对固定子问题或固定候选空间使用 HiGHS-MILP 给出了精确校验，但尚未对完整问题空间给出全局最优证明。第三问虽然在固定特殊准入政策空间下得到精确缺口为 $0$ 的结果，但若允许特殊资源跨组共享或错日调度，也需要重新建模求解。
+
+第四，游客偏好、节假日需求和资源调度行为仍有进一步校准空间。后续可结合真实订单、搜索热度、地图热力、景区预约余量、酒店实时库存和交通实时拥堵数据，对线路吸引力、容量参数和情景概率进行更新。
+
+总体而言，本文模型适合作为数学建模意义下的综合优化与策略评估框架。它能够在统一数据底座下解释四类不同旅游决策问题，并给出覆盖、费用、工期、容量和风险之间的可解释权衡；但在实际部署为运营排班系统之前，仍需要接入实时交通、预约、库存和订单数据进行动态校准。
+
+\section{结论}
+\label{sec:conclusion}
+
+本文围绕新疆旅游线路安排问题，构建了统一多模式旅游网络，并分别针对个人暑期旅游、两年分期旅游、三组文化考察和五一黄金周接待建立优化模型。结果表明，旅游线路设计不能仅以最短路或最低费用为目标，还需综合考虑景点覆盖、时间窗、住宿落点、特殊准入、接待容量和风险扰动。本文最终给出了第一问30天题面优先成本--覆盖前沿及鲁棒执行备选、第二问开放多口岸鲁棒均衡两年路线、第三问固定特殊准入政策空间下的三团队文化考察精确调度方案，以及第四问18条五一12天线路产品组合与候选空间精确投放增强。整体上，模型能够在覆盖、费用、舒适性、容量和鲁棒性之间形成可解释权衡，为新疆长距离旅游规划与节假日接待组织提供定量决策参考。受限于实时交通、票价、预约和库存数据不足，部分参数仍依赖公开资料与模型化估计，后续可结合实时运营数据进一步校准与优化。
+
+\end{document}
