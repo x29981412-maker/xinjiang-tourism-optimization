@@ -1,5 +1,5 @@
 {
-  "package_version": "0.2.0",
+  "package_version": "0.3.0",
   "environment": {
     "python": "3.13.7",
     "numpy": "2.3.3",
@@ -10,8 +10,12 @@
     "cultural_expected.csv": "c1a0af1eb082d1599f0c0851d33fee0ef6b1a56dbe63d170ebacfedfb3c4a51e",
     "cultural_sites.csv": "01baa5fe1c1ac6189d642da70cdf10e68d3808c3d8c0d0e98607223629aa58cd",
     "cultural_travel.csv": "d8937b613dfddd6c70cd3205499d761c84f5354812b1bc58e19916cfd0b80e9b",
+    "multimodal_edges.csv": "e8b8aa51e07091bfbdb80bcf33b68a89e80998424316ac269623b7a923306f0f",
+    "multimodal_nodes.csv": "c64dec03d3bcb3e4d367feb696f2bb3b23f9afde80e2f3e10d92899df2435d67",
     "portfolio_expected.csv": "3134c68bc5bf7645d145c14237f3812aae53fd5cda988f300082b86bf6e3431b",
-    "route_products.csv": "230b75b36a24a790c1785b4ccfeaa0e6ffa5e685a2471e71d418d05863d6c394"
+    "route_products.csv": "230b75b36a24a790c1785b4ccfeaa0e6ffa5e685a2471e71d418d05863d6c394",
+    "spot_clean.csv": "4fb204776665f096a858a794df030abdfd43aefcce252dfdaac4df855545c3f6",
+    "spot_time_windows.csv": "28bc2ea3cc2d00bdfe5eedea361fd04c297a49c73424f54e2d6cbebb614a9a85"
   },
   "baseline": {
     "score": 921.9892035146829,
@@ -153,7 +157,10 @@
     "portfolio_capacity_matches_reference": true,
     "portfolio_optimal": true,
     "schedule_makespan_matches_reference": true,
-    "schedule_imbalance_matches_reference": true
+    "schedule_imbalance_matches_reference": true,
+    "personal_calendar_audited": true,
+    "two_year_economy_audited": true,
+    "two_year_balanced_audited": true
   },
   "sensitivity": [
     {
@@ -246,6 +253,12 @@
       "selected_score": null
     }
   ],
-  "model_scope": "Q4 fixed 63-candidate portfolio and Q3 fixed-policy 14-site scheduling. Q1/Q2 full-route models remain in the archived team report.",
+  "travel_study": {
+    "artifact": "travel_study.json",
+    "personal_spots": 38,
+    "personal_days": 24,
+    "two_year_cost": 3787.6700000000005
+  },
+  "model_scope": "Q1/Q2 newly implemented multimodal itinerary scenario models (heuristic). Q3 fixed-policy 14-site scheduling and Q4 fixed 63-candidate portfolio (exact). Original full formulations remain in the archived report.",
   "scenario_note": "Sensitivity/stress cases are deterministic modeling assumptions; they are not observed visitor demand or estimated real-world probabilities."
 }

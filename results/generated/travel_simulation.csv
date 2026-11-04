@@ -1,0 +1,10 @@
+route_case,case,repetitions,seed,horizon_days,travel_cv,visit_cv,trip_common_cv,successes,completion_rate,wilson_95_low,wilson_95_high,completion_days_p50,completion_days_p90,elapsed_hours_p90,interpretation
+personal,mild,500,20261104,30,0.1,0.1,0.04,500,1.0,0.9923756595384479,1.0,24.0,25.0,581.5768893776185,"assumption-driven scenarios, not an empirical completion probability"
+personal,reference,500,20261104,30,0.2,0.1,0.08,500,1.0,0.9923756595384479,1.0,24.0,26.0,601.5281380897212,"assumption-driven scenarios, not an empirical completion probability"
+personal,severe,500,20261104,30,0.4,0.1,0.16,497,0.994,0.9825097478959467,0.9979574037280398,24.0,27.0,628.3126034731094,"assumption-driven scenarios, not an empirical completion probability"
+year_1,mild,500,20261105,30,0.1,0.1,0.04,500,1.0,0.9923756595384479,1.0,14.0,15.0,336.5964166030491,"assumption-driven scenarios, not an empirical completion probability"
+year_1,reference,500,20261105,30,0.2,0.1,0.08,500,1.0,0.9923756595384479,1.0,14.0,15.0,341.39889230362445,"assumption-driven scenarios, not an empirical completion probability"
+year_1,severe,500,20261105,30,0.4,0.1,0.16,500,1.0,0.9923756595384479,1.0,14.0,16.0,364.1510607340475,"assumption-driven scenarios, not an empirical completion probability"
+year_2,mild,500,20261106,30,0.1,0.1,0.04,500,1.0,0.9923756595384479,1.0,12.0,13.0,288.9396915767026,"assumption-driven scenarios, not an empirical completion probability"
+year_2,reference,500,20261106,30,0.2,0.1,0.08,500,1.0,0.9923756595384479,1.0,12.0,13.0,291.49225311352797,"assumption-driven scenarios, not an empirical completion probability"
+year_2,severe,500,20261106,30,0.4,0.1,0.16,500,1.0,0.9923756595384479,1.0,12.0,14.0,312.72092283626273,"assumption-driven scenarios, not an empirical completion probability"

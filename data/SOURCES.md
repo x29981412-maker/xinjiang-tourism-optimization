@@ -12,10 +12,16 @@
 | reference/cultural_travel.csv | 乌鲁木齐及文化点之间的固定多模式交通标签 |
 | reference/portfolio_expected.csv | 线路组合参考最优值，只用于核验输出 |
 | reference/cultural_expected.csv | 调度参考最优值，只用于核验输出 |
+| reference/spot_clean.csv | 40个景点的游览时间、门票、偏好和准入字段 |
+| reference/spot_time_windows.csv | 夏季开放时段及其来源质量；运行时保留分段开放时间 |
+| reference/multimodal_nodes.csv | 108个景点、城市、车站、机场等节点 |
+| reference/multimodal_edges.csv | 1900条有向边的费用、时间、方式、等待和来源标记 |
 
 参考最优值不参与求解目标、约束或选路过程。程序先从输入独立求解，再核对参考指标，避免把参考答案当作算法输入。
 
 输入数据保留原数值，移除UTF-8 BOM并统一换行。每次运行对本地输入逐份计算SHA-256，写入 `results/generated/reproduction.json`。除规模、唯一标识、数值完整性外，求解后独立核对配额、区域、容量和质量约束。
+
+新增旅行模块在运行时将边的基础时间与schedule_wait_hours相加，等待仅加一次；计算同一条路径的费用、时间与边序列。40个景点中排除2个普通游客受限/需审批点。清洗审计记录低置信度映射和未逐日处理的周历例外，不将情景数据更新为现实报价。
 
 ## 参数的含义
 

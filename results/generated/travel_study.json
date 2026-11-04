@@ -1,0 +1,3688 @@
+{
+  "policy": {
+    "horizon_days": 30,
+    "buffer_days": 2,
+    "day_start": 8.0,
+    "day_end": 20.0,
+    "active_hours": 10.0
+  },
+  "data_audit": {
+    "source_spots": 40,
+    "eligible_spots": 38,
+    "network_nodes": 108,
+    "network_edges": 1900,
+    "excluded": [
+      {
+        "spot_id": "P007",
+        "name": "楼兰古城",
+        "reason": "ordinary-tourist restriction or special approval"
+      },
+      {
+        "spot_id": "P038",
+        "name": "尼雅遗址",
+        "reason": "ordinary-tourist restriction or special approval"
+      }
+    ],
+    "quality_notes": [
+      {
+        "spot_id": "P007",
+        "issue": "source window is a simulated default"
+      },
+      {
+        "spot_id": "P018",
+        "issue": "low-confidence geographical mapping retained"
+      },
+      {
+        "spot_id": "P022",
+        "issue": "low-confidence geographical mapping retained"
+      },
+      {
+        "spot_id": "P023",
+        "issue": "low-confidence geographical mapping retained"
+      },
+      {
+        "spot_id": "P025",
+        "issue": "weekly/seasonal exception not calendar-modeled"
+      },
+      {
+        "spot_id": "P035",
+        "issue": "low-confidence geographical mapping retained"
+      },
+      {
+        "spot_id": "P036",
+        "issue": "low-confidence geographical mapping retained"
+      },
+      {
+        "spot_id": "P038",
+        "issue": "source window is a simulated default"
+      }
+    ],
+    "cleaning": [
+      "trim whitespace and UTF-8 BOM",
+      "reject duplicate primary keys",
+      "check foreign keys",
+      "reject missing/nonfinite/negative numeric values",
+      "preserve split opening windows"
+    ],
+    "assumptions": [
+      "summer opening windows; weekly closures are not date-resolved",
+      "border permits and reservations obtained in advance",
+      "source schedule_wait_hours added once to each corresponding edge",
+      "source numerical costs are scenario estimates for two people, not live fares"
+    ]
+  },
+  "personal": {
+    "route": [
+      2,
+      4,
+      3,
+      12,
+      10,
+      11,
+      5,
+      6,
+      31,
+      33,
+      29,
+      30,
+      24,
+      23,
+      25,
+      38,
+      26,
+      27,
+      36,
+      37,
+      28,
+      32,
+      8,
+      9,
+      14,
+      15,
+      13,
+      16,
+      7,
+      22,
+      21,
+      19,
+      17,
+      18,
+      20,
+      1,
+      34,
+      35
+    ],
+    "spot_ids": [
+      "P002",
+      "P004",
+      "P003",
+      "P013",
+      "P011",
+      "P012",
+      "P005",
+      "P006",
+      "P032",
+      "P034",
+      "P030",
+      "P031",
+      "P025",
+      "P024",
+      "P026",
+      "P040",
+      "P027",
+      "P028",
+      "P037",
+      "P039",
+      "P029",
+      "P033",
+      "P009",
+      "P010",
+      "P015",
+      "P016",
+      "P014",
+      "P017",
+      "P008",
+      "P023",
+      "P022",
+      "P020",
+      "P018",
+      "P019",
+      "P021",
+      "P001",
+      "P035",
+      "P036"
+    ],
+    "spot_names": [
+      "达坂城古镇",
+      "葡萄沟",
+      "火焰山",
+      "吐峪沟麻扎村",
+      "高昌故城",
+      "苏公塔",
+      "坎儿井民俗园",
+      "交河故城",
+      "博斯腾湖",
+      "罗布人村寨",
+      "库车王府",
+      "克孜尔石窟",
+      "艾提尕尔清真寺",
+      "喀什古城",
+      "香妃园",
+      "奥依塔克冰川",
+      "帕米尔高原白沙湖",
+      "石头城遗址",
+      "和田博物馆",
+      "千里葡萄长廊",
+      "天山神秘大峡谷",
+      "巴音布鲁克草原",
+      "那拉提草原",
+      "喀拉峻大草原",
+      "昭苏草原",
+      "夏塔古道",
+      "霍城薰衣草花田",
+      "果子沟大桥",
+      "赛里木湖",
+      "世界魔鬼城",
+      "五彩滩",
+      "白哈巴村",
+      "喀纳斯湖",
+      "禾木村",
+      "可可托海",
+      "天山天池",
+      "江布拉克草原",
+      "北庭故城遗址"
+    ],
+    "days": 24,
+    "finish_absolute_hour": 566.0659999999999,
+    "elapsed_hours": 558.0659999999999,
+    "travel_hours": 105.816,
+    "visit_hours": 130.25,
+    "transport_cost_for_two": 3661.25,
+    "ticket_cost_for_two": 4892.0,
+    "priority_sum": 135.0,
+    "events": [
+      {
+        "day": 1,
+        "kind": "travel",
+        "spot_id": "P002",
+        "leg": 1,
+        "start_hour": 8.0,
+        "end_hour": 9.333,
+        "hours": 1.333
+      },
+      {
+        "day": 1,
+        "kind": "visit",
+        "spot_id": "P002",
+        "leg": 1,
+        "start_hour": 9.5,
+        "end_hour": 12.0,
+        "hours": 2.5
+      },
+      {
+        "day": 1,
+        "kind": "travel",
+        "spot_id": "P004",
+        "leg": 2,
+        "start_hour": 12.0,
+        "end_hour": 13.296,
+        "hours": 1.296
+      },
+      {
+        "day": 1,
+        "kind": "visit",
+        "spot_id": "P004",
+        "leg": 2,
+        "start_hour": 13.296,
+        "end_hour": 16.296,
+        "hours": 3.0
+      },
+      {
+        "day": 1,
+        "kind": "travel",
+        "spot_id": "P003",
+        "leg": 3,
+        "start_hour": 16.296,
+        "end_hour": 16.867,
+        "hours": 0.571
+      },
+      {
+        "day": 1,
+        "kind": "visit",
+        "spot_id": "P003",
+        "leg": 3,
+        "start_hour": 16.867,
+        "end_hour": 18.167,
+        "hours": 1.299999999999999
+      },
+      {
+        "day": 2,
+        "kind": "visit",
+        "spot_id": "P003",
+        "leg": 3,
+        "start_hour": 8.0,
+        "end_hour": 9.200000000000001,
+        "hours": 1.200000000000001
+      },
+      {
+        "day": 2,
+        "kind": "travel",
+        "spot_id": "P013",
+        "leg": 4,
+        "start_hour": 9.200000000000003,
+        "end_hour": 9.578000000000003,
+        "hours": 0.378
+      },
+      {
+        "day": 2,
+        "kind": "visit",
+        "spot_id": "P013",
+        "leg": 4,
+        "start_hour": 9.578000000000003,
+        "end_hour": 12.078000000000003,
+        "hours": 2.5
+      },
+      {
+        "day": 2,
+        "kind": "travel",
+        "spot_id": "P011",
+        "leg": 5,
+        "start_hour": 12.078000000000003,
+        "end_hour": 12.502000000000002,
+        "hours": 0.424
+      },
+      {
+        "day": 2,
+        "kind": "visit",
+        "spot_id": "P011",
+        "leg": 5,
+        "start_hour": 12.502000000000002,
+        "end_hour": 15.002000000000002,
+        "hours": 2.5
+      },
+      {
+        "day": 2,
+        "kind": "travel",
+        "spot_id": "P012",
+        "leg": 6,
+        "start_hour": 15.002000000000002,
+        "end_hour": 15.902000000000003,
+        "hours": 0.9
+      },
+      {
+        "day": 2,
+        "kind": "visit",
+        "spot_id": "P012",
+        "leg": 6,
+        "start_hour": 15.902000000000001,
+        "end_hour": 17.402,
+        "hours": 1.5
+      },
+      {
+        "day": 2,
+        "kind": "travel",
+        "spot_id": "P005",
+        "leg": 7,
+        "start_hour": 17.402,
+        "end_hour": 17.66,
+        "hours": 0.258
+      },
+      {
+        "day": 2,
+        "kind": "visit",
+        "spot_id": "P005",
+        "leg": 7,
+        "start_hour": 17.660000000000004,
+        "end_hour": 18.000000000000004,
+        "hours": 0.33999999999999986
+      },
+      {
+        "day": 3,
+        "kind": "visit",
+        "spot_id": "P005",
+        "leg": 7,
+        "start_hour": 8.5,
+        "end_hour": 9.66,
+        "hours": 1.1600000000000001
+      },
+      {
+        "day": 3,
+        "kind": "travel",
+        "spot_id": "P006",
+        "leg": 8,
+        "start_hour": 9.659999999999997,
+        "end_hour": 9.882999999999997,
+        "hours": 0.223
+      },
+      {
+        "day": 3,
+        "kind": "visit",
+        "spot_id": "P006",
+        "leg": 8,
+        "start_hour": 9.882999999999996,
+        "end_hour": 11.632999999999996,
+        "hours": 1.75
+      },
+      {
+        "day": 3,
+        "kind": "travel",
+        "spot_id": "P032",
+        "leg": 9,
+        "start_hour": 11.632999999999996,
+        "end_hour": 16.844999999999995,
+        "hours": 5.212
+      },
+      {
+        "day": 3,
+        "kind": "visit",
+        "spot_id": "P032",
+        "leg": 9,
+        "start_hour": 16.845,
+        "end_hour": 18.5,
+        "hours": 1.6550000000000011
+      },
+      {
+        "day": 4,
+        "kind": "visit",
+        "spot_id": "P032",
+        "leg": 9,
+        "start_hour": 9.0,
+        "end_hour": 10.844999999999999,
+        "hours": 1.8449999999999989
+      },
+      {
+        "day": 4,
+        "kind": "travel",
+        "spot_id": "P034",
+        "leg": 10,
+        "start_hour": 10.844999999999999,
+        "end_hour": 12.145,
+        "hours": 1.3
+      },
+      {
+        "day": 4,
+        "kind": "visit",
+        "spot_id": "P034",
+        "leg": 10,
+        "start_hour": 12.144999999999996,
+        "end_hour": 14.644999999999996,
+        "hours": 2.5
+      },
+      {
+        "day": 4,
+        "kind": "travel",
+        "spot_id": "P030",
+        "leg": 11,
+        "start_hour": 14.644999999999996,
+        "end_hour": 18.999999999999996,
+        "hours": 4.355000000000001
+      },
+      {
+        "day": 5,
+        "kind": "travel",
+        "spot_id": "P030",
+        "leg": 11,
+        "start_hour": 8.0,
+        "end_hour": 8.794999999999998,
+        "hours": 0.7949999999999982
+      },
+      {
+        "day": 5,
+        "kind": "visit",
+        "spot_id": "P030",
+        "leg": 11,
+        "start_hour": 9.0,
+        "end_hour": 10.5,
+        "hours": 1.5
+      },
+      {
+        "day": 5,
+        "kind": "travel",
+        "spot_id": "P031",
+        "leg": 12,
+        "start_hour": 10.5,
+        "end_hour": 12.3,
+        "hours": 1.8
+      },
+      {
+        "day": 5,
+        "kind": "visit",
+        "spot_id": "P031",
+        "leg": 12,
+        "start_hour": 12.299999999999997,
+        "end_hour": 14.799999999999997,
+        "hours": 2.5
+      },
+      {
+        "day": 5,
+        "kind": "travel",
+        "spot_id": "P025",
+        "leg": 13,
+        "start_hour": 14.799999999999997,
+        "end_hour": 18.205,
+        "hours": 3.405000000000002
+      },
+      {
+        "day": 6,
+        "kind": "travel",
+        "spot_id": "P025",
+        "leg": 13,
+        "start_hour": 8.0,
+        "end_hour": 12.136999999999997,
+        "hours": 4.136999999999998
+      },
+      {
+        "day": 6,
+        "kind": "visit",
+        "spot_id": "P025",
+        "leg": 13,
+        "start_hour": 12.137,
+        "end_hour": 13.637,
+        "hours": 1.5
+      },
+      {
+        "day": 6,
+        "kind": "travel",
+        "spot_id": "P024",
+        "leg": 14,
+        "start_hour": 13.637,
+        "end_hour": 13.788,
+        "hours": 0.151
+      },
+      {
+        "day": 6,
+        "kind": "visit",
+        "spot_id": "P024",
+        "leg": 14,
+        "start_hour": 13.788000000000011,
+        "end_hour": 17.28800000000001,
+        "hours": 3.5
+      },
+      {
+        "day": 6,
+        "kind": "travel",
+        "spot_id": "P026",
+        "leg": 15,
+        "start_hour": 17.28800000000001,
+        "end_hour": 17.52000000000001,
+        "hours": 0.232
+      },
+      {
+        "day": 6,
+        "kind": "visit",
+        "spot_id": "P026",
+        "leg": 15,
+        "start_hour": 17.52000000000001,
+        "end_hour": 18.000000000000014,
+        "hours": 0.480000000000004
+      },
+      {
+        "day": 7,
+        "kind": "visit",
+        "spot_id": "P026",
+        "leg": 15,
+        "start_hour": 10.0,
+        "end_hour": 12.019999999999996,
+        "hours": 2.019999999999996
+      },
+      {
+        "day": 7,
+        "kind": "travel",
+        "spot_id": "P040",
+        "leg": 16,
+        "start_hour": 12.019999999999982,
+        "end_hour": 14.319999999999983,
+        "hours": 2.3
+      },
+      {
+        "day": 7,
+        "kind": "visit",
+        "spot_id": "P040",
+        "leg": 16,
+        "start_hour": 14.319999999999993,
+        "end_hour": 17.819999999999993,
+        "hours": 3.5
+      },
+      {
+        "day": 7,
+        "kind": "travel",
+        "spot_id": "P027",
+        "leg": 17,
+        "start_hour": 17.819999999999993,
+        "end_hour": 19.999999999999996,
+        "hours": 2.180000000000004
+      },
+      {
+        "day": 8,
+        "kind": "travel",
+        "spot_id": "P027",
+        "leg": 17,
+        "start_hour": 8.0,
+        "end_hour": 8.177999999999995,
+        "hours": 0.17799999999999594
+      },
+      {
+        "day": 8,
+        "kind": "visit",
+        "spot_id": "P027",
+        "leg": 17,
+        "start_hour": 9.5,
+        "end_hour": 12.0,
+        "hours": 2.5
+      },
+      {
+        "day": 8,
+        "kind": "travel",
+        "spot_id": "P028",
+        "leg": 18,
+        "start_hour": 12.0,
+        "end_hour": 14.8,
+        "hours": 2.8
+      },
+      {
+        "day": 8,
+        "kind": "visit",
+        "spot_id": "P028",
+        "leg": 18,
+        "start_hour": 14.800000000000011,
+        "end_hour": 17.30000000000001,
+        "hours": 2.5
+      },
+      {
+        "day": 8,
+        "kind": "travel",
+        "spot_id": "P037",
+        "leg": 19,
+        "start_hour": 17.30000000000001,
+        "end_hour": 19.322000000000017,
+        "hours": 2.022000000000004
+      },
+      {
+        "day": 9,
+        "kind": "travel",
+        "spot_id": "P037",
+        "leg": 19,
+        "start_hour": 8.0,
+        "end_hour": 16.746999999999996,
+        "hours": 8.746999999999996
+      },
+      {
+        "day": 9,
+        "kind": "visit",
+        "spot_id": "P037",
+        "leg": 19,
+        "start_hour": 16.746999999999986,
+        "end_hour": 17.99999999999999,
+        "hours": 1.2530000000000037
+      },
+      {
+        "day": 10,
+        "kind": "visit",
+        "spot_id": "P037",
+        "leg": 19,
+        "start_hour": 10.0,
+        "end_hour": 11.246999999999996,
+        "hours": 1.2469999999999963
+      },
+      {
+        "day": 10,
+        "kind": "travel",
+        "spot_id": "P039",
+        "leg": 20,
+        "start_hour": 11.246999999999986,
+        "end_hour": 11.642999999999986,
+        "hours": 0.396
+      },
+      {
+        "day": 10,
+        "kind": "visit",
+        "spot_id": "P039",
+        "leg": 20,
+        "start_hour": 11.642999999999972,
+        "end_hour": 13.142999999999972,
+        "hours": 1.5
+      },
+      {
+        "day": 10,
+        "kind": "travel",
+        "spot_id": "P029",
+        "leg": 21,
+        "start_hour": 13.142999999999972,
+        "end_hour": 19.999999999999975,
+        "hours": 6.857000000000004
+      },
+      {
+        "day": 11,
+        "kind": "travel",
+        "spot_id": "P029",
+        "leg": 21,
+        "start_hour": 8.0,
+        "end_hour": 10.606999999999996,
+        "hours": 2.6069999999999967
+      },
+      {
+        "day": 11,
+        "kind": "visit",
+        "spot_id": "P029",
+        "leg": 21,
+        "start_hour": 10.607,
+        "end_hour": 14.107,
+        "hours": 3.5
+      },
+      {
+        "day": 11,
+        "kind": "travel",
+        "spot_id": "P033",
+        "leg": 22,
+        "start_hour": 14.107,
+        "end_hour": 17.54,
+        "hours": 3.433
+      },
+      {
+        "day": 11,
+        "kind": "visit",
+        "spot_id": "P033",
+        "leg": 22,
+        "start_hour": 17.54000000000002,
+        "end_hour": 18.000000000000025,
+        "hours": 0.4600000000000044
+      },
+      {
+        "day": 12,
+        "kind": "visit",
+        "spot_id": "P033",
+        "leg": 22,
+        "start_hour": 9.0,
+        "end_hour": 14.539999999999996,
+        "hours": 5.539999999999996
+      },
+      {
+        "day": 12,
+        "kind": "travel",
+        "spot_id": "P009",
+        "leg": 23,
+        "start_hour": 14.54000000000002,
+        "end_hour": 16.81400000000002,
+        "hours": 2.274
+      },
+      {
+        "day": 12,
+        "kind": "visit",
+        "spot_id": "P009",
+        "leg": 23,
+        "start_hour": 16.81400000000002,
+        "end_hour": 19.000000000000025,
+        "hours": 2.1860000000000044
+      },
+      {
+        "day": 13,
+        "kind": "visit",
+        "spot_id": "P009",
+        "leg": 23,
+        "start_hour": 8.5,
+        "end_hour": 12.313999999999997,
+        "hours": 3.8139999999999956
+      },
+      {
+        "day": 13,
+        "kind": "travel",
+        "spot_id": "P010",
+        "leg": 24,
+        "start_hour": 12.314000000000021,
+        "end_hour": 17.40100000000002,
+        "hours": 5.087
+      },
+      {
+        "day": 13,
+        "kind": "visit",
+        "spot_id": "P010",
+        "leg": 24,
+        "start_hour": 17.40100000000001,
+        "end_hour": 18.500000000000014,
+        "hours": 1.0990000000000038
+      },
+      {
+        "day": 14,
+        "kind": "visit",
+        "spot_id": "P010",
+        "leg": 24,
+        "start_hour": 8.0,
+        "end_hour": 12.900999999999996,
+        "hours": 4.900999999999996
+      },
+      {
+        "day": 14,
+        "kind": "travel",
+        "spot_id": "P015",
+        "leg": 25,
+        "start_hour": 12.90100000000001,
+        "end_hour": 16.95000000000001,
+        "hours": 4.049
+      },
+      {
+        "day": 14,
+        "kind": "visit",
+        "spot_id": "P015",
+        "leg": 25,
+        "start_hour": 16.94999999999999,
+        "end_hour": 17.999999999999993,
+        "hours": 1.0500000000000043
+      },
+      {
+        "day": 15,
+        "kind": "visit",
+        "spot_id": "P015",
+        "leg": 25,
+        "start_hour": 8.0,
+        "end_hour": 10.449999999999996,
+        "hours": 2.4499999999999957
+      },
+      {
+        "day": 15,
+        "kind": "travel",
+        "spot_id": "P016",
+        "leg": 26,
+        "start_hour": 10.449999999999989,
+        "end_hour": 14.16599999999999,
+        "hours": 3.716
+      },
+      {
+        "day": 15,
+        "kind": "visit",
+        "spot_id": "P016",
+        "leg": 26,
+        "start_hour": 14.165999999999997,
+        "end_hour": 18.0,
+        "hours": 3.834000000000004
+      },
+      {
+        "day": 16,
+        "kind": "visit",
+        "spot_id": "P016",
+        "leg": 26,
+        "start_hour": 9.0,
+        "end_hour": 10.165999999999997,
+        "hours": 1.165999999999996
+      },
+      {
+        "day": 16,
+        "kind": "travel",
+        "spot_id": "P014",
+        "leg": 27,
+        "start_hour": 10.165999999999997,
+        "end_hour": 14.904999999999998,
+        "hours": 4.739
+      },
+      {
+        "day": 16,
+        "kind": "visit",
+        "spot_id": "P014",
+        "leg": 27,
+        "start_hour": 14.904999999999973,
+        "end_hour": 17.404999999999973,
+        "hours": 2.5
+      },
+      {
+        "day": 16,
+        "kind": "travel",
+        "spot_id": "P017",
+        "leg": 28,
+        "start_hour": 17.404999999999973,
+        "end_hour": 18.001999999999974,
+        "hours": 0.597
+      },
+      {
+        "day": 16,
+        "kind": "visit",
+        "spot_id": "P017",
+        "leg": 28,
+        "start_hour": 18.001999999999953,
+        "end_hour": 18.999999999999957,
+        "hours": 0.9980000000000047
+      },
+      {
+        "day": 17,
+        "kind": "visit",
+        "spot_id": "P017",
+        "leg": 28,
+        "start_hour": 8.0,
+        "end_hour": 8.501999999999995,
+        "hours": 0.5019999999999953
+      },
+      {
+        "day": 17,
+        "kind": "travel",
+        "spot_id": "P008",
+        "leg": 29,
+        "start_hour": 8.50200000000001,
+        "end_hour": 9.099000000000009,
+        "hours": 0.597
+      },
+      {
+        "day": 17,
+        "kind": "visit",
+        "spot_id": "P008",
+        "leg": 29,
+        "start_hour": 9.09899999999999,
+        "end_hour": 15.09899999999999,
+        "hours": 6.0
+      },
+      {
+        "day": 17,
+        "kind": "travel",
+        "spot_id": "P023",
+        "leg": 30,
+        "start_hour": 15.09899999999999,
+        "end_hour": 17.999999999999993,
+        "hours": 2.901000000000005
+      },
+      {
+        "day": 18,
+        "kind": "travel",
+        "spot_id": "P023",
+        "leg": 30,
+        "start_hour": 8.0,
+        "end_hour": 10.861999999999995,
+        "hours": 2.8619999999999948
+      },
+      {
+        "day": 18,
+        "kind": "visit",
+        "spot_id": "P023",
+        "leg": 30,
+        "start_hour": 10.861999999999966,
+        "end_hour": 13.361999999999966,
+        "hours": 2.5
+      },
+      {
+        "day": 18,
+        "kind": "travel",
+        "spot_id": "P022",
+        "leg": 31,
+        "start_hour": 13.361999999999966,
+        "end_hour": 16.535999999999966,
+        "hours": 3.174
+      },
+      {
+        "day": 18,
+        "kind": "visit",
+        "spot_id": "P022",
+        "leg": 31,
+        "start_hour": 16.535999999999945,
+        "end_hour": 17.99999999999995,
+        "hours": 1.4640000000000057
+      },
+      {
+        "day": 19,
+        "kind": "visit",
+        "spot_id": "P022",
+        "leg": 31,
+        "start_hour": 9.0,
+        "end_hour": 10.035999999999994,
+        "hours": 1.0359999999999943
+      },
+      {
+        "day": 19,
+        "kind": "travel",
+        "spot_id": "P020",
+        "leg": 32,
+        "start_hour": 10.036000000000001,
+        "end_hour": 11.194,
+        "hours": 1.158
+      },
+      {
+        "day": 19,
+        "kind": "visit",
+        "spot_id": "P020",
+        "leg": 32,
+        "start_hour": 11.194000000000017,
+        "end_hour": 14.694000000000017,
+        "hours": 3.5
+      },
+      {
+        "day": 19,
+        "kind": "travel",
+        "spot_id": "P018",
+        "leg": 33,
+        "start_hour": 14.694000000000017,
+        "end_hour": 15.823000000000016,
+        "hours": 1.129
+      },
+      {
+        "day": 19,
+        "kind": "visit",
+        "spot_id": "P018",
+        "leg": 33,
+        "start_hour": 15.823000000000036,
+        "end_hour": 19.000000000000043,
+        "hours": 3.1770000000000067
+      },
+      {
+        "day": 20,
+        "kind": "visit",
+        "spot_id": "P018",
+        "leg": 33,
+        "start_hour": 8.5,
+        "end_hour": 12.322999999999993,
+        "hours": 3.8229999999999933
+      },
+      {
+        "day": 20,
+        "kind": "travel",
+        "spot_id": "P019",
+        "leg": 34,
+        "start_hour": 12.322999999999979,
+        "end_hour": 12.62299999999998,
+        "hours": 0.3
+      },
+      {
+        "day": 20,
+        "kind": "visit",
+        "spot_id": "P019",
+        "leg": 34,
+        "start_hour": 12.62299999999999,
+        "end_hour": 18.499999999999996,
+        "hours": 5.877000000000007
+      },
+      {
+        "day": 21,
+        "kind": "visit",
+        "spot_id": "P019",
+        "leg": 34,
+        "start_hour": 8.0,
+        "end_hour": 14.122999999999994,
+        "hours": 6.122999999999993
+      },
+      {
+        "day": 21,
+        "kind": "travel",
+        "spot_id": "P021",
+        "leg": 35,
+        "start_hour": 14.12299999999999,
+        "end_hour": 17.999999999999996,
+        "hours": 3.877000000000007
+      },
+      {
+        "day": 22,
+        "kind": "travel",
+        "spot_id": "P021",
+        "leg": 35,
+        "start_hour": 8.0,
+        "end_hour": 9.394999999999992,
+        "hours": 1.3949999999999934
+      },
+      {
+        "day": 22,
+        "kind": "visit",
+        "spot_id": "P021",
+        "leg": 35,
+        "start_hour": 9.5,
+        "end_hour": 14.5,
+        "hours": 5.0
+      },
+      {
+        "day": 22,
+        "kind": "travel",
+        "spot_id": "P001",
+        "leg": 36,
+        "start_hour": 14.5,
+        "end_hour": 18.105000000000008,
+        "hours": 3.6050000000000066
+      },
+      {
+        "day": 23,
+        "kind": "travel",
+        "spot_id": "P001",
+        "leg": 36,
+        "start_hour": 8.0,
+        "end_hour": 9.429999999999993,
+        "hours": 1.4299999999999935
+      },
+      {
+        "day": 23,
+        "kind": "visit",
+        "spot_id": "P001",
+        "leg": 36,
+        "start_hour": 9.42999999999995,
+        "end_hour": 14.42999999999995,
+        "hours": 5.0
+      },
+      {
+        "day": 23,
+        "kind": "travel",
+        "spot_id": "P035",
+        "leg": 37,
+        "start_hour": 14.42999999999995,
+        "end_hour": 16.96599999999995,
+        "hours": 2.536
+      },
+      {
+        "day": 23,
+        "kind": "visit",
+        "spot_id": "P035",
+        "leg": 37,
+        "start_hour": 16.965999999999894,
+        "end_hour": 17.9999999999999,
+        "hours": 1.034000000000006
+      },
+      {
+        "day": 24,
+        "kind": "visit",
+        "spot_id": "P035",
+        "leg": 37,
+        "start_hour": 8.0,
+        "end_hour": 10.465999999999994,
+        "hours": 2.465999999999994
+      },
+      {
+        "day": 24,
+        "kind": "travel",
+        "spot_id": "P036",
+        "leg": 38,
+        "start_hour": 10.466000000000008,
+        "end_hour": 12.266000000000009,
+        "hours": 1.8
+      },
+      {
+        "day": 24,
+        "kind": "visit",
+        "spot_id": "P036",
+        "leg": 38,
+        "start_hour": 12.265999999999963,
+        "end_hour": 13.765999999999963,
+        "hours": 1.5
+      },
+      {
+        "day": 24,
+        "kind": "travel",
+        "spot_id": "DEPOT",
+        "leg": 39,
+        "start_hour": 13.765999999999963,
+        "end_hour": 14.065999999999963,
+        "hours": 0.3
+      }
+    ],
+    "feasible_with_buffer": true,
+    "feasible_within_horizon": true,
+    "value_of_time": 10,
+    "method": "feasible insertion + directed 2-opt",
+    "proved_optimal": false,
+    "checks": {
+      "unique_visits": true,
+      "eligible_only": true,
+      "coverage": true,
+      "service_completed": true,
+      "travel_recomputed": true,
+      "cost_recomputed": true,
+      "opening_and_daily_windows": true,
+      "event_chronology": true,
+      "daily_active_limit": true,
+      "horizon_with_buffer": true,
+      "reported_days": true
+    }
+  },
+  "personal_candidates": [
+    {
+      "value_of_time": 10,
+      "spots": 38,
+      "priority": 135.0,
+      "days": 24,
+      "transport_cost_for_two": 3661.25
+    },
+    {
+      "value_of_time": 10,
+      "spots": 38,
+      "priority": 135.0,
+      "days": 24,
+      "transport_cost_for_two": 3664.7
+    },
+    {
+      "value_of_time": 60,
+      "spots": 38,
+      "priority": 135.0,
+      "days": 24,
+      "transport_cost_for_two": 3782.1600000000003
+    },
+    {
+      "value_of_time": 60,
+      "spots": 38,
+      "priority": 135.0,
+      "days": 24,
+      "transport_cost_for_two": 3797.1600000000003
+    },
+    {
+      "value_of_time": 200,
+      "spots": 38,
+      "priority": 135.0,
+      "days": 24,
+      "transport_cost_for_two": 3824.7900000000004
+    },
+    {
+      "value_of_time": 200,
+      "spots": 38,
+      "priority": 135.0,
+      "days": 24,
+      "transport_cost_for_two": 3839.7900000000004
+    }
+  ],
+  "two_year_economy": {
+    "years": [
+      {
+        "route": [
+          35,
+          34,
+          2,
+          6,
+          5,
+          11,
+          4,
+          3,
+          10,
+          12
+        ],
+        "spot_ids": [
+          "P036",
+          "P035",
+          "P002",
+          "P006",
+          "P005",
+          "P012",
+          "P004",
+          "P003",
+          "P011",
+          "P013"
+        ],
+        "spot_names": [
+          "北庭故城遗址",
+          "江布拉克草原",
+          "达坂城古镇",
+          "交河故城",
+          "坎儿井民俗园",
+          "苏公塔",
+          "葡萄沟",
+          "火焰山",
+          "高昌故城",
+          "吐峪沟麻扎村"
+        ],
+        "days": 4,
+        "finish_absolute_hour": 84.677,
+        "elapsed_hours": 76.677,
+        "travel_hours": 11.927,
+        "visit_hours": 22.75,
+        "transport_cost_for_two": 326.38,
+        "ticket_cost_for_two": 872.0,
+        "priority_sum": 51.0,
+        "events": [
+          {
+            "day": 1,
+            "kind": "travel",
+            "spot_id": "P036",
+            "leg": 1,
+            "start_hour": 8.0,
+            "end_hour": 8.3,
+            "hours": 0.3
+          },
+          {
+            "day": 1,
+            "kind": "visit",
+            "spot_id": "P036",
+            "leg": 1,
+            "start_hour": 9.0,
+            "end_hour": 10.5,
+            "hours": 1.5
+          },
+          {
+            "day": 1,
+            "kind": "travel",
+            "spot_id": "P035",
+            "leg": 2,
+            "start_hour": 10.5,
+            "end_hour": 12.3,
+            "hours": 1.8
+          },
+          {
+            "day": 1,
+            "kind": "visit",
+            "spot_id": "P035",
+            "leg": 2,
+            "start_hour": 12.3,
+            "end_hour": 15.8,
+            "hours": 3.5
+          },
+          {
+            "day": 1,
+            "kind": "travel",
+            "spot_id": "P002",
+            "leg": 3,
+            "start_hour": 15.8,
+            "end_hour": 18.633000000000003,
+            "hours": 2.833
+          },
+          {
+            "day": 1,
+            "kind": "visit",
+            "spot_id": "P002",
+            "leg": 3,
+            "start_hour": 18.633000000000003,
+            "end_hour": 18.700000000000003,
+            "hours": 0.06700000000000017
+          },
+          {
+            "day": 2,
+            "kind": "visit",
+            "spot_id": "P002",
+            "leg": 3,
+            "start_hour": 9.5,
+            "end_hour": 11.933,
+            "hours": 2.433
+          },
+          {
+            "day": 2,
+            "kind": "travel",
+            "spot_id": "P006",
+            "leg": 4,
+            "start_hour": 11.933,
+            "end_hour": 13.341,
+            "hours": 1.408
+          },
+          {
+            "day": 2,
+            "kind": "visit",
+            "spot_id": "P006",
+            "leg": 4,
+            "start_hour": 13.341000000000001,
+            "end_hour": 15.091000000000001,
+            "hours": 1.75
+          },
+          {
+            "day": 2,
+            "kind": "travel",
+            "spot_id": "P005",
+            "leg": 5,
+            "start_hour": 15.091000000000001,
+            "end_hour": 15.393,
+            "hours": 0.302
+          },
+          {
+            "day": 2,
+            "kind": "visit",
+            "spot_id": "P005",
+            "leg": 5,
+            "start_hour": 15.393,
+            "end_hour": 16.893,
+            "hours": 1.5
+          },
+          {
+            "day": 2,
+            "kind": "travel",
+            "spot_id": "P012",
+            "leg": 6,
+            "start_hour": 16.893,
+            "end_hour": 17.150000000000002,
+            "hours": 0.257
+          },
+          {
+            "day": 2,
+            "kind": "visit",
+            "spot_id": "P012",
+            "leg": 6,
+            "start_hour": 17.15,
+            "end_hour": 18.65,
+            "hours": 1.5
+          },
+          {
+            "day": 2,
+            "kind": "travel",
+            "spot_id": "P004",
+            "leg": 7,
+            "start_hour": 18.65,
+            "end_hour": 18.947999999999997,
+            "hours": 0.298
+          },
+          {
+            "day": 2,
+            "kind": "visit",
+            "spot_id": "P004",
+            "leg": 7,
+            "start_hour": 18.948,
+            "end_hour": 19.5,
+            "hours": 0.5519999999999996
+          },
+          {
+            "day": 3,
+            "kind": "visit",
+            "spot_id": "P004",
+            "leg": 7,
+            "start_hour": 8.5,
+            "end_hour": 10.948,
+            "hours": 2.4480000000000004
+          },
+          {
+            "day": 3,
+            "kind": "travel",
+            "spot_id": "P003",
+            "leg": 8,
+            "start_hour": 10.948,
+            "end_hour": 11.519,
+            "hours": 0.571
+          },
+          {
+            "day": 3,
+            "kind": "visit",
+            "spot_id": "P003",
+            "leg": 8,
+            "start_hour": 11.518999999999998,
+            "end_hour": 14.018999999999998,
+            "hours": 2.5
+          },
+          {
+            "day": 3,
+            "kind": "travel",
+            "spot_id": "P011",
+            "leg": 9,
+            "start_hour": 14.018999999999998,
+            "end_hour": 14.349999999999998,
+            "hours": 0.331
+          },
+          {
+            "day": 3,
+            "kind": "visit",
+            "spot_id": "P011",
+            "leg": 9,
+            "start_hour": 14.350000000000001,
+            "end_hour": 16.85,
+            "hours": 2.5
+          },
+          {
+            "day": 3,
+            "kind": "travel",
+            "spot_id": "P013",
+            "leg": 10,
+            "start_hour": 16.849999999999994,
+            "end_hour": 17.443999999999996,
+            "hours": 0.594
+          },
+          {
+            "day": 3,
+            "kind": "visit",
+            "spot_id": "P013",
+            "leg": 10,
+            "start_hour": 17.44399999999999,
+            "end_hour": 18.499999999999986,
+            "hours": 1.0559999999999992
+          },
+          {
+            "day": 4,
+            "kind": "visit",
+            "spot_id": "P013",
+            "leg": 10,
+            "start_hour": 8.0,
+            "end_hour": 9.444,
+            "hours": 1.4440000000000008
+          },
+          {
+            "day": 4,
+            "kind": "travel",
+            "spot_id": "DEPOT",
+            "leg": 11,
+            "start_hour": 9.444000000000003,
+            "end_hour": 12.677000000000003,
+            "hours": 3.233
+          }
+        ],
+        "feasible_with_buffer": true,
+        "feasible_within_horizon": true,
+        "year": 1,
+        "checks": {
+          "unique_visits": true,
+          "eligible_only": true,
+          "coverage": true,
+          "service_completed": true,
+          "travel_recomputed": true,
+          "cost_recomputed": true,
+          "opening_and_daily_windows": true,
+          "event_chronology": true,
+          "daily_active_limit": true,
+          "horizon_with_buffer": true,
+          "reported_days": true
+        }
+      },
+      {
+        "route": [
+          31,
+          33,
+          24,
+          23,
+          25,
+          38,
+          27,
+          26,
+          36,
+          37,
+          29,
+          30,
+          28,
+          32,
+          8,
+          9,
+          14,
+          15,
+          13,
+          16,
+          7,
+          22,
+          21,
+          17,
+          19,
+          18,
+          20,
+          1
+        ],
+        "spot_ids": [
+          "P032",
+          "P034",
+          "P025",
+          "P024",
+          "P026",
+          "P040",
+          "P028",
+          "P027",
+          "P037",
+          "P039",
+          "P030",
+          "P031",
+          "P029",
+          "P033",
+          "P009",
+          "P010",
+          "P015",
+          "P016",
+          "P014",
+          "P017",
+          "P008",
+          "P023",
+          "P022",
+          "P018",
+          "P020",
+          "P019",
+          "P021",
+          "P001"
+        ],
+        "spot_names": [
+          "博斯腾湖",
+          "罗布人村寨",
+          "艾提尕尔清真寺",
+          "喀什古城",
+          "香妃园",
+          "奥依塔克冰川",
+          "石头城遗址",
+          "帕米尔高原白沙湖",
+          "和田博物馆",
+          "千里葡萄长廊",
+          "库车王府",
+          "克孜尔石窟",
+          "天山神秘大峡谷",
+          "巴音布鲁克草原",
+          "那拉提草原",
+          "喀拉峻大草原",
+          "昭苏草原",
+          "夏塔古道",
+          "霍城薰衣草花田",
+          "果子沟大桥",
+          "赛里木湖",
+          "世界魔鬼城",
+          "五彩滩",
+          "喀纳斯湖",
+          "白哈巴村",
+          "禾木村",
+          "可可托海",
+          "天山天池"
+        ],
+        "days": 21,
+        "finish_absolute_hour": 495.995,
+        "elapsed_hours": 487.995,
+        "travel_hours": 98.495,
+        "visit_hours": 107.5,
+        "transport_cost_for_two": 3172.59,
+        "ticket_cost_for_two": 4020.0,
+        "priority_sum": 84.0,
+        "events": [
+          {
+            "day": 1,
+            "kind": "travel",
+            "spot_id": "P032",
+            "leg": 1,
+            "start_hour": 8.0,
+            "end_hour": 12.843,
+            "hours": 4.843
+          },
+          {
+            "day": 1,
+            "kind": "visit",
+            "spot_id": "P032",
+            "leg": 1,
+            "start_hour": 12.843,
+            "end_hour": 16.343,
+            "hours": 3.5
+          },
+          {
+            "day": 1,
+            "kind": "travel",
+            "spot_id": "P034",
+            "leg": 2,
+            "start_hour": 16.343,
+            "end_hour": 17.643,
+            "hours": 1.3
+          },
+          {
+            "day": 1,
+            "kind": "visit",
+            "spot_id": "P034",
+            "leg": 2,
+            "start_hour": 17.643,
+            "end_hour": 18.0,
+            "hours": 0.3569999999999993
+          },
+          {
+            "day": 2,
+            "kind": "visit",
+            "spot_id": "P034",
+            "leg": 2,
+            "start_hour": 9.0,
+            "end_hour": 11.143,
+            "hours": 2.1430000000000007
+          },
+          {
+            "day": 2,
+            "kind": "travel",
+            "spot_id": "P025",
+            "leg": 3,
+            "start_hour": 11.143,
+            "end_hour": 19.0,
+            "hours": 7.856999999999999
+          },
+          {
+            "day": 3,
+            "kind": "travel",
+            "spot_id": "P025",
+            "leg": 3,
+            "start_hour": 8.0,
+            "end_hour": 12.868,
+            "hours": 4.868
+          },
+          {
+            "day": 3,
+            "kind": "visit",
+            "spot_id": "P025",
+            "leg": 3,
+            "start_hour": 12.868000000000002,
+            "end_hour": 14.0,
+            "hours": 1.131999999999998
+          },
+          {
+            "day": 3,
+            "kind": "visit",
+            "spot_id": "P025",
+            "leg": 3,
+            "start_hour": 16.0,
+            "end_hour": 16.368000000000002,
+            "hours": 0.3680000000000021
+          },
+          {
+            "day": 3,
+            "kind": "travel",
+            "spot_id": "P024",
+            "leg": 4,
+            "start_hour": 16.367999999999995,
+            "end_hour": 16.518999999999995,
+            "hours": 0.151
+          },
+          {
+            "day": 3,
+            "kind": "visit",
+            "spot_id": "P024",
+            "leg": 4,
+            "start_hour": 16.51899999999999,
+            "end_hour": 19.0,
+            "hours": 2.4810000000000088
+          },
+          {
+            "day": 4,
+            "kind": "visit",
+            "spot_id": "P024",
+            "leg": 4,
+            "start_hour": 10.0,
+            "end_hour": 11.018999999999991,
+            "hours": 1.0189999999999912
+          },
+          {
+            "day": 4,
+            "kind": "travel",
+            "spot_id": "P026",
+            "leg": 5,
+            "start_hour": 11.018999999999991,
+            "end_hour": 11.25099999999999,
+            "hours": 0.232
+          },
+          {
+            "day": 4,
+            "kind": "visit",
+            "spot_id": "P026",
+            "leg": 5,
+            "start_hour": 11.25099999999999,
+            "end_hour": 13.75099999999999,
+            "hours": 2.5
+          },
+          {
+            "day": 4,
+            "kind": "travel",
+            "spot_id": "P040",
+            "leg": 6,
+            "start_hour": 13.75099999999999,
+            "end_hour": 16.05099999999999,
+            "hours": 2.3
+          },
+          {
+            "day": 4,
+            "kind": "visit",
+            "spot_id": "P040",
+            "leg": 6,
+            "start_hour": 16.050999999999988,
+            "end_hour": 19.550999999999988,
+            "hours": 3.5
+          },
+          {
+            "day": 4,
+            "kind": "travel",
+            "spot_id": "P028",
+            "leg": 7,
+            "start_hour": 19.550999999999988,
+            "end_hour": 19.999999999999996,
+            "hours": 0.4490000000000087
+          },
+          {
+            "day": 5,
+            "kind": "travel",
+            "spot_id": "P028",
+            "leg": 7,
+            "start_hour": 8.0,
+            "end_hour": 12.708999999999993,
+            "hours": 4.708999999999992
+          },
+          {
+            "day": 5,
+            "kind": "visit",
+            "spot_id": "P028",
+            "leg": 7,
+            "start_hour": 12.708999999999989,
+            "end_hour": 15.208999999999989,
+            "hours": 2.5
+          },
+          {
+            "day": 5,
+            "kind": "travel",
+            "spot_id": "P027",
+            "leg": 8,
+            "start_hour": 15.208999999999989,
+            "end_hour": 17.999999999999996,
+            "hours": 2.7910000000000084
+          },
+          {
+            "day": 6,
+            "kind": "travel",
+            "spot_id": "P027",
+            "leg": 8,
+            "start_hour": 8.0,
+            "end_hour": 8.008999999999991,
+            "hours": 0.00899999999999146
+          },
+          {
+            "day": 6,
+            "kind": "visit",
+            "spot_id": "P027",
+            "leg": 8,
+            "start_hour": 9.5,
+            "end_hour": 12.0,
+            "hours": 2.5
+          },
+          {
+            "day": 6,
+            "kind": "travel",
+            "spot_id": "P037",
+            "leg": 9,
+            "start_hour": 12.0,
+            "end_hour": 19.491000000000007,
+            "hours": 7.4910000000000085
+          },
+          {
+            "day": 7,
+            "kind": "travel",
+            "spot_id": "P037",
+            "leg": 9,
+            "start_hour": 8.0,
+            "end_hour": 8.47799999999999,
+            "hours": 0.47799999999999176
+          },
+          {
+            "day": 7,
+            "kind": "visit",
+            "spot_id": "P037",
+            "leg": 9,
+            "start_hour": 10.0,
+            "end_hour": 12.5,
+            "hours": 2.5
+          },
+          {
+            "day": 7,
+            "kind": "travel",
+            "spot_id": "P039",
+            "leg": 10,
+            "start_hour": 12.5,
+            "end_hour": 12.896,
+            "hours": 0.396
+          },
+          {
+            "day": 7,
+            "kind": "visit",
+            "spot_id": "P039",
+            "leg": 10,
+            "start_hour": 12.895999999999987,
+            "end_hour": 14.395999999999987,
+            "hours": 1.5
+          },
+          {
+            "day": 7,
+            "kind": "travel",
+            "spot_id": "P030",
+            "leg": 11,
+            "start_hour": 14.395999999999987,
+            "end_hour": 19.521999999999995,
+            "hours": 5.126000000000008
+          },
+          {
+            "day": 8,
+            "kind": "travel",
+            "spot_id": "P030",
+            "leg": 11,
+            "start_hour": 8.0,
+            "end_hour": 11.335999999999991,
+            "hours": 3.3359999999999914
+          },
+          {
+            "day": 8,
+            "kind": "visit",
+            "spot_id": "P030",
+            "leg": 11,
+            "start_hour": 11.335999999999984,
+            "end_hour": 12.835999999999984,
+            "hours": 1.5
+          },
+          {
+            "day": 8,
+            "kind": "travel",
+            "spot_id": "P031",
+            "leg": 12,
+            "start_hour": 12.835999999999984,
+            "end_hour": 14.635999999999985,
+            "hours": 1.8
+          },
+          {
+            "day": 8,
+            "kind": "visit",
+            "spot_id": "P031",
+            "leg": 12,
+            "start_hour": 14.635999999999996,
+            "end_hour": 17.135999999999996,
+            "hours": 2.5
+          },
+          {
+            "day": 8,
+            "kind": "travel",
+            "spot_id": "P029",
+            "leg": 13,
+            "start_hour": 17.135999999999996,
+            "end_hour": 18.000000000000004,
+            "hours": 0.8640000000000079
+          },
+          {
+            "day": 9,
+            "kind": "travel",
+            "spot_id": "P029",
+            "leg": 13,
+            "start_hour": 8.0,
+            "end_hour": 10.135999999999992,
+            "hours": 2.135999999999992
+          },
+          {
+            "day": 9,
+            "kind": "visit",
+            "spot_id": "P029",
+            "leg": 13,
+            "start_hour": 10.135999999999996,
+            "end_hour": 13.635999999999996,
+            "hours": 3.5
+          },
+          {
+            "day": 9,
+            "kind": "travel",
+            "spot_id": "P033",
+            "leg": 14,
+            "start_hour": 13.635999999999996,
+            "end_hour": 17.068999999999996,
+            "hours": 3.433
+          },
+          {
+            "day": 9,
+            "kind": "visit",
+            "spot_id": "P033",
+            "leg": 14,
+            "start_hour": 17.06899999999999,
+            "end_hour": 17.999999999999996,
+            "hours": 0.931000000000008
+          },
+          {
+            "day": 10,
+            "kind": "visit",
+            "spot_id": "P033",
+            "leg": 14,
+            "start_hour": 9.0,
+            "end_hour": 14.068999999999992,
+            "hours": 5.068999999999992
+          },
+          {
+            "day": 10,
+            "kind": "travel",
+            "spot_id": "P009",
+            "leg": 15,
+            "start_hour": 14.068999999999988,
+            "end_hour": 16.34299999999999,
+            "hours": 2.274
+          },
+          {
+            "day": 10,
+            "kind": "visit",
+            "spot_id": "P009",
+            "leg": 15,
+            "start_hour": 16.34299999999999,
+            "end_hour": 18.999999999999996,
+            "hours": 2.657000000000008
+          },
+          {
+            "day": 11,
+            "kind": "visit",
+            "spot_id": "P009",
+            "leg": 15,
+            "start_hour": 8.5,
+            "end_hour": 11.842999999999993,
+            "hours": 3.342999999999992
+          },
+          {
+            "day": 11,
+            "kind": "travel",
+            "spot_id": "P010",
+            "leg": 16,
+            "start_hour": 11.84299999999999,
+            "end_hour": 16.92999999999999,
+            "hours": 5.087
+          },
+          {
+            "day": 11,
+            "kind": "visit",
+            "spot_id": "P010",
+            "leg": 16,
+            "start_hour": 16.930000000000007,
+            "end_hour": 18.500000000000014,
+            "hours": 1.5700000000000074
+          },
+          {
+            "day": 12,
+            "kind": "visit",
+            "spot_id": "P010",
+            "leg": 16,
+            "start_hour": 8.0,
+            "end_hour": 12.429999999999993,
+            "hours": 4.429999999999993
+          },
+          {
+            "day": 12,
+            "kind": "travel",
+            "spot_id": "P015",
+            "leg": 17,
+            "start_hour": 12.430000000000007,
+            "end_hour": 16.479000000000006,
+            "hours": 4.049
+          },
+          {
+            "day": 12,
+            "kind": "visit",
+            "spot_id": "P015",
+            "leg": 17,
+            "start_hour": 16.478999999999985,
+            "end_hour": 17.999999999999993,
+            "hours": 1.521000000000008
+          },
+          {
+            "day": 13,
+            "kind": "visit",
+            "spot_id": "P015",
+            "leg": 17,
+            "start_hour": 8.0,
+            "end_hour": 9.978999999999992,
+            "hours": 1.978999999999992
+          },
+          {
+            "day": 13,
+            "kind": "travel",
+            "spot_id": "P016",
+            "leg": 18,
+            "start_hour": 9.978999999999985,
+            "end_hour": 13.694999999999986,
+            "hours": 3.716
+          },
+          {
+            "day": 13,
+            "kind": "visit",
+            "spot_id": "P016",
+            "leg": 18,
+            "start_hour": 13.694999999999993,
+            "end_hour": 18.0,
+            "hours": 4.305000000000008
+          },
+          {
+            "day": 14,
+            "kind": "visit",
+            "spot_id": "P016",
+            "leg": 18,
+            "start_hour": 9.0,
+            "end_hour": 9.694999999999993,
+            "hours": 0.6949999999999923
+          },
+          {
+            "day": 14,
+            "kind": "travel",
+            "spot_id": "P014",
+            "leg": 19,
+            "start_hour": 9.694999999999993,
+            "end_hour": 14.433999999999994,
+            "hours": 4.739
+          },
+          {
+            "day": 14,
+            "kind": "visit",
+            "spot_id": "P014",
+            "leg": 19,
+            "start_hour": 14.433999999999969,
+            "end_hour": 16.93399999999997,
+            "hours": 2.5
+          },
+          {
+            "day": 14,
+            "kind": "travel",
+            "spot_id": "P017",
+            "leg": 20,
+            "start_hour": 16.93399999999997,
+            "end_hour": 17.53099999999997,
+            "hours": 0.597
+          },
+          {
+            "day": 14,
+            "kind": "visit",
+            "spot_id": "P017",
+            "leg": 20,
+            "start_hour": 17.53099999999995,
+            "end_hour": 18.999999999999957,
+            "hours": 1.4690000000000083
+          },
+          {
+            "day": 15,
+            "kind": "visit",
+            "spot_id": "P017",
+            "leg": 20,
+            "start_hour": 8.0,
+            "end_hour": 8.030999999999992,
+            "hours": 0.0309999999999917
+          },
+          {
+            "day": 15,
+            "kind": "travel",
+            "spot_id": "P008",
+            "leg": 21,
+            "start_hour": 8.031000000000006,
+            "end_hour": 8.628000000000005,
+            "hours": 0.597
+          },
+          {
+            "day": 15,
+            "kind": "visit",
+            "spot_id": "P008",
+            "leg": 21,
+            "start_hour": 8.627999999999986,
+            "end_hour": 14.627999999999986,
+            "hours": 6.0
+          },
+          {
+            "day": 15,
+            "kind": "travel",
+            "spot_id": "P023",
+            "leg": 22,
+            "start_hour": 14.627999999999986,
+            "end_hour": 17.999999999999993,
+            "hours": 3.3720000000000088
+          },
+          {
+            "day": 16,
+            "kind": "travel",
+            "spot_id": "P023",
+            "leg": 22,
+            "start_hour": 8.0,
+            "end_hour": 10.390999999999991,
+            "hours": 2.390999999999991
+          },
+          {
+            "day": 16,
+            "kind": "visit",
+            "spot_id": "P023",
+            "leg": 22,
+            "start_hour": 10.390999999999963,
+            "end_hour": 12.890999999999963,
+            "hours": 2.5
+          },
+          {
+            "day": 16,
+            "kind": "travel",
+            "spot_id": "P022",
+            "leg": 23,
+            "start_hour": 12.890999999999963,
+            "end_hour": 16.064999999999962,
+            "hours": 3.174
+          },
+          {
+            "day": 16,
+            "kind": "visit",
+            "spot_id": "P022",
+            "leg": 23,
+            "start_hour": 16.06499999999994,
+            "end_hour": 17.99999999999995,
+            "hours": 1.9350000000000094
+          },
+          {
+            "day": 17,
+            "kind": "visit",
+            "spot_id": "P022",
+            "leg": 23,
+            "start_hour": 9.0,
+            "end_hour": 9.56499999999999,
+            "hours": 0.5649999999999906
+          },
+          {
+            "day": 17,
+            "kind": "travel",
+            "spot_id": "P018",
+            "leg": 24,
+            "start_hour": 9.564999999999998,
+            "end_hour": 9.864999999999998,
+            "hours": 0.3
+          },
+          {
+            "day": 17,
+            "kind": "visit",
+            "spot_id": "P018",
+            "leg": 24,
+            "start_hour": 9.865000000000009,
+            "end_hour": 16.86500000000001,
+            "hours": 7.0
+          },
+          {
+            "day": 17,
+            "kind": "travel",
+            "spot_id": "P020",
+            "leg": 25,
+            "start_hour": 16.86500000000001,
+            "end_hour": 17.72300000000001,
+            "hours": 0.858
+          },
+          {
+            "day": 17,
+            "kind": "visit",
+            "spot_id": "P020",
+            "leg": 25,
+            "start_hour": 17.723000000000013,
+            "end_hour": 18.0,
+            "hours": 0.2769999999999868
+          },
+          {
+            "day": 18,
+            "kind": "visit",
+            "spot_id": "P020",
+            "leg": 25,
+            "start_hour": 9.0,
+            "end_hour": 12.223000000000013,
+            "hours": 3.223000000000013
+          },
+          {
+            "day": 18,
+            "kind": "travel",
+            "spot_id": "P019",
+            "leg": 26,
+            "start_hour": 12.223000000000013,
+            "end_hour": 13.652000000000013,
+            "hours": 1.4289999999999998
+          },
+          {
+            "day": 18,
+            "kind": "visit",
+            "spot_id": "P019",
+            "leg": 26,
+            "start_hour": 13.651999999999987,
+            "end_hour": 18.99999999999997,
+            "hours": 5.3479999999999865
+          },
+          {
+            "day": 19,
+            "kind": "visit",
+            "spot_id": "P019",
+            "leg": 26,
+            "start_hour": 8.0,
+            "end_hour": 14.652000000000013,
+            "hours": 6.6520000000000135
+          },
+          {
+            "day": 19,
+            "kind": "travel",
+            "spot_id": "P021",
+            "leg": 27,
+            "start_hour": 14.651999999999987,
+            "end_hour": 17.99999999999997,
+            "hours": 3.3479999999999865
+          },
+          {
+            "day": 20,
+            "kind": "travel",
+            "spot_id": "P021",
+            "leg": 27,
+            "start_hour": 8.0,
+            "end_hour": 9.924000000000014,
+            "hours": 1.9240000000000137
+          },
+          {
+            "day": 20,
+            "kind": "visit",
+            "spot_id": "P021",
+            "leg": 27,
+            "start_hour": 9.924000000000035,
+            "end_hour": 14.924000000000035,
+            "hours": 5.0
+          },
+          {
+            "day": 20,
+            "kind": "travel",
+            "spot_id": "P001",
+            "leg": 28,
+            "start_hour": 14.924000000000035,
+            "end_hour": 18.00000000000002,
+            "hours": 3.0759999999999863
+          },
+          {
+            "day": 21,
+            "kind": "travel",
+            "spot_id": "P001",
+            "leg": 28,
+            "start_hour": 8.0,
+            "end_hour": 9.959000000000014,
+            "hours": 1.9590000000000138
+          },
+          {
+            "day": 21,
+            "kind": "visit",
+            "spot_id": "P001",
+            "leg": 28,
+            "start_hour": 9.959000000000003,
+            "end_hour": 14.959000000000003,
+            "hours": 5.0
+          },
+          {
+            "day": 21,
+            "kind": "travel",
+            "spot_id": "DEPOT",
+            "leg": 29,
+            "start_hour": 14.959000000000003,
+            "end_hour": 15.995000000000003,
+            "hours": 1.036
+          }
+        ],
+        "feasible_with_buffer": true,
+        "feasible_within_horizon": true,
+        "year": 2,
+        "checks": {
+          "unique_visits": true,
+          "eligible_only": true,
+          "coverage": true,
+          "service_completed": true,
+          "travel_recomputed": true,
+          "cost_recomputed": true,
+          "opening_and_daily_windows": true,
+          "event_chronology": true,
+          "daily_active_limit": true,
+          "horizon_with_buffer": true,
+          "reported_days": true
+        }
+      }
+    ],
+    "transport_cost_for_two": 3498.9700000000003,
+    "initial_split_cost_for_two": 3548.07,
+    "checks": {
+      "all_eligible_exactly_once": true,
+      "annual_minimum": true,
+      "annual_balance": true,
+      "annual_calendars": true
+    },
+    "value_of_time": 10,
+    "feasible_splits_examined": 138,
+    "proved_optimal": false,
+    "max_annual_day_gap": null,
+    "method": "multistart insertion + split enumeration + cross-year relocation + directed 2-opt"
+  },
+  "two_year_balanced": {
+    "years": [
+      {
+        "route": [
+          35,
+          2,
+          4,
+          3,
+          12,
+          10,
+          11,
+          5,
+          6,
+          31,
+          33,
+          24,
+          23,
+          25,
+          38,
+          27,
+          26,
+          36,
+          37,
+          29,
+          30,
+          28,
+          32,
+          8
+        ],
+        "spot_ids": [
+          "P036",
+          "P002",
+          "P004",
+          "P003",
+          "P013",
+          "P011",
+          "P012",
+          "P005",
+          "P006",
+          "P032",
+          "P034",
+          "P025",
+          "P024",
+          "P026",
+          "P040",
+          "P028",
+          "P027",
+          "P037",
+          "P039",
+          "P030",
+          "P031",
+          "P029",
+          "P033",
+          "P009"
+        ],
+        "spot_names": [
+          "北庭故城遗址",
+          "达坂城古镇",
+          "葡萄沟",
+          "火焰山",
+          "吐峪沟麻扎村",
+          "高昌故城",
+          "苏公塔",
+          "坎儿井民俗园",
+          "交河故城",
+          "博斯腾湖",
+          "罗布人村寨",
+          "艾提尕尔清真寺",
+          "喀什古城",
+          "香妃园",
+          "奥依塔克冰川",
+          "石头城遗址",
+          "帕米尔高原白沙湖",
+          "和田博物馆",
+          "千里葡萄长廊",
+          "库车王府",
+          "克孜尔石窟",
+          "天山神秘大峡谷",
+          "巴音布鲁克草原",
+          "那拉提草原"
+        ],
+        "days": 14,
+        "finish_absolute_hour": 326.70099999999996,
+        "elapsed_hours": 318.70099999999996,
+        "travel_hours": 70.604,
+        "visit_hours": 64.75,
+        "transport_cost_for_two": 2070.7300000000005,
+        "ticket_cost_for_two": 2206.0,
+        "priority_sum": 90.0,
+        "events": [
+          {
+            "day": 1,
+            "kind": "travel",
+            "spot_id": "P036",
+            "leg": 1,
+            "start_hour": 8.0,
+            "end_hour": 8.3,
+            "hours": 0.3
+          },
+          {
+            "day": 1,
+            "kind": "visit",
+            "spot_id": "P036",
+            "leg": 1,
+            "start_hour": 9.0,
+            "end_hour": 10.5,
+            "hours": 1.5
+          },
+          {
+            "day": 1,
+            "kind": "travel",
+            "spot_id": "P002",
+            "leg": 2,
+            "start_hour": 10.5,
+            "end_hour": 12.133,
+            "hours": 1.633
+          },
+          {
+            "day": 1,
+            "kind": "visit",
+            "spot_id": "P002",
+            "leg": 2,
+            "start_hour": 12.133,
+            "end_hour": 14.633,
+            "hours": 2.5
+          },
+          {
+            "day": 1,
+            "kind": "travel",
+            "spot_id": "P004",
+            "leg": 3,
+            "start_hour": 14.633,
+            "end_hour": 15.928999999999998,
+            "hours": 1.296
+          },
+          {
+            "day": 1,
+            "kind": "visit",
+            "spot_id": "P004",
+            "leg": 3,
+            "start_hour": 15.928999999999998,
+            "end_hour": 18.7,
+            "hours": 2.771
+          },
+          {
+            "day": 2,
+            "kind": "visit",
+            "spot_id": "P004",
+            "leg": 3,
+            "start_hour": 8.5,
+            "end_hour": 8.729,
+            "hours": 0.2290000000000001
+          },
+          {
+            "day": 2,
+            "kind": "travel",
+            "spot_id": "P003",
+            "leg": 4,
+            "start_hour": 8.729,
+            "end_hour": 9.299999999999999,
+            "hours": 0.571
+          },
+          {
+            "day": 2,
+            "kind": "visit",
+            "spot_id": "P003",
+            "leg": 4,
+            "start_hour": 9.299999999999997,
+            "end_hour": 11.799999999999997,
+            "hours": 2.5
+          },
+          {
+            "day": 2,
+            "kind": "travel",
+            "spot_id": "P013",
+            "leg": 5,
+            "start_hour": 11.799999999999997,
+            "end_hour": 12.177999999999997,
+            "hours": 0.378
+          },
+          {
+            "day": 2,
+            "kind": "visit",
+            "spot_id": "P013",
+            "leg": 5,
+            "start_hour": 12.177999999999997,
+            "end_hour": 14.677999999999997,
+            "hours": 2.5
+          },
+          {
+            "day": 2,
+            "kind": "travel",
+            "spot_id": "P011",
+            "leg": 6,
+            "start_hour": 14.677999999999997,
+            "end_hour": 15.101999999999997,
+            "hours": 0.424
+          },
+          {
+            "day": 2,
+            "kind": "visit",
+            "spot_id": "P011",
+            "leg": 6,
+            "start_hour": 15.101999999999997,
+            "end_hour": 17.601999999999997,
+            "hours": 2.5
+          },
+          {
+            "day": 2,
+            "kind": "travel",
+            "spot_id": "P012",
+            "leg": 7,
+            "start_hour": 17.601999999999997,
+            "end_hour": 18.499999999999996,
+            "hours": 0.8979999999999997
+          },
+          {
+            "day": 3,
+            "kind": "travel",
+            "spot_id": "P012",
+            "leg": 7,
+            "start_hour": 8.0,
+            "end_hour": 8.002,
+            "hours": 0.002000000000000335
+          },
+          {
+            "day": 3,
+            "kind": "visit",
+            "spot_id": "P012",
+            "leg": 7,
+            "start_hour": 9.0,
+            "end_hour": 10.5,
+            "hours": 1.5
+          },
+          {
+            "day": 3,
+            "kind": "travel",
+            "spot_id": "P005",
+            "leg": 8,
+            "start_hour": 10.5,
+            "end_hour": 10.758,
+            "hours": 0.258
+          },
+          {
+            "day": 3,
+            "kind": "visit",
+            "spot_id": "P005",
+            "leg": 8,
+            "start_hour": 10.758000000000003,
+            "end_hour": 12.258000000000003,
+            "hours": 1.5
+          },
+          {
+            "day": 3,
+            "kind": "travel",
+            "spot_id": "P006",
+            "leg": 9,
+            "start_hour": 12.258000000000003,
+            "end_hour": 12.481000000000003,
+            "hours": 0.223
+          },
+          {
+            "day": 3,
+            "kind": "visit",
+            "spot_id": "P006",
+            "leg": 9,
+            "start_hour": 12.481000000000002,
+            "end_hour": 14.231000000000002,
+            "hours": 1.75
+          },
+          {
+            "day": 3,
+            "kind": "travel",
+            "spot_id": "P032",
+            "leg": 10,
+            "start_hour": 14.231000000000002,
+            "end_hour": 18.998,
+            "hours": 4.7669999999999995
+          },
+          {
+            "day": 4,
+            "kind": "travel",
+            "spot_id": "P032",
+            "leg": 10,
+            "start_hour": 8.0,
+            "end_hour": 8.445,
+            "hours": 0.4450000000000003
+          },
+          {
+            "day": 4,
+            "kind": "visit",
+            "spot_id": "P032",
+            "leg": 10,
+            "start_hour": 9.0,
+            "end_hour": 12.5,
+            "hours": 3.5
+          },
+          {
+            "day": 4,
+            "kind": "travel",
+            "spot_id": "P034",
+            "leg": 11,
+            "start_hour": 12.5,
+            "end_hour": 13.8,
+            "hours": 1.3
+          },
+          {
+            "day": 4,
+            "kind": "visit",
+            "spot_id": "P034",
+            "leg": 11,
+            "start_hour": 13.799999999999997,
+            "end_hour": 16.299999999999997,
+            "hours": 2.5
+          },
+          {
+            "day": 4,
+            "kind": "travel",
+            "spot_id": "P025",
+            "leg": 12,
+            "start_hour": 16.299999999999997,
+            "end_hour": 18.554999999999996,
+            "hours": 2.255
+          },
+          {
+            "day": 5,
+            "kind": "travel",
+            "spot_id": "P025",
+            "leg": 12,
+            "start_hour": 8.0,
+            "end_hour": 18.0,
+            "hours": 10.0
+          },
+          {
+            "day": 6,
+            "kind": "travel",
+            "spot_id": "P025",
+            "leg": 12,
+            "start_hour": 8.0,
+            "end_hour": 8.469999999999999,
+            "hours": 0.46999999999999886
+          },
+          {
+            "day": 6,
+            "kind": "visit",
+            "spot_id": "P025",
+            "leg": 12,
+            "start_hour": 10.0,
+            "end_hour": 11.5,
+            "hours": 1.5
+          },
+          {
+            "day": 6,
+            "kind": "travel",
+            "spot_id": "P024",
+            "leg": 13,
+            "start_hour": 11.5,
+            "end_hour": 11.651,
+            "hours": 0.151
+          },
+          {
+            "day": 6,
+            "kind": "visit",
+            "spot_id": "P024",
+            "leg": 13,
+            "start_hour": 11.65100000000001,
+            "end_hour": 15.15100000000001,
+            "hours": 3.5
+          },
+          {
+            "day": 6,
+            "kind": "travel",
+            "spot_id": "P026",
+            "leg": 14,
+            "start_hour": 15.15100000000001,
+            "end_hour": 15.38300000000001,
+            "hours": 0.232
+          },
+          {
+            "day": 6,
+            "kind": "visit",
+            "spot_id": "P026",
+            "leg": 14,
+            "start_hour": 15.38300000000001,
+            "end_hour": 17.88300000000001,
+            "hours": 2.5
+          },
+          {
+            "day": 6,
+            "kind": "travel",
+            "spot_id": "P040",
+            "leg": 15,
+            "start_hour": 17.88300000000001,
+            "end_hour": 19.530000000000012,
+            "hours": 1.647000000000002
+          },
+          {
+            "day": 7,
+            "kind": "travel",
+            "spot_id": "P040",
+            "leg": 15,
+            "start_hour": 8.0,
+            "end_hour": 8.652999999999999,
+            "hours": 0.6529999999999978
+          },
+          {
+            "day": 7,
+            "kind": "visit",
+            "spot_id": "P040",
+            "leg": 15,
+            "start_hour": 10.0,
+            "end_hour": 13.5,
+            "hours": 3.5
+          },
+          {
+            "day": 7,
+            "kind": "travel",
+            "spot_id": "P028",
+            "leg": 16,
+            "start_hour": 13.5,
+            "end_hour": 18.658,
+            "hours": 5.158
+          },
+          {
+            "day": 7,
+            "kind": "visit",
+            "spot_id": "P028",
+            "leg": 16,
+            "start_hour": 18.657999999999987,
+            "end_hour": 19.0,
+            "hours": 0.34200000000001296
+          },
+          {
+            "day": 8,
+            "kind": "visit",
+            "spot_id": "P028",
+            "leg": 16,
+            "start_hour": 9.0,
+            "end_hour": 11.157999999999987,
+            "hours": 2.157999999999987
+          },
+          {
+            "day": 8,
+            "kind": "travel",
+            "spot_id": "P027",
+            "leg": 17,
+            "start_hour": 11.157999999999987,
+            "end_hour": 13.957999999999988,
+            "hours": 2.8
+          },
+          {
+            "day": 8,
+            "kind": "visit",
+            "spot_id": "P027",
+            "leg": 17,
+            "start_hour": 13.957999999999998,
+            "end_hour": 16.458,
+            "hours": 2.5
+          },
+          {
+            "day": 8,
+            "kind": "travel",
+            "spot_id": "P037",
+            "leg": 18,
+            "start_hour": 16.458,
+            "end_hour": 19.00000000000001,
+            "hours": 2.542000000000013
+          },
+          {
+            "day": 9,
+            "kind": "travel",
+            "spot_id": "P037",
+            "leg": 18,
+            "start_hour": 8.0,
+            "end_hour": 13.426999999999987,
+            "hours": 5.426999999999987
+          },
+          {
+            "day": 9,
+            "kind": "visit",
+            "spot_id": "P037",
+            "leg": 18,
+            "start_hour": 13.426999999999992,
+            "end_hour": 15.926999999999992,
+            "hours": 2.5
+          },
+          {
+            "day": 9,
+            "kind": "travel",
+            "spot_id": "P039",
+            "leg": 19,
+            "start_hour": 15.926999999999992,
+            "end_hour": 16.322999999999993,
+            "hours": 0.396
+          },
+          {
+            "day": 9,
+            "kind": "visit",
+            "spot_id": "P039",
+            "leg": 19,
+            "start_hour": 16.32299999999998,
+            "end_hour": 17.82299999999998,
+            "hours": 1.5
+          },
+          {
+            "day": 9,
+            "kind": "travel",
+            "spot_id": "P030",
+            "leg": 20,
+            "start_hour": 17.82299999999998,
+            "end_hour": 17.999999999999993,
+            "hours": 0.17700000000001204
+          },
+          {
+            "day": 10,
+            "kind": "travel",
+            "spot_id": "P030",
+            "leg": 20,
+            "start_hour": 8.0,
+            "end_hour": 16.28499999999999,
+            "hours": 8.284999999999988
+          },
+          {
+            "day": 10,
+            "kind": "visit",
+            "spot_id": "P030",
+            "leg": 20,
+            "start_hour": 16.284999999999997,
+            "end_hour": 17.784999999999997,
+            "hours": 1.5
+          },
+          {
+            "day": 10,
+            "kind": "travel",
+            "spot_id": "P031",
+            "leg": 21,
+            "start_hour": 17.784999999999997,
+            "end_hour": 18.000000000000007,
+            "hours": 0.2150000000000123
+          },
+          {
+            "day": 11,
+            "kind": "travel",
+            "spot_id": "P031",
+            "leg": 21,
+            "start_hour": 8.0,
+            "end_hour": 9.584999999999988,
+            "hours": 1.5849999999999878
+          },
+          {
+            "day": 11,
+            "kind": "visit",
+            "spot_id": "P031",
+            "leg": 21,
+            "start_hour": 9.58499999999998,
+            "end_hour": 12.08499999999998,
+            "hours": 2.5
+          },
+          {
+            "day": 11,
+            "kind": "travel",
+            "spot_id": "P029",
+            "leg": 22,
+            "start_hour": 12.08499999999998,
+            "end_hour": 15.08499999999998,
+            "hours": 3.0
+          },
+          {
+            "day": 11,
+            "kind": "visit",
+            "spot_id": "P029",
+            "leg": 22,
+            "start_hour": 15.08499999999998,
+            "end_hour": 17.0,
+            "hours": 1.9150000000000205
+          },
+          {
+            "day": 12,
+            "kind": "visit",
+            "spot_id": "P029",
+            "leg": 22,
+            "start_hour": 8.0,
+            "end_hour": 9.58499999999998,
+            "hours": 1.5849999999999795
+          },
+          {
+            "day": 12,
+            "kind": "travel",
+            "spot_id": "P033",
+            "leg": 23,
+            "start_hour": 9.58499999999998,
+            "end_hour": 13.01799999999998,
+            "hours": 3.433
+          },
+          {
+            "day": 12,
+            "kind": "visit",
+            "spot_id": "P033",
+            "leg": 23,
+            "start_hour": 13.017999999999972,
+            "end_hour": 17.999999999999993,
+            "hours": 4.982000000000021
+          },
+          {
+            "day": 13,
+            "kind": "visit",
+            "spot_id": "P033",
+            "leg": 23,
+            "start_hour": 9.0,
+            "end_hour": 10.01799999999998,
+            "hours": 1.0179999999999794
+          },
+          {
+            "day": 13,
+            "kind": "travel",
+            "spot_id": "P009",
+            "leg": 24,
+            "start_hour": 10.017999999999972,
+            "end_hour": 12.291999999999973,
+            "hours": 2.274
+          },
+          {
+            "day": 13,
+            "kind": "visit",
+            "spot_id": "P009",
+            "leg": 24,
+            "start_hour": 12.291999999999973,
+            "end_hour": 18.291999999999973,
+            "hours": 6.0
+          },
+          {
+            "day": 13,
+            "kind": "travel",
+            "spot_id": "DEPOT",
+            "leg": 25,
+            "start_hour": 18.291999999999973,
+            "end_hour": 18.999999999999993,
+            "hours": 0.7080000000000197
+          },
+          {
+            "day": 14,
+            "kind": "travel",
+            "spot_id": "DEPOT",
+            "leg": 25,
+            "start_hour": 8.0,
+            "end_hour": 14.70099999999998,
+            "hours": 6.70099999999998
+          }
+        ],
+        "feasible_with_buffer": true,
+        "feasible_within_horizon": true,
+        "year": 1,
+        "checks": {
+          "unique_visits": true,
+          "eligible_only": true,
+          "coverage": true,
+          "service_completed": true,
+          "travel_recomputed": true,
+          "cost_recomputed": true,
+          "opening_and_daily_windows": true,
+          "event_chronology": true,
+          "daily_active_limit": true,
+          "horizon_with_buffer": true,
+          "reported_days": true
+        }
+      },
+      {
+        "route": [
+          9,
+          14,
+          15,
+          13,
+          16,
+          7,
+          22,
+          18,
+          19,
+          17,
+          21,
+          20,
+          1,
+          34
+        ],
+        "spot_ids": [
+          "P010",
+          "P015",
+          "P016",
+          "P014",
+          "P017",
+          "P008",
+          "P023",
+          "P019",
+          "P020",
+          "P018",
+          "P022",
+          "P021",
+          "P001",
+          "P035"
+        ],
+        "spot_names": [
+          "喀拉峻大草原",
+          "昭苏草原",
+          "夏塔古道",
+          "霍城薰衣草花田",
+          "果子沟大桥",
+          "赛里木湖",
+          "世界魔鬼城",
+          "禾木村",
+          "白哈巴村",
+          "喀纳斯湖",
+          "五彩滩",
+          "可可托海",
+          "天山天池",
+          "江布拉克草原"
+        ],
+        "days": 12,
+        "finish_absolute_hour": 277.498,
+        "elapsed_hours": 269.498,
+        "travel_hours": 49.998,
+        "visit_hours": 65.5,
+        "transport_cost_for_two": 1716.94,
+        "ticket_cost_for_two": 2686.0,
+        "priority_sum": 45.0,
+        "events": [
+          {
+            "day": 1,
+            "kind": "travel",
+            "spot_id": "P010",
+            "leg": 1,
+            "start_hour": 8.0,
+            "end_hour": 18.0,
+            "hours": 10.0
+          },
+          {
+            "day": 2,
+            "kind": "travel",
+            "spot_id": "P010",
+            "leg": 1,
+            "start_hour": 8.0,
+            "end_hour": 8.433,
+            "hours": 0.43299999999999983
+          },
+          {
+            "day": 2,
+            "kind": "visit",
+            "spot_id": "P010",
+            "leg": 1,
+            "start_hour": 8.433,
+            "end_hour": 14.433,
+            "hours": 6.0
+          },
+          {
+            "day": 2,
+            "kind": "travel",
+            "spot_id": "P015",
+            "leg": 2,
+            "start_hour": 14.433,
+            "end_hour": 18.0,
+            "hours": 3.567
+          },
+          {
+            "day": 3,
+            "kind": "travel",
+            "spot_id": "P015",
+            "leg": 2,
+            "start_hour": 8.0,
+            "end_hour": 8.482,
+            "hours": 0.4820000000000002
+          },
+          {
+            "day": 3,
+            "kind": "visit",
+            "spot_id": "P015",
+            "leg": 2,
+            "start_hour": 8.482,
+            "end_hour": 11.982,
+            "hours": 3.5
+          },
+          {
+            "day": 3,
+            "kind": "travel",
+            "spot_id": "P016",
+            "leg": 3,
+            "start_hour": 11.982,
+            "end_hour": 15.698,
+            "hours": 3.716
+          },
+          {
+            "day": 3,
+            "kind": "visit",
+            "spot_id": "P016",
+            "leg": 3,
+            "start_hour": 15.698,
+            "end_hour": 18.0,
+            "hours": 2.3019999999999996
+          },
+          {
+            "day": 4,
+            "kind": "visit",
+            "spot_id": "P016",
+            "leg": 3,
+            "start_hour": 9.0,
+            "end_hour": 11.698,
+            "hours": 2.6980000000000004
+          },
+          {
+            "day": 4,
+            "kind": "travel",
+            "spot_id": "P014",
+            "leg": 4,
+            "start_hour": 11.698000000000008,
+            "end_hour": 16.43700000000001,
+            "hours": 4.739
+          },
+          {
+            "day": 4,
+            "kind": "visit",
+            "spot_id": "P014",
+            "leg": 4,
+            "start_hour": 16.437000000000012,
+            "end_hour": 18.937000000000012,
+            "hours": 2.5
+          },
+          {
+            "day": 4,
+            "kind": "travel",
+            "spot_id": "P017",
+            "leg": 5,
+            "start_hour": 18.937000000000012,
+            "end_hour": 19.00000000000001,
+            "hours": 0.06299999999999883
+          },
+          {
+            "day": 5,
+            "kind": "travel",
+            "spot_id": "P017",
+            "leg": 5,
+            "start_hour": 8.0,
+            "end_hour": 8.534,
+            "hours": 0.5340000000000011
+          },
+          {
+            "day": 5,
+            "kind": "visit",
+            "spot_id": "P017",
+            "leg": 5,
+            "start_hour": 8.534000000000006,
+            "end_hour": 10.034000000000006,
+            "hours": 1.5
+          },
+          {
+            "day": 5,
+            "kind": "travel",
+            "spot_id": "P008",
+            "leg": 6,
+            "start_hour": 10.034000000000006,
+            "end_hour": 10.631000000000006,
+            "hours": 0.597
+          },
+          {
+            "day": 5,
+            "kind": "visit",
+            "spot_id": "P008",
+            "leg": 6,
+            "start_hour": 10.631,
+            "end_hour": 16.631,
+            "hours": 6.0
+          },
+          {
+            "day": 5,
+            "kind": "travel",
+            "spot_id": "P023",
+            "leg": 7,
+            "start_hour": 16.631,
+            "end_hour": 18.0,
+            "hours": 1.3689999999999998
+          },
+          {
+            "day": 6,
+            "kind": "travel",
+            "spot_id": "P023",
+            "leg": 7,
+            "start_hour": 8.0,
+            "end_hour": 12.394,
+            "hours": 4.394
+          },
+          {
+            "day": 6,
+            "kind": "visit",
+            "spot_id": "P023",
+            "leg": 7,
+            "start_hour": 12.394000000000005,
+            "end_hour": 14.894000000000005,
+            "hours": 2.5
+          },
+          {
+            "day": 6,
+            "kind": "travel",
+            "spot_id": "P019",
+            "leg": 8,
+            "start_hour": 14.894000000000005,
+            "end_hour": 18.000000000000007,
+            "hours": 3.106
+          },
+          {
+            "day": 7,
+            "kind": "travel",
+            "spot_id": "P019",
+            "leg": 8,
+            "start_hour": 8.0,
+            "end_hour": 8.368,
+            "hours": 0.3679999999999999
+          },
+          {
+            "day": 7,
+            "kind": "visit",
+            "spot_id": "P019",
+            "leg": 8,
+            "start_hour": 8.367999999999995,
+            "end_hour": 17.999999999999993,
+            "hours": 9.632
+          },
+          {
+            "day": 8,
+            "kind": "visit",
+            "spot_id": "P019",
+            "leg": 8,
+            "start_hour": 8.0,
+            "end_hour": 10.368,
+            "hours": 2.3680000000000003
+          },
+          {
+            "day": 8,
+            "kind": "travel",
+            "spot_id": "P020",
+            "leg": 9,
+            "start_hour": 10.367999999999995,
+            "end_hour": 11.525999999999994,
+            "hours": 1.158
+          },
+          {
+            "day": 8,
+            "kind": "visit",
+            "spot_id": "P020",
+            "leg": 9,
+            "start_hour": 11.525999999999982,
+            "end_hour": 15.025999999999982,
+            "hours": 3.5
+          },
+          {
+            "day": 8,
+            "kind": "travel",
+            "spot_id": "P018",
+            "leg": 10,
+            "start_hour": 15.025999999999982,
+            "end_hour": 16.154999999999983,
+            "hours": 1.129
+          },
+          {
+            "day": 8,
+            "kind": "visit",
+            "spot_id": "P018",
+            "leg": 10,
+            "start_hour": 16.154999999999973,
+            "end_hour": 17.99999999999997,
+            "hours": 1.8450000000000006
+          },
+          {
+            "day": 9,
+            "kind": "visit",
+            "spot_id": "P018",
+            "leg": 10,
+            "start_hour": 8.5,
+            "end_hour": 13.655,
+            "hours": 5.154999999999999
+          },
+          {
+            "day": 9,
+            "kind": "travel",
+            "spot_id": "P022",
+            "leg": 11,
+            "start_hour": 13.655000000000001,
+            "end_hour": 13.955000000000002,
+            "hours": 0.3
+          },
+          {
+            "day": 9,
+            "kind": "visit",
+            "spot_id": "P022",
+            "leg": 11,
+            "start_hour": 13.955000000000013,
+            "end_hour": 16.455000000000013,
+            "hours": 2.5
+          },
+          {
+            "day": 9,
+            "kind": "travel",
+            "spot_id": "P021",
+            "leg": 12,
+            "start_hour": 16.455000000000013,
+            "end_hour": 18.500000000000014,
+            "hours": 2.045000000000001
+          },
+          {
+            "day": 10,
+            "kind": "travel",
+            "spot_id": "P021",
+            "leg": 12,
+            "start_hour": 8.0,
+            "end_hour": 10.927,
+            "hours": 2.9269999999999996
+          },
+          {
+            "day": 10,
+            "kind": "visit",
+            "spot_id": "P021",
+            "leg": 12,
+            "start_hour": 10.926999999999992,
+            "end_hour": 15.926999999999992,
+            "hours": 5.0
+          },
+          {
+            "day": 10,
+            "kind": "travel",
+            "spot_id": "P001",
+            "leg": 13,
+            "start_hour": 15.926999999999992,
+            "end_hour": 17.999999999999993,
+            "hours": 2.0730000000000004
+          },
+          {
+            "day": 11,
+            "kind": "travel",
+            "spot_id": "P001",
+            "leg": 13,
+            "start_hour": 8.0,
+            "end_hour": 10.962,
+            "hours": 2.9619999999999997
+          },
+          {
+            "day": 11,
+            "kind": "visit",
+            "spot_id": "P001",
+            "leg": 13,
+            "start_hour": 10.961999999999989,
+            "end_hour": 15.961999999999989,
+            "hours": 5.0
+          },
+          {
+            "day": 11,
+            "kind": "travel",
+            "spot_id": "P035",
+            "leg": 14,
+            "start_hour": 15.961999999999989,
+            "end_hour": 17.99999999999999,
+            "hours": 2.0380000000000003
+          },
+          {
+            "day": 12,
+            "kind": "travel",
+            "spot_id": "P035",
+            "leg": 14,
+            "start_hour": 8.0,
+            "end_hour": 8.498,
+            "hours": 0.4979999999999998
+          },
+          {
+            "day": 12,
+            "kind": "visit",
+            "spot_id": "P035",
+            "leg": 14,
+            "start_hour": 8.49799999999999,
+            "end_hour": 11.99799999999999,
+            "hours": 3.5
+          },
+          {
+            "day": 12,
+            "kind": "travel",
+            "spot_id": "DEPOT",
+            "leg": 15,
+            "start_hour": 11.99799999999999,
+            "end_hour": 13.49799999999999,
+            "hours": 1.5
+          }
+        ],
+        "feasible_with_buffer": true,
+        "feasible_within_horizon": true,
+        "year": 2,
+        "checks": {
+          "unique_visits": true,
+          "eligible_only": true,
+          "coverage": true,
+          "service_completed": true,
+          "travel_recomputed": true,
+          "cost_recomputed": true,
+          "opening_and_daily_windows": true,
+          "event_chronology": true,
+          "daily_active_limit": true,
+          "horizon_with_buffer": true,
+          "reported_days": true
+        }
+      }
+    ],
+    "transport_cost_for_two": 3787.6700000000005,
+    "initial_split_cost_for_two": 3820.9100000000008,
+    "checks": {
+      "all_eligible_exactly_once": true,
+      "annual_minimum": true,
+      "annual_balance": true,
+      "annual_calendars": true
+    },
+    "value_of_time": 10,
+    "feasible_splits_examined": 61,
+    "proved_optimal": false,
+    "max_annual_day_gap": 7,
+    "method": "multistart insertion + split enumeration + cross-year relocation + directed 2-opt"
+  },
+  "simulations": [
+    {
+      "route_case": "personal",
+      "case": "mild",
+      "repetitions": 500,
+      "seed": 20261104,
+      "horizon_days": 30,
+      "travel_cv": 0.1,
+      "visit_cv": 0.1,
+      "trip_common_cv": 0.04,
+      "successes": 500,
+      "completion_rate": 1.0,
+      "wilson_95_low": 0.9923756595384479,
+      "wilson_95_high": 1.0,
+      "completion_days_p50": 24.0,
+      "completion_days_p90": 25.0,
+      "elapsed_hours_p90": 581.5768893776185,
+      "completion_day_counts": {
+        "23": 31,
+        "24": 298,
+        "25": 163,
+        "26": 8
+      },
+      "interpretation": "assumption-driven scenarios, not an empirical completion probability"
+    },
+    {
+      "route_case": "personal",
+      "case": "reference",
+      "repetitions": 500,
+      "seed": 20261104,
+      "horizon_days": 30,
+      "travel_cv": 0.2,
+      "visit_cv": 0.1,
+      "trip_common_cv": 0.08,
+      "successes": 500,
+      "completion_rate": 1.0,
+      "wilson_95_low": 0.9923756595384479,
+      "wilson_95_high": 1.0,
+      "completion_days_p50": 24.0,
+      "completion_days_p90": 26.0,
+      "elapsed_hours_p90": 601.5281380897212,
+      "completion_day_counts": {
+        "22": 14,
+        "23": 81,
+        "24": 200,
+        "25": 150,
+        "26": 46,
+        "27": 9
+      },
+      "interpretation": "assumption-driven scenarios, not an empirical completion probability"
+    },
+    {
+      "route_case": "personal",
+      "case": "severe",
+      "repetitions": 500,
+      "seed": 20261104,
+      "horizon_days": 30,
+      "travel_cv": 0.4,
+      "visit_cv": 0.1,
+      "trip_common_cv": 0.16,
+      "successes": 497,
+      "completion_rate": 0.994,
+      "wilson_95_low": 0.9825097478959467,
+      "wilson_95_high": 0.9979574037280398,
+      "completion_days_p50": 24.0,
+      "completion_days_p90": 27.0,
+      "elapsed_hours_p90": 628.3126034731094,
+      "completion_day_counts": {
+        "20": 3,
+        "21": 19,
+        "22": 52,
+        "23": 105,
+        "24": 106,
+        "25": 94,
+        "26": 50,
+        "27": 45,
+        "28": 13,
+        "29": 8,
+        "30": 2,
+        "31": 3
+      },
+      "interpretation": "assumption-driven scenarios, not an empirical completion probability"
+    },
+    {
+      "route_case": "year_1",
+      "case": "mild",
+      "repetitions": 500,
+      "seed": 20261105,
+      "horizon_days": 30,
+      "travel_cv": 0.1,
+      "visit_cv": 0.1,
+      "trip_common_cv": 0.04,
+      "successes": 500,
+      "completion_rate": 1.0,
+      "wilson_95_low": 0.9923756595384479,
+      "wilson_95_high": 1.0,
+      "completion_days_p50": 14.0,
+      "completion_days_p90": 15.0,
+      "elapsed_hours_p90": 336.5964166030491,
+      "completion_day_counts": {
+        "13": 27,
+        "14": 409,
+        "15": 63,
+        "16": 1
+      },
+      "interpretation": "assumption-driven scenarios, not an empirical completion probability"
+    },
+    {
+      "route_case": "year_1",
+      "case": "reference",
+      "repetitions": 500,
+      "seed": 20261105,
+      "horizon_days": 30,
+      "travel_cv": 0.2,
+      "visit_cv": 0.1,
+      "trip_common_cv": 0.08,
+      "successes": 500,
+      "completion_rate": 1.0,
+      "wilson_95_low": 0.9923756595384479,
+      "wilson_95_high": 1.0,
+      "completion_days_p50": 14.0,
+      "completion_days_p90": 15.0,
+      "elapsed_hours_p90": 341.39889230362445,
+      "completion_day_counts": {
+        "12": 2,
+        "13": 110,
+        "14": 257,
+        "15": 110,
+        "16": 17,
+        "17": 4
+      },
+      "interpretation": "assumption-driven scenarios, not an empirical completion probability"
+    },
+    {
+      "route_case": "year_1",
+      "case": "severe",
+      "repetitions": 500,
+      "seed": 20261105,
+      "horizon_days": 30,
+      "travel_cv": 0.4,
+      "visit_cv": 0.1,
+      "trip_common_cv": 0.16,
+      "successes": 500,
+      "completion_rate": 1.0,
+      "wilson_95_low": 0.9923756595384479,
+      "wilson_95_high": 1.0,
+      "completion_days_p50": 14.0,
+      "completion_days_p90": 16.0,
+      "elapsed_hours_p90": 364.1510607340475,
+      "completion_day_counts": {
+        "11": 4,
+        "12": 49,
+        "13": 144,
+        "14": 140,
+        "15": 89,
+        "16": 47,
+        "17": 14,
+        "18": 7,
+        "19": 4,
+        "20": 2
+      },
+      "interpretation": "assumption-driven scenarios, not an empirical completion probability"
+    },
+    {
+      "route_case": "year_2",
+      "case": "mild",
+      "repetitions": 500,
+      "seed": 20261106,
+      "horizon_days": 30,
+      "travel_cv": 0.1,
+      "visit_cv": 0.1,
+      "trip_common_cv": 0.04,
+      "successes": 500,
+      "completion_rate": 1.0,
+      "wilson_95_low": 0.9923756595384479,
+      "wilson_95_high": 1.0,
+      "completion_days_p50": 12.0,
+      "completion_days_p90": 13.0,
+      "elapsed_hours_p90": 288.9396915767026,
+      "completion_day_counts": {
+        "11": 6,
+        "12": 418,
+        "13": 76
+      },
+      "interpretation": "assumption-driven scenarios, not an empirical completion probability"
+    },
+    {
+      "route_case": "year_2",
+      "case": "reference",
+      "repetitions": 500,
+      "seed": 20261106,
+      "horizon_days": 30,
+      "travel_cv": 0.2,
+      "visit_cv": 0.1,
+      "trip_common_cv": 0.08,
+      "successes": 500,
+      "completion_rate": 1.0,
+      "wilson_95_low": 0.9923756595384479,
+      "wilson_95_high": 1.0,
+      "completion_days_p50": 12.0,
+      "completion_days_p90": 13.0,
+      "elapsed_hours_p90": 291.49225311352797,
+      "completion_day_counts": {
+        "10": 1,
+        "11": 56,
+        "12": 306,
+        "13": 132,
+        "14": 5
+      },
+      "interpretation": "assumption-driven scenarios, not an empirical completion probability"
+    },
+    {
+      "route_case": "year_2",
+      "case": "severe",
+      "repetitions": 500,
+      "seed": 20261106,
+      "horizon_days": 30,
+      "travel_cv": 0.4,
+      "visit_cv": 0.1,
+      "trip_common_cv": 0.16,
+      "successes": 500,
+      "completion_rate": 1.0,
+      "wilson_95_low": 0.9923756595384479,
+      "wilson_95_high": 1.0,
+      "completion_days_p50": 12.0,
+      "completion_days_p90": 14.0,
+      "elapsed_hours_p90": 312.72092283626273,
+      "completion_day_counts": {
+        "9": 1,
+        "10": 18,
+        "11": 136,
+        "12": 164,
+        "13": 124,
+        "14": 43,
+        "15": 13,
+        "16": 1
+      },
+      "interpretation": "assumption-driven scenarios, not an empirical completion probability"
+    }
+  ],
+  "budget_curve": [
+    {
+      "available_days": 24,
+      "successes": 295,
+      "repetitions": 500,
+      "completion_rate": 0.59,
+      "wilson_95_low": 0.5463626881245969,
+      "wilson_95_high": 0.6322649305923236
+    },
+    {
+      "available_days": 26,
+      "successes": 491,
+      "repetitions": 500,
+      "completion_rate": 0.982,
+      "wilson_95_low": 0.9661483290912607,
+      "wilson_95_high": 0.990501806703803
+    },
+    {
+      "available_days": 28,
+      "successes": 500,
+      "repetitions": 500,
+      "completion_rate": 1.0,
+      "wilson_95_low": 0.9923756595384479,
+      "wilson_95_high": 1.0
+    },
+    {
+      "available_days": 30,
+      "successes": 500,
+      "repetitions": 500,
+      "completion_rate": 1.0,
+      "wilson_95_low": 0.9923756595384479,
+      "wilson_95_high": 1.0
+    }
+  ],
+  "assumptions": [
+    "This is a newly implemented scenario model, not reproduction of the original Q1/Q2 full formulation.",
+    "Dijkstra minimizes fare + value_of_time * duration; cost and duration come from the same path.",
+    "Path-level mode switching is allowed; timetable connections and car custody/return fees are not modeled.",
+    "Travel can be split at abstract overnight stops; hotel availability and intermediate stop locations are not modeled.",
+    "Multiday visits may resume the following day. Reentry fees are not modeled.",
+    "Fares are for two people, exclude tickets, meals, accommodation and travel to/from Xinjiang.",
+    "Priority objectives: personal coverage then priority then transport fare; two-year fare subject to annual constraints.",
+    "Lognormal delay CVs are declared scenario assumptions, not estimates fitted from operational observations.",
+    "A common trip factor correlates travel delays. Missed departures, cancellations and fare shocks are not simulated.",
+    "Heuristic solutions are not claimed as globally optimal or as evidence that an unlocated solution is infeasible."
+  ]
+}

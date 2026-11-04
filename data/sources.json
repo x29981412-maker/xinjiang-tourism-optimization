@@ -32,6 +32,26 @@
       "local_path": "data/reference/portfolio_expected.csv",
       "source_url": "https://raw.githubusercontent.com/Nick-zh-jsauhd/xinjiang-tourism-optimization/721853d880ab2b96d75d104d0d3e6d50338105a9/第四问_五一容量接待优化材料包/10_Q4_V3_精确求解器验证/outputs/q4_v3_exact_portfolio_check.csv",
       "transformation": "UTF-8 BOM removed, line endings normalized; original numeric fields retained"
+    },
+    {
+      "local_path": "data/reference/spot_clean.csv",
+      "source_url": "https://raw.githubusercontent.com/Nick-zh-jsauhd/xinjiang-tourism-optimization/721853d880ab2b96d75d104d0d3e6d50338105a9/第二问_两年暑假交通费用优化材料包/01_输入数据/model_data/spot_clean.csv",
+      "transformation": "UTF-8 BOM removed; numerical source fields retained; validated and transformed at runtime"
+    },
+    {
+      "local_path": "data/reference/spot_time_windows.csv",
+      "source_url": "https://raw.githubusercontent.com/Nick-zh-jsauhd/xinjiang-tourism-optimization/721853d880ab2b96d75d104d0d3e6d50338105a9/第二问_两年暑假交通费用优化材料包/01_输入数据/enhanced_data/spot_time_windows.csv",
+      "transformation": "UTF-8 BOM removed; numerical source fields retained; validated and transformed at runtime"
+    },
+    {
+      "local_path": "data/reference/multimodal_nodes.csv",
+      "source_url": "https://raw.githubusercontent.com/Nick-zh-jsauhd/xinjiang-tourism-optimization/721853d880ab2b96d75d104d0d3e6d50338105a9/第二问_两年暑假交通费用优化材料包/01_输入数据/enhanced_data/multimodal_nodes.csv",
+      "transformation": "UTF-8 BOM removed; numerical source fields retained; validated and transformed at runtime"
+    },
+    {
+      "local_path": "data/reference/multimodal_edges.csv",
+      "source_url": "https://raw.githubusercontent.com/Nick-zh-jsauhd/xinjiang-tourism-optimization/721853d880ab2b96d75d104d0d3e6d50338105a9/第二问_两年暑假交通费用优化材料包/01_输入数据/enhanced_data/multimodal_edges.csv",
+      "transformation": "UTF-8 BOM removed; numerical source fields retained; validated and transformed at runtime"
     }
   ]
 }
