@@ -1,0 +1,6 @@
+case,capacity,quality_pass_count,score_with_case_weights,overlap_with_reference,selected_count,status
+reference_weights,187550.0,15,993.3927272169875,18,18,optimal
+capacity_priority,189980.0,15,979.0054524465328,16,18,optimal
+comfort_priority,180540.0,16,1087.8779539687591,16,18,optimal
+diversity_priority,183030.0,16,1032.9974506213116,16,18,optimal
+low_pressure_priority,181720.0,16,927.325624838883,17,18,optimal

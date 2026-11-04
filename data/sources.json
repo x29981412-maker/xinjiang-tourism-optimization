@@ -1,0 +1,37 @@
+{
+  "reference_repository": "https://github.com/Nick-zh-jsauhd/xinjiang-tourism-optimization",
+  "reference_commit": "721853d880ab2b96d75d104d0d3e6d50338105a9",
+  "retrieved_on": "2026-11-04",
+  "files": [
+    {
+      "local_path": "data/reference/route_products.csv",
+      "source_url": "https://raw.githubusercontent.com/Nick-zh-jsauhd/xinjiang-tourism-optimization/721853d880ab2b96d75d104d0d3e6d50338105a9/第四问_五一容量接待优化材料包/09_Q4_V2_12天线路产品组合与分时容量优化/outputs/q4_v2_candidate_route_products.csv",
+      "transformation": "UTF-8 BOM removed, line endings normalized; original numeric fields retained"
+    },
+    {
+      "local_path": "data/reference/baseline_portfolio.csv",
+      "source_url": "https://raw.githubusercontent.com/Nick-zh-jsauhd/xinjiang-tourism-optimization/721853d880ab2b96d75d104d0d3e6d50338105a9/第四问_五一容量接待优化材料包/09_Q4_V2_12天线路产品组合与分时容量优化/outputs/q4_v2_selected_route_portfolio.csv",
+      "transformation": "UTF-8 BOM removed, line endings normalized; original numeric fields retained"
+    },
+    {
+      "local_path": "data/reference/cultural_sites.csv",
+      "source_url": "https://raw.githubusercontent.com/Nick-zh-jsauhd/xinjiang-tourism-optimization/721853d880ab2b96d75d104d0d3e6d50338105a9/第三问_文化考察均衡优化材料包/10_Q3_V2_鲁棒三团队文化考察调度/outputs/q3_v2_cultural_candidate_set.csv",
+      "transformation": "UTF-8 BOM removed, line endings normalized; original numeric fields retained"
+    },
+    {
+      "local_path": "data/reference/cultural_travel.csv",
+      "source_url": "https://raw.githubusercontent.com/Nick-zh-jsauhd/xinjiang-tourism-optimization/721853d880ab2b96d75d104d0d3e6d50338105a9/第三问_文化考察均衡优化材料包/10_Q3_V2_鲁棒三团队文化考察调度/outputs/q3_v2_multimodal_labels.csv",
+      "transformation": "UTF-8 BOM removed, line endings normalized; original numeric fields retained"
+    },
+    {
+      "local_path": "data/reference/cultural_expected.csv",
+      "source_url": "https://raw.githubusercontent.com/Nick-zh-jsauhd/xinjiang-tourism-optimization/721853d880ab2b96d75d104d0d3e6d50338105a9/第三问_文化考察均衡优化材料包/11_Q3_V3_精确求解器验证/outputs/q3_v3_exact_solver_check.csv",
+      "transformation": "UTF-8 BOM removed, line endings normalized; original numeric fields retained"
+    },
+    {
+      "local_path": "data/reference/portfolio_expected.csv",
+      "source_url": "https://raw.githubusercontent.com/Nick-zh-jsauhd/xinjiang-tourism-optimization/721853d880ab2b96d75d104d0d3e6d50338105a9/第四问_五一容量接待优化材料包/10_Q4_V3_精确求解器验证/outputs/q4_v3_exact_portfolio_check.csv",
+      "transformation": "UTF-8 BOM removed, line endings normalized; original numeric fields retained"
+    }
+  ]
+}

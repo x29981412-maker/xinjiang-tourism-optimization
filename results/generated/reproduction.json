@@ -1,0 +1,251 @@
+{
+  "package_version": "0.2.0",
+  "environment": {
+    "python": "3.13.7",
+    "numpy": "2.3.3",
+    "scipy": "1.16.3"
+  },
+  "input_sha256": {
+    "baseline_portfolio.csv": "606aecb58c15bc4ba3928470145b4d0fcee07e3ec2467212a6bcf094013e7670",
+    "cultural_expected.csv": "c1a0af1eb082d1599f0c0851d33fee0ef6b1a56dbe63d170ebacfedfb3c4a51e",
+    "cultural_sites.csv": "01baa5fe1c1ac6189d642da70cdf10e68d3808c3d8c0d0e98607223629aa58cd",
+    "cultural_travel.csv": "d8937b613dfddd6c70cd3205499d761c84f5354812b1bc58e19916cfd0b80e9b",
+    "portfolio_expected.csv": "3134c68bc5bf7645d145c14237f3812aae53fd5cda988f300082b86bf6e3431b",
+    "route_products.csv": "230b75b36a24a790c1785b4ccfeaa0e6ffa5e685a2471e71d418d05863d6c394"
+  },
+  "baseline": {
+    "score": 921.9892035146829,
+    "capacity": 160190.0,
+    "quality_pass_count": 13
+  },
+  "portfolio": {
+    "status": "optimal",
+    "proved_optimal": true,
+    "score": 993.3927272169875,
+    "capacity": 187550.0,
+    "quality_pass_count": 15,
+    "selected_ids": [
+      "Q4V2_R004",
+      "Q4V2_R008",
+      "Q4V2_R011",
+      "Q4V2_R015",
+      "Q4V2_R016",
+      "Q4V2_R017",
+      "Q4V2_R018",
+      "Q4V2_R020",
+      "Q4V2_R029",
+      "Q4V2_R034",
+      "Q4V2_R043",
+      "Q4V2_R044",
+      "Q4V2_R045",
+      "Q4V2_R046",
+      "Q4V2_R047",
+      "Q4V2_R048",
+      "Q4V2_R049",
+      "Q4V2_R053"
+    ],
+    "mip_gap": 0.0,
+    "checks": {
+      "unique_ids": true,
+      "selected_count": true,
+      "product_quotas": true,
+      "region_coverage": true,
+      "capacity_floor": true,
+      "quality_floor": true
+    }
+  },
+  "relative_score_gain": 0.07744507574504089,
+  "scheduling": {
+    "status": "optimal_fixed_policy",
+    "max_completion_hours": 99.187,
+    "balance_gap_hours": 9.994,
+    "checked_canonical_partitions": 237127,
+    "groups": [
+      {
+        "group": 1,
+        "mask": 3,
+        "indices": [
+          0,
+          1
+        ],
+        "travel_hours": 27.186999999999998,
+        "service_hours": 72.0,
+        "completion_hours": 99.187,
+        "site_ids": [
+          "P007",
+          "P038"
+        ],
+        "site_names": [
+          "楼兰古城",
+          "尼雅遗址"
+        ]
+      },
+      {
+        "group": 2,
+        "mask": 13140,
+        "indices": [
+          2,
+          6,
+          4,
+          13,
+          12,
+          9,
+          8
+        ],
+        "travel_hours": 30.193000000000005,
+        "service_hours": 59.0,
+        "completion_hours": 89.19300000000001,
+        "site_ids": [
+          "P013",
+          "P012",
+          "P006",
+          "P034",
+          "P030",
+          "P025",
+          "P024"
+        ],
+        "site_names": [
+          "吐峪沟麻扎村",
+          "苏公塔",
+          "交河故城",
+          "罗布人村寨",
+          "库车王府",
+          "艾提尕尔清真寺",
+          "喀什古城"
+        ]
+      },
+      {
+        "group": 3,
+        "mask": 3240,
+        "indices": [
+          7,
+          5,
+          3,
+          11,
+          10
+        ],
+        "travel_hours": 41.400999999999996,
+        "service_hours": 48.0,
+        "completion_hours": 89.401,
+        "site_ids": [
+          "P036",
+          "P011",
+          "P031",
+          "P028",
+          "P026"
+        ],
+        "site_names": [
+          "北庭故城遗址",
+          "高昌故城",
+          "克孜尔石窟",
+          "石头城遗址",
+          "香妃园"
+        ]
+      }
+    ],
+    "secondary_objective": "minimize imbalance, then total completion; group2/group3 exchange symmetry removed",
+    "candidate_sites": 14,
+    "approval_sites": 2,
+    "scope": "All sites assigned once; three Urumqi round trips; approval sites fixed to group1; no cross-group sharing"
+  },
+  "reference_checks": {
+    "portfolio_score_matches_reference": true,
+    "portfolio_capacity_matches_reference": true,
+    "portfolio_optimal": true,
+    "schedule_makespan_matches_reference": true,
+    "schedule_imbalance_matches_reference": true
+  },
+  "sensitivity": [
+    {
+      "case": "reference_weights",
+      "capacity": 187550.0,
+      "quality_pass_count": 15,
+      "score_with_case_weights": 993.3927272169875,
+      "overlap_with_reference": 18,
+      "selected_count": 18,
+      "status": "optimal"
+    },
+    {
+      "case": "capacity_priority",
+      "capacity": 189980.0,
+      "quality_pass_count": 15,
+      "score_with_case_weights": 979.0054524465328,
+      "overlap_with_reference": 16,
+      "selected_count": 18,
+      "status": "optimal"
+    },
+    {
+      "case": "comfort_priority",
+      "capacity": 180540.0,
+      "quality_pass_count": 16,
+      "score_with_case_weights": 1087.8779539687591,
+      "overlap_with_reference": 16,
+      "selected_count": 18,
+      "status": "optimal"
+    },
+    {
+      "case": "diversity_priority",
+      "capacity": 183030.0,
+      "quality_pass_count": 16,
+      "score_with_case_weights": 1032.9974506213116,
+      "overlap_with_reference": 16,
+      "selected_count": 18,
+      "status": "optimal"
+    },
+    {
+      "case": "low_pressure_priority",
+      "capacity": 181720.0,
+      "quality_pass_count": 16,
+      "score_with_case_weights": 927.325624838883,
+      "overlap_with_reference": 17,
+      "selected_count": 18,
+      "status": "optimal"
+    }
+  ],
+  "demand_stress": [
+    {
+      "demand_multiplier": 1.0,
+      "required_capacity": 106358,
+      "status": "optimal",
+      "selected_capacity": 187550.0,
+      "selected_score": 993.3927272169875
+    },
+    {
+      "demand_multiplier": 1.1,
+      "required_capacity": 116994,
+      "status": "optimal",
+      "selected_capacity": 187550.0,
+      "selected_score": 993.3927272169875
+    },
+    {
+      "demand_multiplier": 1.25,
+      "required_capacity": 132948,
+      "status": "optimal",
+      "selected_capacity": 187550.0,
+      "selected_score": 993.3927272169875
+    },
+    {
+      "demand_multiplier": 1.5,
+      "required_capacity": 159537,
+      "status": "optimal",
+      "selected_capacity": 187550.0,
+      "selected_score": 993.3927272169875
+    },
+    {
+      "demand_multiplier": 1.75,
+      "required_capacity": 186127,
+      "status": "optimal",
+      "selected_capacity": 187550.0,
+      "selected_score": 993.3927272169875
+    },
+    {
+      "demand_multiplier": 2.0,
+      "required_capacity": 212716,
+      "status": "infeasible",
+      "selected_capacity": null,
+      "selected_score": null
+    }
+  ],
+  "model_scope": "Q4 fixed 63-candidate portfolio and Q3 fixed-policy 14-site scheduling. Q1/Q2 full-route models remain in the archived team report.",
+  "scenario_note": "Sensitivity/stress cases are deterministic modeling assumptions; they are not observed visitor demand or estimated real-world probabilities."
+}

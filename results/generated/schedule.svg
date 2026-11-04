@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" role="img" width="1040" height="360" viewBox="0 0 1040 360">
+<title>Three-team cultural fieldwork | exact partition</title><desc>14 sites; two approval sites assigned to the designated team; all tours start and end in Urumqi</desc>
+<rect width="1040" height="360" rx="18" fill="#f2f5f9"/>
+<g font-family="Arial,Microsoft YaHei,sans-serif">
+<text x="36" y="43" font-size="23" font-weight="700" fill="#172c46">Three-team cultural fieldwork | exact partition</text>
+<text x="36" y="70" font-size="13" fill="#536378">14 sites; two approval sites assigned to the designated team; all tours start and end in Urumqi</text>
+<text x="36" y="141" font-size="14" fill="#172c46">Team 1 | 2 sites</text>
+<rect x="190" y="122" width="660.00" height="28" rx="5" fill="#087f8c"/>
+<text x="860.00" y="141" font-size="14" fill="#172c46">99.187 h</text>
+<text x="36" y="205" font-size="14" fill="#172c46">Team 2 | 7 sites</text>
+<rect x="190" y="186" width="593.50" height="28" rx="5" fill="#8290a3"/>
+<text x="793.50" y="205" font-size="14" fill="#172c46">89.193 h</text>
+<text x="36" y="269" font-size="14" fill="#172c46">Team 3 | 5 sites</text>
+<rect x="190" y="250" width="594.88" height="28" rx="5" fill="#8290a3"/>
+<text x="794.88" y="269" font-size="14" fill="#172c46">89.401 h</text>
+<text x="36" y="325" font-size="13" fill="#536378">Makespan 99.187 h | Imbalance 9.994 h | 237,127 canonical partitions checked</text>
+</g></svg>
